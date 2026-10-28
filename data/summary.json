@@ -1,0 +1,19 @@
+{
+ "updated": "2026-10-28T18:52:10Z",
+ "since": "2026-10-28T18:52:10Z",
+ "pending": 53,
+ "all": {
+  "picks": 0
+ },
+ "last_30_days": {
+  "picks": 0
+ },
+ "by_market": {
+  "over15": {
+   "picks": 0
+  },
+  "dog15": {
+   "picks": 0
+  }
+ }
+}
