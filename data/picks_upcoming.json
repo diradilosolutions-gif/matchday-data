@@ -1,22 +1,5 @@
 [
  {
-  "id": "seriea:558554:over15",
-  "league": "seriea",
-  "match_id": 558554,
-  "utc": "2026-10-28T19:45:00Z",
-  "home": "Monza",
-  "away": "Napoli",
-  "market": "over15",
-  "label": "Over 1.5 goals",
-  "side": null,
-  "model_prob": 0.878,
-  "fair_odds": 1.14,
-  "odds": null,
-  "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
- },
- {
   "id": "seriea:558558:over15",
   "league": "seriea",
   "match_id": 558558,
@@ -897,6 +880,40 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "seriea:558547:dog15",
+  "league": "seriea",
+  "match_id": 558547,
+  "utc": "2026-11-01T19:45:00Z",
+  "home": "Juventus",
+  "away": "Napoli",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "away",
+  "model_prob": 0.8368,
+  "fair_odds": 1.19,
+  "odds": null,
+  "created_at": "2026-10-28T19:58:51Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "ligue1:559645:over15",
+  "league": "ligue1",
+  "match_id": 559645,
+  "utc": "2026-11-01T19:45:00Z",
+  "home": "Marseille",
+  "away": "Toulouse",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.8703,
+  "fair_odds": 1.15,
+  "odds": null,
+  "created_at": "2026-10-28T19:58:51Z",
   "won": null,
   "score": null
  }
