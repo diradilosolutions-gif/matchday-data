@@ -1,6 +1,7 @@
 """Poisson goals model from each team's last N finished games."""
 import math
 
+MODEL_VERSION = 1
 N_FORM = 10      # games of form used per team
 MIN_GAMES = 5    # need at least this many finished games per team
 SHRINK = 3       # pseudo-games pulling a team towards league average

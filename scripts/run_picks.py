@@ -4,7 +4,6 @@ import json, sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from model import finished, predict
 
 D = Path(__file__).resolve().parent.parent / "data"
 MIN_PROB = 0.78                # tune later using backtests
@@ -19,12 +18,14 @@ def load(name, default):
 
 
 def candidates(p):
+    """p is one entry of predictions.json (percentages)."""
     out = []
-    if p["over15"] >= MIN_PROB:
-        out.append(("over15", p["over15"], None))
+    if p["o15"] / 100 >= MIN_PROB:
+        out.append(("over15", p["o15"] / 100, None))
     dog_side = "away" if p["fav"] == "home" else "home"
-    if p["dog15"] >= MIN_PROB and p[dog_side] >= 0.12:   # skip hopeless mismatches
-        out.append(("dog15", p["dog15"], dog_side))
+    dog_win = p["a"] if dog_side == "away" else p["h"]
+    if p["dog15"] / 100 >= MIN_PROB and dog_win >= 12:   # skip hopeless mismatches
+        out.append(("dog15", p["dog15"] / 100, dog_side))
     return out
 
 
@@ -39,16 +40,17 @@ def main(now=None):
     now = now or datetime.now(timezone.utc)
     iso = lambda dt: dt.strftime("%Y-%m-%dT%H:%M:%SZ")
     data = load("matches.json", {"leagues": {}})
+    preds = load("predictions.json", {"leagues": {}})["leagues"]
     log = load("picks_log.json", [])
     seen = {e["id"] for e in log}
     new = 0
     for lg, ms in data["leagues"].items():
-        fin = finished(ms)
+        P = preds.get(lg, {}).get("matches", {})
         for m in ms:
             ko = datetime.fromisoformat(m["utc"].replace("Z", "+00:00"))
             if m["status"] not in ("SCHEDULED", "TIMED") or not (now + LEAD < ko < now + HORIZON):
                 continue
-            p = predict(fin, m["home"], m["away"], m["utc"])
+            p = P.get(str(m["id"]))
             if not p:
                 continue
             for market, prob, side in candidates(p):
@@ -99,4 +101,3 @@ def main(now=None):
 
 if __name__ == "__main__":
     main()
-
