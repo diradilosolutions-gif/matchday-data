@@ -1,1 +1,32 @@
+name: Update data and picks
+on:
+  schedule:
+    - cron: "0 */6 * * *"     # every 6 hours
+  workflow_dispatch:           # lets you press "Run workflow" manually
 
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch fixtures and results
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+        run: python scripts/fetch_data.py
+      - name: Calculate predictions (one model for the site and the pick log)
+        run: python scripts/make_predictions.py
+      - name: Log picks and settle results
+        run: python scripts/run_picks.py
+      - name: Save changes (this timestamps every pick)
+        run: |
+          git config user.name "matchday-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "Update data $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
