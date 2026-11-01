@@ -591,8 +591,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "champ:561908:over15",
