@@ -183,8 +183,8 @@
   "fair_odds": 1.07,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-3"
  },
  {
   "id": "seriea:558554:over15",
@@ -336,8 +336,8 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "seriea:558544:over15",
@@ -353,8 +353,8 @@
   "fair_odds": 1.15,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "seriea:558540:dog15",
@@ -489,8 +489,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "bundesliga:565844:over15",
@@ -557,8 +557,8 @@
   "fair_odds": 1.09,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "5-1"
  },
  {
   "id": "ligue1:559642:dog15",
@@ -574,8 +574,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "3-1"
  },
  {
   "id": "champ:561916:over15",
@@ -846,8 +846,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "nl:558848:over15",
@@ -863,8 +863,8 @@
   "fair_odds": 1.13,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-2"
  },
  {
   "id": "nl:558847:over15",
@@ -880,8 +880,8 @@
   "fair_odds": 1.24,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-9"
  },
  {
   "id": "nl:558846:over15",
@@ -897,8 +897,8 @@
   "fair_odds": 1.06,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-3"
  },
  {
   "id": "seriea:558547:dog15",
