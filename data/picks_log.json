@@ -81,8 +81,8 @@
   "fair_odds": 1.2,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "epl:560631:dog15",
@@ -115,8 +115,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-2"
  },
  {
   "id": "laliga:564735:dog15",
@@ -132,8 +132,8 @@
   "fair_odds": 1.27,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-0"
  },
  {
   "id": "laliga:564736:over15",
@@ -149,8 +149,8 @@
   "fair_odds": 1.28,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-1"
  },
  {
   "id": "laliga:564732:over15",
@@ -166,8 +166,8 @@
   "fair_odds": 1.1,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "6-1"
  },
  {
   "id": "laliga:564734:over15",
@@ -285,8 +285,8 @@
   "fair_odds": 1.12,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-5"
  },
  {
   "id": "seriea:558548:over15",
@@ -302,8 +302,8 @@
   "fair_odds": 1.19,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-1"
  },
  {
   "id": "seriea:558548:dog15",
@@ -319,8 +319,8 @@
   "fair_odds": 1.24,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-1"
  },
  {
   "id": "seriea:558543:over15",
@@ -761,8 +761,8 @@
   "fair_odds": 1.24,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "nl:558852:dog15",
@@ -778,8 +778,8 @@
   "fair_odds": 1.27,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-0"
  },
  {
   "id": "nl:558853:over15",
@@ -795,8 +795,8 @@
   "fair_odds": 1.06,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "7-0"
  },
  {
   "id": "nl:558850:over15",
@@ -812,8 +812,8 @@
   "fair_odds": 1.05,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-0"
  },
  {
   "id": "nl:558851:over15",
@@ -829,8 +829,8 @@
   "fair_odds": 1.18,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "nl:558849:over15",
@@ -1169,6 +1169,57 @@
   "fair_odds": 1.17,
   "odds": null,
   "created_at": "2026-10-31T18:31:07Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "champ:561925:over15",
+  "league": "champ",
+  "match_id": 561925,
+  "utc": "2026-11-04T19:45:00Z",
+  "home": "Cardiff",
+  "away": "West Ham",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.887,
+  "fair_odds": 1.13,
+  "odds": null,
+  "created_at": "2026-11-01T00:41:49Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "champ:561927:over15",
+  "league": "champ",
+  "match_id": 561927,
+  "utc": "2026-11-04T19:45:00Z",
+  "home": "Wrexham",
+  "away": "Middlesbrough",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.854,
+  "fair_odds": 1.17,
+  "odds": null,
+  "created_at": "2026-11-01T00:41:49Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "champ:561926:dog15",
+  "league": "champ",
+  "match_id": 561926,
+  "utc": "2026-11-04T20:00:00Z",
+  "home": "Bristol City",
+  "away": "Wolverhampton",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "away",
+  "model_prob": 0.844,
+  "fair_odds": 1.18,
+  "odds": null,
+  "created_at": "2026-11-01T00:41:49Z",
   "won": null,
   "score": null
  }
