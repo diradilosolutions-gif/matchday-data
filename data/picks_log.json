@@ -98,8 +98,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-1"
  },
  {
   "id": "laliga:564730:over15",
@@ -370,8 +370,8 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-2"
  },
  {
   "id": "bundesliga:565846:over15",
@@ -506,8 +506,8 @@
   "fair_odds": 1.18,
   "odds": null,
   "created_at": "2026-10-28T18:52:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-1"
  },
  {
   "id": "ligue1:559644:over15",
@@ -914,8 +914,8 @@
   "fair_odds": 1.19,
   "odds": null,
   "created_at": "2026-10-28T19:58:51Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "2-0"
  },
  {
   "id": "ligue1:559645:over15",
@@ -931,8 +931,8 @@
   "fair_odds": 1.15,
   "odds": null,
   "created_at": "2026-10-28T19:58:51Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "laliga:564729:over15",
@@ -948,8 +948,8 @@
   "fair_odds": 1.26,
   "odds": null,
   "created_at": "2026-10-28T20:26:41Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-1"
  },
  {
   "id": "seriea:558541:over15",
