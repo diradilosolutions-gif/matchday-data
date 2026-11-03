@@ -982,8 +982,8 @@
   "fair_odds": 1.24,
   "odds": null,
   "created_at": "2026-10-30T00:37:26Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-1"
  },
  {
   "id": "ligue1:559641:dog15",
@@ -999,8 +999,8 @@
   "fair_odds": 1.2,
   "odds": null,
   "created_at": "2026-10-30T00:37:26Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-2"
  },
  {
   "id": "champ:561920:over15",
