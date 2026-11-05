@@ -31,6 +31,11 @@ def candidates():
     for hl in (90, 180, 365):
         c.append((f"v2: ratings, half-life {hl} days", dict(base, version=2, half_life=hl)))
     c.append(("v2: ratings, half-life 180 days, no low-score fix", dict(base, version=2, half_life=180, rho=0.0)))
+    # stronger pull towards the league average when teams have played few games
+    # (stops early-season numbers like "4.4 goals expected" from 8 games)
+    for pr in (8.0, 12.0):
+        for hl in (180, 365):
+            c.append((f"v2: ratings, half-life {hl} days, steadier (prior {int(pr)})", dict(base, version=2, half_life=hl, prior=pr)))
     return c
 
 
@@ -52,7 +57,7 @@ def main(folder):
     if not groups:
         sys.exit(f"no CSV files found in {folder}")
     cands = candidates()
-    tot = {name: {"n": 0, "ll": 0.0, "brier": 0.0, "hit": 0, "o15ll": 0.0, "dogll": 0.0} for name, _ in cands}
+    tot = {name: {"n": 0, "ll": 0.0, "brier": 0.0, "hit": 0, "o15ll": 0.0, "o25ll": 0.0, "dogll": 0.0} for name, _ in cands}
     book = {"n": 0, "ll": 0.0, "brier": 0.0}
     per_league = {}
     for lg, fl in sorted(groups.items()):
@@ -77,6 +82,7 @@ def main(folder):
                 T["brier"] += sum((pr[j] - (j == k)) ** 2 for j in range(3))
                 T["hit"] += max(range(3), key=lambda j: pr[j]) == k
                 T["o15ll"] += ll(p["over15"] if o15 else 1 - p["over15"])
+                T["o25ll"] += ll(p["over25"] if m["hg"] + m["ag"] >= 3 else 1 - p["over25"])
                 T["dogll"] += ll(p["dog15"] if d < 2 else 1 - p["dog15"])
             per_league[lg][name] = round(s["ll"] / max(1, s["n"]), 4)
         for i in idx:
@@ -95,12 +101,15 @@ def main(folder):
         res.append({"name": name, "settings": c, "matches": T["n"],
                     "logloss_1x2": round(T["ll"] / T["n"], 4), "brier_1x2": round(T["brier"] / T["n"], 4),
                     "lean_accuracy": round(T["hit"] / T["n"], 4),
-                    "logloss_over15": round(T["o15ll"] / T["n"], 4), "logloss_dog15": round(T["dogll"] / T["n"], 4)})
+                    "logloss_over15": round(T["o15ll"] / T["n"], 4), "logloss_dog15": round(T["dogll"] / T["n"], 4),
+                    "logloss_over25": round(T["o25ll"] / T["n"], 4),
+                    # judged on results AND goals, so a model that gets goals badly wrong cannot win
+                    "score": round((T["ll"] + T["o25ll"]) / T["n"], 4)})
     if not res:
         sys.exit("nothing could be compared")
     v1 = next(r for r in res if r["settings"]["version"] == 1)
-    best = min(res, key=lambda r: r["logloss_1x2"])
-    use = best if best["settings"]["version"] == 2 and v1["logloss_1x2"] - best["logloss_1x2"] >= SWITCH_MARGIN else v1
+    best = min(res, key=lambda r: r["score"])
+    use = best if best["settings"]["version"] == 2 and v1["score"] - best["score"] >= SWITCH_MARGIN else v1
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     choice = dict(use["settings"], chosen=use["name"], tested=now, matches=use["matches"],
                   reason=("beat v1 on past seasons" if use is not v1 else
@@ -119,13 +128,14 @@ def main(folder):
     md = [f"# Model back-test ({now[:10]})", "",
           f"Tested on {use['matches']} past matches. Every prediction used only games played before that match.",
           "Lower log loss / Brier = better. Bookmaker closing prices are shown as the benchmark to beat.", "",
-          "| Model | 1X2 log loss | 1X2 Brier | Lean right | Over 1.5 log loss | Underdog +1.5 log loss |",
-          "|---|---|---|---|---|---|"]
-    for r in sorted(res, key=lambda r: r["logloss_1x2"]):
-        md.append(f"| {r['name']}{' **(now used)**' if r is use else ''} | {r['logloss_1x2']} | {r['brier_1x2']} | "
+          "Models are ranked on results AND goals (1X2 log loss + Over 2.5 log loss).", "",
+          "| Model | Combined score | 1X2 log loss | Over 2.5 log loss | Lean right | Over 1.5 log loss | Underdog +1.5 log loss |",
+          "|---|---|---|---|---|---|---|"]
+    for r in sorted(res, key=lambda r: r["score"]):
+        md.append(f"| {r['name']}{' **(now used)**' if r is use else ''} | {r['score']} | {r['logloss_1x2']} | {r['logloss_over25']} | "
                   f"{r['lean_accuracy'] * 100:.1f}% | {r['logloss_over15']} | {r['logloss_dog15']} |")
     if bk:
-        md.append(f"| Bookmakers (average odds, margin removed) | {bk['logloss_1x2']} | {bk['brier_1x2']} | | | |")
+        md.append(f"| Bookmakers (average odds, margin removed) | | {bk['logloss_1x2']} | | | | |")
     md += ["", f"**Decision:** {use['name']} ({choice['reason']}).", "", "## By league (1X2 log loss)", "",
            "| League | Matches | " + " | ".join(r["name"] for r in res) + " |",
            "|---|---|" + "---|" * len(res)]
