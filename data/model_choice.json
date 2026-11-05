@@ -1,0 +1,11 @@
+{
+ "half_life": 180,
+ "rho": -0.08,
+ "prior": 4.0,
+ "window_days": 400,
+ "version": 2,
+ "chosen": "v2: ratings, half-life 180 days",
+ "tested": "2026-11-05T08:34:57Z",
+ "matches": 17014,
+ "reason": "beat v1 on past seasons"
+}
