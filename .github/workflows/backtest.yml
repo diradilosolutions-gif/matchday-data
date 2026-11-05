@@ -1,7 +1,9 @@
 name: Back-test models
 on:
   schedule:
-    - cron: "17 3 1 * *"      # 1st of every month, 05:17 SAST
+    # Runs once at the end of the tracking freeze: 17 December, 05:17 SAST (03:17 UTC).
+    # GitHub repeats this every year on 17 Dec. To change the date, edit the "17 12" part (day month).
+    - cron: "17 3 17 12 *"
   workflow_dispatch:           # lets you press "Run workflow" manually
 
 permissions:
