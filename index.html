@@ -97,6 +97,17 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
 .dbt td:nth-child(2),.dbt th:nth-child(2){text-align:center}.mkt td:nth-child(3),.mkt td:nth-child(4),.mkt th:nth-child(3),.mkt th:nth-child(4){text-align:center;color:var(--mu)}.mkt td:nth-child(4){color:var(--tx)}.mkt td:nth-child(2){white-space:nowrap}.mkt td:first-child{min-width:110px}
 .dbt{box-shadow:none;border-radius:12px;font-size:13px;margin-top:2px}.dbt th,.dbt td{padding:8px 6px}.dbt td:first-child,.dbt th:first-child{text-align:left;font-weight:500}
+.sec.bt{border:1px dashed var(--bd);background:var(--card)}.sec.bt h4 .pill{margin-left:6px;text-transform:none;letter-spacing:0;font-size:11px}
+.potd{margin:12px 0 4px;padding:14px;border-radius:20px;background:linear-gradient(135deg,color-mix(in srgb,#f5b301 16%,var(--card)),var(--card));border:1px solid color-mix(in srgb,#f5b301 45%,var(--bd));box-shadow:var(--sh)}
+.potd.won{border-color:var(--w)}.potd.lost{border-color:var(--l)}.potd.none{background:var(--card);border-style:dashed}
+.pth{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.08em;color:#b07d00;margin-bottom:8px}
+.pth .pill{font-style:normal;text-transform:none;letter-spacing:0}
+.ptm{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:15px}.ptm span{color:var(--mu);font-size:12.5px;width:100%}.ptm .lgl{margin:0}
+.ptk{font:700 21px var(--fd);margin:8px 0 10px;letter-spacing:-.01em}
+.ptg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.ptg div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 4px;text-align:center}
+.ptg b{display:block;font:700 18px var(--fd)}.ptg span{font-size:11px;color:var(--mu)}
+.potd .nv{margin:10px 0 0;font-size:12px}
+.ptb{margin-top:10px;border:0;background:var(--ac);color:#04120b;font:700 13px var(--fd);padding:9px 14px;border-radius:12px;cursor:pointer}
 .kick{display:inline-block;margin:0 0 10px;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--mu);font:600 12px var(--fd)}
 .upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
 .upbox h4{margin:0 0 10px;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.07em;color:var(--l)}
@@ -576,6 +587,7 @@ function mdpCal(){
  o+='</div>';
  var sum=mdpDaySum(D[calSel]),I=mdpDayInfo(calSel);
  o+='<div class="dsum"><b>'+I.long+'</b><span class="sp"></span><span class="pill">'+sum.n+' game'+(sum.n==1?'':'s')+'</span>'+(sum.fin?'<span class="pill '+(sum.hit/sum.fin>=.5?'ok':'no')+'">Model lean right: '+sum.hit+' of '+sum.fin+'</span>':'')+(sum.up?'<span class="pill lk">'+sum.up+' still to play</span>':'')+'</div>';
+ o+=potdCard(calSel,today);
  var cur=lg,shown=0;
  Object.keys(LG).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var L=LG[k];if(!L.CAL)return;setL(k);
   var cs=L.CAL.filter(function(c){return c.dk==calSel}).sort(function(a,b){return a.utc.localeCompare(b.utc)}),rows="",y=D[calSel][k];
@@ -584,6 +596,47 @@ function mdpCal(){
  setL(cur);
  if(!shown)o+='<div class="empty">No matches found for “'+mdpEscape(qs)+'” on this day.</div>';
  return{n:1,h:o}}
+/* ---------- Pick of the Day (rules copied from scripts/pick_of_day.py; keep in step) ---------- */
+var POTD={pmin:72,pmax:82,minGames:8,cups:{ucl:1,wc:1,euro:1,cli:1},order:["fav_win","fav_dc","over15","over25","under35","dog15"]};
+function potdSkip(){var M=MDP_LIVE.preds&&MDP_LIVE.preds.model&&MDP_LIVE.preds.model.league_reliability,src={};
+ if(M&&Object.keys(M).length)Object.keys(M).forEach(function(x){src[x]=M[x].logloss});else src=MDP_REL_DEFAULT;
+ var ks=Object.keys(src).sort(function(a,b){return src[a]-src[b]}),sk={};ks.slice(-3).forEach(function(k){sk[k]=1});Object.keys(POTD.cups).forEach(function(k){sk[k]=1});return sk}
+function potdPreview(day){var sk=potdSkip(),best=null,cur=lg,now=Date.now();
+ Object.keys(LG).forEach(function(k){if(sk[k]||!LG[k].CAL||!LG[k].H)return;setL(k);
+  LG[k].CAL.forEach(function(c){if(c.k!="u")return;if((c.dk||mdpDK(c.utc))!=day)return;if(Date.parse(c.utc)-now<2*3600e3)return;var m=U[c.i],q=m&&m[7];if(!q||q.lh===undefined)return;
+   var h=m[2],a=m[3];if((LG[k].H[h]||[]).length<POTD.minGames||(LG[k].H[a]||[]).length<POTD.minGames)return;if(MDP_STATUS[k+":"+h+"-"+a])return;
+   var fh=q.fav=="home",fav=fh?h:a,dog=fh?a:h,pf=fh?q.h:q.a,t=q.lh+q.la,u35=0;for(var j=0;j<4;j++){var f=1;for(var z=2;z<=j;z++)f*=z;u35+=Math.exp(-t)*Math.pow(t,j)/f}
+   [["fav_win",T[fav]+" to win",pf],["fav_dc",T[fav]+" win or draw",pf+q.d],["over15","Over 1.5 goals",q.o15],["over25","Over 2.5 goals",q.o25],["under35","Under 3.5 goals",100*u35],["dog15",T[dog]+" +1.5 handicap",q.dog15]].forEach(function(x){
+    if(x[2]>=POTD.pmin&&x[2]<=POTD.pmax){var rk2=[x[2],-POTD.order.indexOf(x[0])];if(!best||rk2[0]>best.rk[0]||(rk2[0]==best.rk[0]&&rk2[1]>best.rk[1]))best={rk:rk2,league:k,match_id:c.id,utc:c.utc,home:T[h],away:T[a],market:x[0],label:x[1],model_prob:x[2]/100,fair_odds:+(100/x[2]).toFixed(2),preview:true}}})})});
+ setL(cur);return best}
+function potdFor(day){var L=MDP_LIVE.potd;if(L)for(var i=0;i<L.length;i++)if(L[i].date==day)return L[i];return null}
+function potdCard(day,today){if(!MDP_LIVE.loaded)return'';var e=potdFor(day),pre=false;
+ if(!e){if(day<today)return'';e=potdPreview(day);pre=true;
+  if(!e&&!Object.keys(LG).some(function(k){return(LG[k].CAL||[]).some(function(c){return c.k=="u"&&(c.dk||mdpDK(c.utc))==day&&Date.parse(c.utc)>Date.now()})}))return'';
+  if(!e)return'<div class="potd none"><div class="pth"><span>⭐ Pick of the Day</span></div><p>No game '+(day==today?'today':'on this day')+' meets our rules yet. We only pick when a game clearly qualifies, and we never force a pick.</p></div>'}
+ if(e.status=="none")return'<div class="potd none"><div class="pth"><span>⭐ Pick of the Day</span><i class="pill">🔒 Locked '+mdpEscape(mdpStamp(e.locked_at))+'</i></div><p>No pick: no game met our rules on this day. We would rather skip than force a pick.</p></div>';
+ var st=e.status||"pending",k=e.league,c=(LG[k]&&LG[k].CAL||[]).filter(function(x){return String(x.id)==String(e.match_id)})[0];
+ var badge=pre?'<i class="pill">👀 Preview, not locked yet</i>':st=="won"?'<i class="pill ok">✓ Won '+mdpEscape(e.score||'')+'</i>':st=="lost"?'<i class="pill no">✗ Lost '+mdpEscape(e.score||'')+'</i>':st=="void"?'<i class="pill">Void (postponed)</i>':'<i class="pill lk">🔒 Locked '+mdpEscape(mdpStamp(e.locked_at))+'</i>';
+ var o='<div class="potd '+st+'"><div class="pth"><span>⭐ Pick of the Day</span>'+badge+'</div>'+
+  '<div class="ptm">'+(LG[k]?lgLogo(k,true):'')+'<b>'+mdpEscape(e.home)+' v '+mdpEscape(e.away)+'</b><span>'+mdpEscape(LG[k]?LG[k].n:k)+' · '+mdpEscape(mdpTime(e.utc))+'</span></div>'+
+  '<div class="ptk">'+mdpEscape(e.label)+'</div><div class="ptg"><div><b>'+Math.round(e.model_prob*100)+'%</b><span>model chance</span></div><div><b>'+Number(e.fair_odds).toFixed(2)+'</b><span>fair odds</span></div><div><b>'+Math.round(100-e.model_prob*100)+'%</b><span>chance it loses</span></div></div>'+
+  '<p class="nv">Chosen by fixed rules: the strongest market of the day between '+POTD.pmin+'% and '+POTD.pmax+'%, both teams with '+POTD.minGames+'+ games, and not from our least predictable leagues. '+(pre?'This is a preview: the official pick is locked at the next data update and never changed after that.':'Locked before kick-off and never changed.')+' Not a guarantee; only bet what you can afford to lose.</p>'+
+  (c?'<button class="ptb" data-go="'+k+'|'+c.k+'|'+c.i+'">Full analysis ↓</button>':'')+'</div>';
+ return o}
+function potdBacktestHtml(){var B=MDP_LIVE.potdBt;if(!B)return'';var S=B.summary,nm={fav_win:"Favourite to win",fav_dc:"Favourite win or draw",over15:"Over 1.5 goals",over25:"Over 2.5 goals",under35:"Under 3.5 goals",dog15:"Underdog +1.5"};
+ var o='<div class="sec bt"><h4>How the Pick of the Day rules would have done <span class="pill">Back-test, not real picks</span></h4>';
+ if(!S.picks)return o+'<p>No past matchday this season met the rules yet.</p></div>';
+ o+='<p>Applying the same rules to every matchday this season, with each game predicted only from results before its kick-off: <b>'+S.won+' won of '+S.picks+'</b> ('+Math.round(S.hit_rate*100)+'%). The model expected about '+Math.round(S.avg_model_prob*100)+'%. Matchdays with no qualifying game: '+S.no_pick_days+'.</p>';
+ o+='<p class="nv">'+Object.keys(B.by_market).map(function(k){var x=B.by_market[k];return(nm[k]||k)+': '+x.won+'/'+x.picks}).join(' · ')+'</p>';
+ (B.picks||[]).slice(-6).reverse().forEach(function(e){o+='<p class="nv">'+mdpEscape(e.date)+': '+mdpEscape(e.home)+' v '+mdpEscape(e.away)+' · '+mdpEscape(e.label)+' ('+Math.round(e.model_prob*100)+'%) <span class="'+(e.won?'w':'lo')+'">'+(e.won?'✓':'✗')+' '+mdpEscape(e.score)+'</span></p>'});
+ return o+'<p class="nv">These picks were never published: they show how the rules perform, not a track record. The official record above only counts picks locked before kick-off. '+(S.picks<30?'With fewer than 30 picks, this is still too small to judge.':'')+'</p></div>'}
+function potdRecordHtml(){var L=(MDP_LIVE.potd||[]).filter(function(e){return e.status=="won"||e.status=="lost"}),w=L.filter(function(e){return e.status=="won"}).length;
+ var o='<div class="sec"><h4>⭐ Pick of the Day record</h4>';
+ if(!L.length)return o+'<p>No Pick of the Day has been settled yet. Every pick is locked before kick-off and shown here once the game is over.</p></div>';
+ var avg=L.reduce(function(s,e){return s+e.model_prob},0)/L.length,nones=(MDP_LIVE.potd||[]).filter(function(e){return e.status=="none"}).length;
+ o+='<p><b>'+w+' won of '+L.length+'</b> ('+Math.round(100*w/L.length)+'%). The model expected about '+Math.round(avg*100)+'%.'+(nones?' Days with no pick: '+nones+'.':'')+'</p>';
+ L.slice(-8).reverse().forEach(function(e){o+='<p class="nv">'+mdpEscape(e.date)+': '+mdpEscape(e.home)+' v '+mdpEscape(e.away)+' · '+mdpEscape(e.label)+' ('+Math.round(e.model_prob*100)+'%) <span class="'+(e.status=="won"?'w':'lo')+'">'+(e.status=="won"?'✓':'✗')+' '+mdpEscape(e.score||'')+'</span></p>'});
+ return o+'<p class="nv">Odds are not recorded yet, so profit is not shown. Short-priced picks can win often and still lose money.</p></div>'}
 function mdpMini(m){return'<span class="mb"><i style="width:'+m[4]+'%;background:var(--home)"></i><i style="width:'+m[5]+'%;background:var(--draw)"></i><i style="width:'+m[6]+'%;background:var(--away)"></i></span>'}
 function mdpRowU(k,c){var m=U[c.i];if(!m)return'';var h=m[2],a=m[3];if(!hit(h,a))return'';var l=leanOf(m),st=MDP_STATUS[k+":"+h+"-"+a],p=l=="D"?m[5]:l==h?m[4]:m[6];
  return'<div class="cr" data-k="'+k+'" data-t="u" data-x="'+c.i+'"><div class="crm"><span class="crt'+(st?' lv':'')+'">'+(st?(st=="SUSPENDED"?"Susp.":"Live/<br>pending"):m[1])+'</span><span class="crh"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs vs">vs</span><span class="cra">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
@@ -601,7 +654,7 @@ function mdpRecordTab(){
  if(!mdpHasCal())return record();
  var D=mdpDays().days,tot={},all={fin:0,hit:0};
  Object.keys(D).forEach(function(d){Object.keys(D[d]).forEach(function(k){var y=D[d][k],t=tot[k]||(tot[k]={fin:0,hit:0});t.fin+=y.fin;t.hit+=y.hit;all.fin+=y.fin;all.hit+=y.hit})});
- var o=mdpRecordHtml();
+ var o=potdRecordHtml()+potdBacktestHtml()+mdpRecordHtml();
  o+='<div class="sec"><h4>Model lean by league (this season)</h4><p>How often the model’s lean (home win, draw or away win) matched the result'+(all.fin?': <b>'+all.hit+' of '+all.fin+'</b> overall ('+Math.round(100*all.hit/all.fin)+'%)':'')+'. Games with a 🔒 were predicted before kick-off; the rest were rebuilt afterwards using only earlier results.</p></div>';
  o+='<div class="sc2" style="margin-top:12px"><table><tr><th>League</th><th>Games</th><th>Lean right</th><th>%</th></tr>'+Object.keys(LG).filter(function(k){return tot[k]&&tot[k].fin}).map(function(k){var t=tot[k];return'<tr><td>'+lgLogo(k)+mdpEscape(LG[k].n)+' <span style="color:var(--mu);font-weight:500;font-size:12px">'+mdpEscape(lgCountry(k))+'</span></td><td>'+t.fin+'</td><td>'+t.hit+'</td><td><b>'+Math.round(100*t.hit/t.fin)+'%</b></td></tr>'}).join("")+'</table></div>';
  var bands=[[0,50,"Under 50%"],[50,55,"50–55%"],[55,60,"55–60%"],[60,65,"60–65%"],[65,75,"65–75%"],[75,101,"75%+"]],cal=bands.map(function(){return{n:0,p:0,w:0}}),locked=0;
@@ -637,6 +690,7 @@ document.getElementById("q").addEventListener("input",function(e){qs=e.target.va
 document.getElementById("tabs").addEventListener("click",function(e){var t=e.target.getAttribute("data-t");if(t){tab=t;render()}});
 document.getElementById("chips").addEventListener("click",function(e){var bt=e.target.closest("button");if(!bt)return;e={target:bt};var cl=bt.getAttribute("data-cl");if(cl){calLg=cl;render();return}var k=e.target.getAttribute("data-l");if(k){setL(k);render()}});
 document.getElementById("out").addEventListener("click",function(e){var dy=e.target.closest&&e.target.closest("[data-day]");if(dy){calSel=dy.getAttribute("data-day");render();return}
+ var go=e.target.closest&&e.target.closest("[data-go]");if(go){var gp=go.getAttribute("data-go").split("|"),row=document.querySelector('.cr[data-k="'+gp[0]+'"][data-t="'+gp[1]+'"][data-x="'+gp[2]+'"]');if(row){if(!row.classList.contains("open"))row.click();row.scrollIntoView({behavior:"smooth",block:"start"})}return}
  var cr=e.target.closest&&e.target.closest(".cr");if(cr){if(e.target.closest(".crd"))return;var cd=cr.querySelector(".crd");if(!cd.innerHTML)cd.innerHTML=mdpCalDetail(cr.getAttribute("data-k"),cr.getAttribute("data-t"),+cr.getAttribute("data-x"));cr.classList.toggle("open");return}var dd=e.target.getAttribute&&e.target.getAttribute("data-d");if(dd){calDay=dd;render();return}var c=e.target.closest(".m");if(c&&c.hasAttribute("data-i")){var dt=c.querySelector(".det[data-pre]");if(dt&&!dt.innerHTML){try{dt.innerHTML=pre(R[+dt.getAttribute("data-pre")])}catch(er){dt.innerHTML='<p class="nv">Analysis could not be rebuilt for this game.</p>'}}c.classList.toggle("open")}});
 document.getElementById("dataStatus").addEventListener("click",function(){var e=this,o=e.style.whiteSpace!=="normal";e.style.whiteSpace=o?"normal":"nowrap";e.style.borderRadius=o?"14px":"99px"});
 document.getElementById("tg").addEventListener("click",function(){var r=document.documentElement,c=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");r.setAttribute("data-theme",c=="dark"?"light":"dark")});
@@ -697,7 +751,7 @@ function mdpBuildLeague(key,ms,P){
  finished.forEach(function(r){var h=stats[r[2]],a=stats[r[4]],hg=r[3],ag=r[5];if(!h||!a)return;h.played++;a.played++;h.gf+=hg;h.ga+=ag;a.gf+=ag;a.ga+=hg;if(hg>ag){h.w++;h.pts+=3;a.l++}else if(ag>hg){a.w++;a.pts+=3;h.l++}else{h.d++;a.d++;h.pts++;a.pts++}});
  var S=Object.keys(T).map(function(id){var x=stats[id];return [id,x.w,x.d,x.l,x.pts,x.gf,x.ga,x.played]}).sort(function(a,b){return b[4]-a[4]||(b[5]-b[6])-(a[5]-a[6])||b[5]-a[5]});
  var R=finished.sort(function(a,b){return a[6].localeCompare(b[6])}).map(function(r){var x=r.slice(0,6),q=PM[String(r[7])];x[6]=q||undefined;x[7]=r[6].slice(0,4);x[8]=r[6];return x});
- var CAL=finished.map(function(r,i){return{k:"r",i:i,utc:r[6]}}).concat(upcoming.slice().sort(function(a,b){return a[4].localeCompare(b[4])}).map(function(r,i){return{k:"u",i:i,utc:r[4]}}));
+ var CAL=finished.map(function(r,i){return{k:"r",i:i,utc:r[6],id:r[7]}}).concat(upcoming.slice().sort(function(a,b){return a[4].localeCompare(b[4])}).map(function(r,i){return{k:"u",i:i,utc:r[4],id:r[5]}}));
  var U=upcoming.sort(function(a,b){return a[4].localeCompare(b[4])}).map(function(r){var q=PM[String(r[5])];if(!q){noPred++;return [r[0],r[1],r[2],r[3]]}return [r[0],r[1],r[2],r[3],q.h,q.d,q.a,q]});
  var G={};Object.keys(T).forEach(function(id){G[id]=[stats[id].gf,stats[id].ga]});
  var H={};Object.keys(T).forEach(function(id){H[id]=[]});finished.slice().sort(function(a,b){return a[6].localeCompare(b[6])}).forEach(function(r){if(H[r[2]])H[r[2]].push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0],u:r[6]});if(H[r[4]])H[r[4]].push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0],u:r[6]})});
@@ -745,11 +799,11 @@ async function mdpFetchJson(name,required,fallback){
 }
 async function mdpLoadLive(){
  try{
-  var all=await Promise.all([mdpFetchJson('matches.json',true,null),mdpFetchJson('picks_upcoming.json',false,[]),mdpFetchJson('picks_log.json',false,[]),mdpFetchJson('summary.json',false,null),mdpFetchJson('predictions.json',false,null)]);
-  var data=all[0],stampKey=(data&&data.updated)+'|'+(all[4]&&all[4].updated)+'|'+(all[3]&&all[3].updated);
+  var all=await Promise.all([mdpFetchJson('matches.json',true,null),mdpFetchJson('picks_upcoming.json',false,[]),mdpFetchJson('picks_log.json',false,[]),mdpFetchJson('summary.json',false,null),mdpFetchJson('predictions.json',false,null),mdpFetchJson('potd.json',false,null),mdpFetchJson('potd_backtest.json',false,null)]);
+  var data=all[0],stampKey=(data&&data.updated)+'|'+(all[4]&&all[4].updated)+'|'+(all[3]&&all[3].updated)+'|'+(all[5]?all[5].length+':'+JSON.stringify(all[5].slice(-1)):'')+'|'+(all[6]&&all[6].updated);
   // The data only changes every 6 hours. If nothing is new, keep the page as it is so open match cards stay open.
   if(MDP_LIVE.loaded&&MDP_LIVE.stampKey===stampKey){mdpStatusAge(data);return}
-  MDP_LIVE.stampKey=stampKey;MDP_LIVE.picks=all[1];MDP_LIVE.log=all[2];MDP_LIVE.summary=all[3];MDP_LIVE.preds=all[4];
+  MDP_LIVE.stampKey=stampKey;MDP_LIVE.picks=all[1];MDP_LIVE.log=all[2];MDP_LIVE.summary=all[3];MDP_LIVE.preds=all[4];MDP_LIVE.potd=Array.isArray(all[5])?all[5]:null;MDP_LIVE.potdBt=all[6]&&all[6].summary?all[6]:null;
   if(!Array.isArray(MDP_LIVE.picks))MDP_LIVE.picks=[];
   if(!data||!data.leagues||!Object.keys(data.leagues).length)throw new Error('data/matches.json has no leagues yet (check that the GitHub Action ran successfully)');
    MDP_LIVE.matches=data;MDP_STATUS={};NEWS={};MDP_UTC={};MDP_BASE={};
