@@ -5,8 +5,8 @@
  "window_days": 400,
  "version": 2,
  "chosen": "v2: ratings, half-life 180 days",
- "tested": "2026-11-05T11:26:50Z",
- "matches": 17014,
+ "tested": "2026-11-05T18:37:10Z",
+ "matches": 17015,
  "reason": "beat v1 on past seasons",
  "league_reliability": {
   "bsa": {
@@ -25,8 +25,8 @@
    "rank": 4
   },
   "champ": {
-   "logloss": 1.0548,
-   "matches": 2206,
+   "logloss": 1.0546,
+   "matches": 2207,
    "rank": 9
   },
   "ligue1": {

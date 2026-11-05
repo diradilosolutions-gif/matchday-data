@@ -1,0 +1,440 @@
+{
+ "tested": "2026-11-05T18:39:01Z",
+ "underdog_games": 14252,
+ "model_version": 2,
+ "thresholds": {
+  "min_games": 150,
+  "min_lift": 0.03,
+  "min_z": 3.0
+ },
+ "market": null,
+ "proven": [],
+ "proven_by_market": {
+  "dog_win": [],
+  "dog_dc": [],
+  "dog_h15": []
+ },
+ "base": {
+  "dog_win": {
+   "n": 14252,
+   "model": 0.216,
+   "actual": 0.2181,
+   "lift": 0.0021,
+   "z": 0.61,
+   "roi": -0.1389,
+   "priced": 14252
+  },
+  "dog_dc": {
+   "n": 14252,
+   "model": 0.4667,
+   "actual": 0.4702,
+   "lift": 0.0036,
+   "z": 0.87,
+   "roi": -0.0933,
+   "priced": 14252
+  },
+  "dog_h15": {
+   "n": 14252,
+   "model": 0.6907,
+   "actual": 0.7217,
+   "lift": 0.031,
+   "z": 8.29
+  }
+ },
+ "table": {
+  "dog_unbeaten_venue": {
+   "dog_win": {
+    "n": 48,
+    "model": 0.2548,
+    "actual": 0.1667,
+    "lift": -0.0882,
+    "z": -1.45,
+    "roi": -0.4231,
+    "priced": 48,
+    "extra": -0.0905,
+    "without": {
+     "n": 14204,
+     "lift": 0.0024
+    }
+   },
+   "dog_dc": {
+    "n": 48,
+    "model": 0.5143,
+    "actual": 0.4583,
+    "lift": -0.056,
+    "z": -0.84,
+    "roi": -0.1121,
+    "priced": 48,
+    "extra": -0.0598,
+    "without": {
+     "n": 14204,
+     "lift": 0.0038
+    }
+   },
+   "dog_h15": {
+    "n": 48,
+    "model": 0.7285,
+    "actual": 0.6667,
+    "lift": -0.0619,
+    "z": -1.49,
+    "extra": -0.0932,
+    "without": {
+     "n": 14204,
+     "lift": 0.0313
+    }
+   }
+  },
+  "dog_strong_venue": {
+   "dog_win": {
+    "n": 735,
+    "model": 0.2508,
+    "actual": 0.2449,
+    "lift": -0.0059,
+    "z": -0.52,
+    "roi": -0.1285,
+    "priced": 735,
+    "extra": -0.0084,
+    "without": {
+     "n": 13517,
+     "lift": 0.0025
+    }
+   },
+   "dog_dc": {
+    "n": 735,
+    "model": 0.5078,
+    "actual": 0.498,
+    "lift": -0.0099,
+    "z": -0.76,
+    "roi": -0.0921,
+    "priced": 735,
+    "extra": -0.0142,
+    "without": {
+     "n": 13517,
+     "lift": 0.0043
+    }
+   },
+   "dog_h15": {
+    "n": 735,
+    "model": 0.7258,
+    "actual": 0.7456,
+    "lift": 0.0198,
+    "z": -0.72,
+    "extra": -0.0119,
+    "without": {
+     "n": 13517,
+     "lift": 0.0316
+    }
+   }
+  },
+  "dog_giant_killer": {
+   "dog_win": {
+    "n": 801,
+    "model": 0.2364,
+    "actual": 0.2185,
+    "lift": -0.0179,
+    "z": -1.39,
+    "roi": -0.1547,
+    "priced": 801,
+    "extra": -0.0211,
+    "without": {
+     "n": 13451,
+     "lift": 0.0032
+    }
+   },
+   "dog_dc": {
+    "n": 801,
+    "model": 0.493,
+    "actual": 0.4881,
+    "lift": -0.0048,
+    "z": -0.5,
+    "roi": -0.0815,
+    "priced": 801,
+    "extra": -0.0089,
+    "without": {
+     "n": 13451,
+     "lift": 0.0041
+    }
+   },
+   "dog_h15": {
+    "n": 801,
+    "model": 0.7145,
+    "actual": 0.7366,
+    "lift": 0.0221,
+    "z": -0.59,
+    "extra": -0.0094,
+    "without": {
+     "n": 13451,
+     "lift": 0.0316
+    }
+   }
+  },
+  "dog_h2h": {
+   "dog_win": {
+    "n": 6344,
+    "model": 0.2298,
+    "actual": 0.2289,
+    "lift": -0.0009,
+    "z": -0.77,
+    "roi": -0.1412,
+    "priced": 6344,
+    "extra": -0.0053,
+    "without": {
+     "n": 7908,
+     "lift": 0.0044
+    }
+   },
+   "dog_dc": {
+    "n": 6344,
+    "model": 0.4902,
+    "actual": 0.489,
+    "lift": -0.0012,
+    "z": -1.04,
+    "roi": -0.0945,
+    "priced": 6344,
+    "extra": -0.0086,
+    "without": {
+     "n": 7908,
+     "lift": 0.0074
+    }
+   },
+   "dog_h15": {
+    "n": 6344,
+    "model": 0.7154,
+    "actual": 0.7394,
+    "lift": 0.024,
+    "z": -1.68,
+    "extra": -0.0126,
+    "without": {
+     "n": 7908,
+     "lift": 0.0367
+    }
+   }
+  },
+  "dog_in_form": {
+   "dog_win": {
+    "n": 475,
+    "model": 0.2443,
+    "actual": 0.2337,
+    "lift": -0.0106,
+    "z": -0.66,
+    "roi": -0.1804,
+    "priced": 475,
+    "extra": -0.0131,
+    "without": {
+     "n": 13777,
+     "lift": 0.0025
+    }
+   },
+   "dog_dc": {
+    "n": 475,
+    "model": 0.5051,
+    "actual": 0.5137,
+    "lift": 0.0086,
+    "z": 0.23,
+    "roi": -0.0594,
+    "priced": 475,
+    "extra": 0.0052,
+    "without": {
+     "n": 13777,
+     "lift": 0.0034
+    }
+   },
+   "dog_h15": {
+    "n": 475,
+    "model": 0.7261,
+    "actual": 0.7389,
+    "lift": 0.0128,
+    "z": -0.92,
+    "extra": -0.0189,
+    "without": {
+     "n": 13777,
+     "lift": 0.0317
+    }
+   }
+  },
+  "fav_form_dip": {
+   "dog_win": {
+    "n": 792,
+    "model": 0.2253,
+    "actual": 0.2109,
+    "lift": -0.0144,
+    "z": -1.16,
+    "roi": -0.1602,
+    "priced": 792,
+    "extra": -0.0174,
+    "without": {
+     "n": 13460,
+     "lift": 0.003
+    }
+   },
+   "dog_dc": {
+    "n": 792,
+    "model": 0.4818,
+    "actual": 0.4646,
+    "lift": -0.0171,
+    "z": -1.22,
+    "roi": -0.0987,
+    "priced": 792,
+    "extra": -0.0219,
+    "without": {
+     "n": 13460,
+     "lift": 0.0048
+    }
+   },
+   "dog_h15": {
+    "n": 792,
+    "model": 0.7071,
+    "actual": 0.7311,
+    "lift": 0.024,
+    "z": -0.46,
+    "extra": -0.0075,
+    "without": {
+     "n": 13460,
+     "lift": 0.0314
+    }
+   }
+  },
+  "fav_poor_venue": {
+   "dog_win": {
+    "n": 692,
+    "model": 0.255,
+    "actual": 0.2991,
+    "lift": 0.0441,
+    "z": 2.63,
+    "roi": 0.0452,
+    "priced": 692,
+    "extra": 0.0442,
+    "without": {
+     "n": 13560,
+     "lift": -0.0001
+    }
+   },
+   "dog_dc": {
+    "n": 692,
+    "model": 0.5304,
+    "actual": 0.5592,
+    "lift": 0.0288,
+    "z": 1.38,
+    "roi": -0.0359,
+    "priced": 692,
+    "extra": 0.0266,
+    "without": {
+     "n": 13560,
+     "lift": 0.0023
+    }
+   },
+   "dog_h15": {
+    "n": 692,
+    "model": 0.7545,
+    "actual": 0.7818,
+    "lift": 0.0273,
+    "z": -0.24,
+    "extra": -0.0039,
+    "without": {
+     "n": 13560,
+     "lift": 0.0312
+    }
+   }
+  },
+  "fav_leaky": {
+   "dog_win": {
+    "n": 1518,
+    "model": 0.2469,
+    "actual": 0.2622,
+    "lift": 0.0153,
+    "z": 1.29,
+    "roi": -0.0504,
+    "priced": 1518,
+    "extra": 0.0148,
+    "without": {
+     "n": 12734,
+     "lift": 0.0005
+    }
+   },
+   "dog_dc": {
+    "n": 1518,
+    "model": 0.5029,
+    "actual": 0.5283,
+    "lift": 0.0254,
+    "z": 1.83,
+    "roi": -0.0519,
+    "priced": 1518,
+    "extra": 0.0244,
+    "without": {
+     "n": 12734,
+     "lift": 0.0009
+    }
+   },
+   "dog_h15": {
+    "n": 1518,
+    "model": 0.7223,
+    "actual": 0.7635,
+    "lift": 0.0412,
+    "z": 0.95,
+    "extra": 0.0114,
+    "without": {
+     "n": 12734,
+     "lift": 0.0298
+    }
+   }
+  },
+  "fav_short_rest": {
+   "dog_win": {
+    "n": 189,
+    "model": 0.2004,
+    "actual": 0.1587,
+    "lift": -0.0417,
+    "z": -1.54,
+    "roi": -0.3144,
+    "priced": 189,
+    "extra": -0.0443,
+    "without": {
+     "n": 14063,
+     "lift": 0.0026
+    }
+   },
+   "dog_dc": {
+    "n": 189,
+    "model": 0.4457,
+    "actual": 0.3915,
+    "lift": -0.0541,
+    "z": -1.66,
+    "roi": -0.1991,
+    "priced": 189,
+    "extra": -0.0585,
+    "without": {
+     "n": 14063,
+     "lift": 0.0043
+    }
+   },
+   "dog_h15": {
+    "n": 189,
+    "model": 0.6699,
+    "actual": 0.7302,
+    "lift": 0.0603,
+    "z": 0.9,
+    "extra": 0.0297,
+    "without": {
+     "n": 14063,
+     "lift": 0.0306
+    }
+   }
+  }
+ },
+ "names": {
+  "dog_unbeaten_venue": "Underdog unbeaten at this venue (5+ games)",
+  "dog_strong_venue": "Underdog strong at this venue (well above the league norm)",
+  "dog_giant_killer": "Underdog has won more games as an underdog than the model expected",
+  "dog_h2h": "Underdog already beat or drew with this favourite this season",
+  "dog_in_form": "Underdog unbeaten in their last 6 (1.8+ points a game)",
+  "fav_form_dip": "Favourite's form has dipped well below their season average",
+  "fav_poor_venue": "Favourite's record at this venue is well below the league norm",
+  "fav_leaky": "Favourite conceding well above the league average lately",
+  "fav_short_rest": "Favourite had at least 2 days' less rest"
+ },
+ "markets": {
+  "dog_win": "to win",
+  "dog_dc": "win or draw",
+  "dog_h15": "+1.5 handicap"
+ }
+}
