@@ -95,6 +95,14 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .lgh{text-transform:none!important;letter-spacing:0!important;font-size:14px!important;color:var(--tx)!important;gap:0!important}
 .lgh .lgc{color:var(--mu);font-weight:500;margin-left:8px;font-size:13px}
 .lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
+.upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
+.upbox h4{margin:0 0 10px;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.07em;color:var(--l)}
+.upbox p{margin:6px 0}
+.upg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.upg div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 6px;text-align:center}
+.upg b{display:block;font:700 18px var(--fd)}.upg span{display:block;font-size:11px;color:var(--mu);line-height:1.25;margin-top:2px}
+.upg .hot b{color:var(--l)}
+@media (max-width:480px){.upg{grid-template-columns:repeat(2,1fr)}}
 .calhead{display:flex;align-items:center;justify-content:space-between;margin:14px 2px 8px}
 .calhead h2{margin:0;font:700 18px var(--fd);letter-spacing:-.01em}
 .tdy{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 12px;font:600 12px var(--fd);cursor:pointer}
@@ -206,7 +214,7 @@ var PAST={};
 var lg="epl",T,S,R,U,rank,st,last,PST=null,PRK=null,tab="cal",qs="";
 function setL(k){lg=k;var L=LG[k];T=L.T;S=L.S;R=L.R;U=L.U;rank={};st={};last={};PST=null;
  S.forEach(function(r,i){rank[r[0]]=i+1;st[r[0]]=r});
- R.forEach(function(r){var h=r[3],a=r[5];last[r[2]]={d:r[0],o:r[4],r:h>a?"W":h<a?"L":"D",s:h+"–"+a,home:true,gf:h,ga:a};last[r[4]]={d:r[0],o:r[2],r:a>h?"W":a<h?"L":"D",s:a+"–"+h,home:false,gf:a,ga:h}});U=L.U.map(function(m){return m.length>4?m:mp(m)})}
+ R.forEach(function(r){var h=r[3],a=r[5];last[r[2]]={d:r[0],o:r[4],r:h>a?"W":h<a?"L":"D",s:h+"–"+a,home:true,gf:h,ga:a,utc:r[8]};last[r[4]]={d:r[0],o:r[2],r:a>h?"W":a<h?"L":"D",s:a+"–"+h,home:false,gf:a,ga:h,utc:r[8]}});U=L.U.map(function(m){return m.length>4?m:mp(m)})}
 function mp(m){var h=m[2],a=m[3],d=ppg(h)-ppg(a)+0.3,raw=1/(1+Math.exp(-1.4*d)),dd=0.28-0.05*Math.min(Math.abs(d),2);return [m[0],m[1],h,a,+((1-dd)*raw*100).toFixed(1),+(dd*100).toFixed(1),+((1-dd)*(1-raw)*100).toFixed(1)]}
 function ord(n){return n+(n%100>=11&&n%100<=13?"th":(["th","st","nd","rd"][n%10]||"th"))}
 function gp(t){var s=st[t];return Math.max(1,s[1]+s[2]+s[3])}
@@ -228,9 +236,9 @@ function gx(m){
    lab=tot>=avgT+.35?"Goals likely":tot<=avgT-.35?"Low-scoring risk":"Balanced";
   n.push("<b>Model:</b> about "+tot.toFixed(1)+" goals expected ("+T[h]+" "+X.lh.toFixed(1)+", "+T[a]+" "+X.la.toFixed(1)+"), against a league average of "+avgT.toFixed(1)+".");
   n.push(lab=="Goals likely"?"That is more goals than a typical game in this league, based on both teams’ recent scoring and conceding.":lab=="Low-scoring risk"?"That is fewer goals than a typical game in this league, based on both teams’ recent scoring and conceding.":"That is close to a typical game in this league.");
-  [h,a].forEach(function(t){if(rank[t]>S.length-3)n.push("<b>Need for goals:</b> "+T[t]+" need a win, so expect them to push forward, which can open space for counter-attacks.")});
+  
   var wn=fav==h?(1-Math.exp(-X.lh))*Math.exp(-X.la):(1-Math.exp(-X.la))*Math.exp(-X.lh);n.push("<b>Win to nil:</b> the model gives "+T[fav]+" about "+Math.round(wn*100)+"% ("+(wn>=.35?"a realistic outcome":wn>=.2?"possible, but not the main route":"unlikely")+").");
-  if(rank[fav]<=2&&rank[dog]>=8&&fp>=50)n.push("<b>Title chasers need a win:</b> "+T[fav]+" can’t afford dropped points, so a patient, well-drilled underdog is their main danger.");
+  
   if(gh!==null||ga!==null)n.push("Last round: "+(gh!==null?T[h]+" game had "+gh+" goal"+(gh==1?"":"s")+". ":"")+(ga!==null?T[a]+" game had "+ga+".":""));
   return [lab,n]}
  var h=m[2],a=m[3],pd=m[5],gap=Math.abs(m[4]-m[6]),fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),lo=0,hi=0,n=[],gh=lgl(h),ga=lgl(a),d2=dr(h)+dr(a);
@@ -241,9 +249,9 @@ function gx(m){
  if(lab=="Low-scoring risk")n.push("Tight, draw-prone setup: draw chance is "+pd+"% and these two sides draw about "+Math.round(d2*50)+"% of their games between them.");
  if(lab=="Goals likely")n.push("Signs point to goals: "+(fp>=60?T[fav]+" are strong favourites ("+fp+"%). ":"")+(gh>=4||ga>=4?"A recent game involving one of these sides produced "+Math.max(gh||0,ga||0)+"+ goals.":""));
  if(lab=="Balanced")n.push("Mixed signals: nothing here points strongly to a high or a low-scoring game.");
- [h,a].forEach(function(t){if(rank[t]>S.length-3)n.push("<b>Need for goals:</b> "+T[t]+" need a win, so expect them to push forward, which can open space for counter-attacks.")});
  
- if(rank[fav]<=2&&rank[dog]>=8&&fp>=50)n.push("<b>Title chasers need a win:</b> "+T[fav]+" can’t afford dropped points, so a patient, well-drilled underdog is their main danger.");
+ 
+ 
  if(gh!==null||ga!==null)n.push("Last round: "+(gh!==null?T[h]+" game had "+gh+" goal"+(gh==1?"":"s")+". ":"")+(ga!==null?T[a]+" game had "+ga+".":""));
  return [lab,n]}
 var MU={epl:2.8,laliga:2.6,seriea:2.6,bundesliga:3.1,ligue1:2.8,champ:2.5,bl2:3.0,l1:2.7,nl:3.4},inPre=false;
@@ -268,7 +276,7 @@ var DOFF={Aug:0,Sep:31,Sept:31,Oct:61,Nov:92,Dec:122,Jan:153,Feb:184,Mar:212,Apr
 function dnum(s){var p=s.split(" ");return(DOFF[p[2]]||0)+(+p[1])}
 function lf(t){var l=last[t];if(!l)return"";return T[t]+" "+(l.r=="W"?"won":l.r=="D"?"drew":"lost")+" "+l.s+(l.home?" at home ":" away ")+(l.r=="W"&&l.home?"against ":l.home?"to ":"at ")+T[l.o]}
 function rec(t){var x=st[t];return x[1]+"W "+x[2]+"D "+x[3]+"L"}
-function rest(m,t){var l=last[t];return l?dnum(m[0])-dnum(l.d):null}
+function rest(m,t){var l=last[t],mu=MDP_UTC[lg+":"+m[2]+"-"+m[3]];if(mu&&l&&l.utc)return Math.round((Date.parse(mu)-Date.parse(l.utc))/864e5);return l?dnum(m[0])-dnum(l.d):null}
 function absOf(n,t,k){var r=[],t2=t.replace("Manchester","Man");if(n)(n[k]||[]).forEach(function(x){var i=x.indexOf(": "),p=i>0?x.slice(0,i):"";if(p&&(t2.indexOf(p)==0||p.indexOf(t2)==0))r.push(x.slice(i+2));else if(!p&&x.indexOf(t2)>-1)r.push(x)});return r}
 function dg(m){
  var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,pu=fav==h?m[6]:m[4],n=NEWS[lg+":"+h+"-"+a],G=LG[lg].G,lv=last[fav],ld=last[dog],sf=st[fav],sd=st[dog],pro=[],con=[],hidden=0;
@@ -288,85 +296,111 @@ function dg(m){
  return {fav:fav,dog:dog,pu:pu,pd:m[5],pro:pro,con:con,pn:pro.length+news+hidden}}
 function histOf(t,m){
  var L=LG[lg],out=[];
- if(L.H&&L.H[t])out=L.H[t].slice();
- else R.forEach(function(r){if(r[2]===t)out.push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0]});else if(r[4]===t)out.push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0]})});
- var cut=dnum(m[0]);
- return out.filter(function(g){return T[g.o]&&dnum(g.d)<cut}).sort(function(x,y){return dnum(x.d)-dnum(y.d)})}
+ if(L.H&&L.H[t]){var cut=MDP_CUT||"9999";return L.H[t].filter(function(g){return T[g.o]&&(!g.u||g.u<cut)})}
+ R.forEach(function(r){if(r[2]===t)out.push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0]});else if(r[4]===t)out.push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0]})});
+ var c2=dnum(m[0]);
+ return out.filter(function(g){return T[g.o]&&dnum(g.d)<c2}).sort(function(x,y){return dnum(x.d)-dnum(y.d)})}
+/* League baselines, so every warning is measured against what is normal in this competition */
+var MDP_BASE={};
+var MDP_REL_DEFAULT={ppl:.9286,nl:.9668,seriea:.9859,epl:.9909,laliga:.9938,ligue1:1.0024,bundesliga:1.0088,bsa:1.0211,champ:1.0548};
+function lgRel(k){var M=MDP_LIVE.preds&&MDP_LIVE.preds.model&&MDP_LIVE.preds.model.league_reliability,src={};
+ if(M&&Object.keys(M).length)Object.keys(M).forEach(function(x){src[x]=M[x].logloss});else src=MDP_REL_DEFAULT;
+ var ks=Object.keys(src).sort(function(a,b){return src[a]-src[b]}),i=ks.indexOf(k);
+ if(i<0)return{rank:0,of:ks.length,txt:"This competition is not in our back-test (too few games per team), so treat the numbers with extra caution.",tier:"unknown"};
+ var r=i+1,n=ks.length,tier=r<=3?"more":r>=n-2?"less":"average";
+ return{rank:r,of:n,tier:tier,txt:LG[k].n+" is "+(r==n?"the least predictable":r==1?"the most predictable":tier=="less"?"one of the least predictable":tier=="more"?"one of the more predictable":"about average")+" of the "+n+" leagues in our back-test ("+ord(r)+" of "+n+")."}}
+/* Worst case: how the favourite could slip */
+function upsetData(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pd=m[5],pu=fav==h?m[6]:m[4],L=mm(m).L,lh=L[0],la=L[1],lf=fav==h?lh:la,ld=fav==h?la:lh,A=pois(lh,7),Bp=pois(la,7),bd={p:-1},bu={p:-1};
+ for(var i=0;i<=7;i++)for(var j=0;j<=7;j++){var v=A[i]*Bp[j],fg=fav==h?i:j,dg2=fav==h?j:i;if(fg==dg2&&v>bd.p)bd={p:v,s:i+"–"+j};if(dg2>fg&&v>bu.p)bu={p:v,s:i+"–"+j}}
+ return{fav:fav,dog:dog,fp:fp,pd:pd,pu:pu,fail:Math.round((pd+pu)*10)/10,first:Math.round(100*ld/(lh+la)*(1-Math.exp(-(lh+la)))),blank:Math.round(100*Math.exp(-lf)),bd:bd,bu:bu}}
+function upsetBox(m,r){var U2=upsetData(m);if(Math.abs(m[4]-m[6])<6)return'';
+ var o='<div class="upbox"><h4>⚠ Worst case: how '+mdpEscape(T[U2.fav])+' could slip</h4><div class="upg">'+
+  '<div class="hot"><b>'+Math.round(U2.fail)+'%</b><span>'+mdpEscape(T[U2.fav])+' fail to win</span></div>'+
+  '<div><b>'+Math.round(U2.pu)+'%</b><span>'+mdpEscape(T[U2.dog])+' win</span></div>'+
+  '<div><b>'+Math.round(U2.pd)+'%</b><span>Draw</span></div>'+
+  '<div><b>'+U2.first+'%</b><span>'+mdpEscape(T[U2.dog])+' score first</span></div></div>';
+ o+='<p>If it goes wrong, the most likely scores are <b>'+U2.bu.s+'</b> ('+mdpEscape(T[U2.dog])+' win) or <b>'+U2.bd.s+'</b> (draw). '+mdpEscape(T[U2.fav])+' fail to score in about '+U2.blank+'% of games like this.</p>';
+ if(r&&r[3]&&r[3].length)o+=r[3].map(function(x){return'<p>'+x+'</p>'}).join("");
+ return o+'</div>'}
+
+function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5]});
+ return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2}:{home:.45,away:.29,gpt:1.35}}
 function rk(m){
- var h=m[2],a=m[3],pd=m[5],gap=Math.abs(m[4]-m[6]),fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,n=NEWS[lg+":"+h+"-"+a],
-  hf=histOf(fav,m),hd=histOf(dog,m),f=[],
-  res=function(g){return g.gf>g.ga?"W":g.gf==g.ga?"D":"L"},
-  pts=function(g){return g.gf>g.ga?3:g.gf==g.ga?1:0},
+ var h=m[2],a=m[3],pd=m[5],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pu=fav==h?m[6]:m[4],B=lgBase(),
+  hf=histOf(fav,m),hd=histOf(dog,m),f=[],pro=[],n=NEWS[lg+":"+h+"-"+a],
+  res=function(g){return g.gf>g.ga?"W":g.gf==g.ga?"D":"L"},pts=function(g){return g.gf>g.ga?3:g.gf==g.ga?1:0},
   line=function(g){return res(g)+" "+g.gf+"–"+g.ga+(g.hm?" v ":" at ")+T[g.o]},
   add=function(w,t){f.push({w:w,t:t,s:(t.match(/<b>([^<:]+)/)||[0,""])[1]})},
-  cnt=function(arr,fn){return arr.filter(fn).length};
- if(gap<6)add(2,"<b>No clear favourite:</b> win chances are only "+gap.toFixed(1)+" points apart, so either win or a draw is realistic.");
- // 1. does the favourite drop points against clearly lower-ranked sides?
- var weak=hf.filter(function(g){return rank[g.o]!==undefined&&rank[g.o]>=rank[fav]+6}),wp=weak.reduce(function(x,g){return x+pts(g)},0),slip=false;
- if(weak.length>=3){var bad=weak.filter(function(g){return g.gf<=g.ga}),lost=cnt(weak,function(g){return g.gf<g.ga});
-  if(bad.length>=2&&bad.length/weak.length>=.5){slip=true;add(lost>=2||bad.length>=3?3:2,"<b>Slips against weaker sides:</b> "+T[fav]+" have taken "+wp+" of "+weak.length*3+" points against teams ranked 6+ places below them ("+bad.slice(-3).map(line).join(", ")+").")}}
- // 2. consistency of recent form
- var l6=hf.slice(-6);
- if(l6.length>=5){var w=cnt(l6,function(g){return g.gf>g.ga}),l=cnt(l6,function(g){return g.gf<g.ga}),str=l6.map(res).join(" "),ws=0;
-  for(var i=l6.length-1;i>=0&&l6[i].gf<=l6[i].ga;i--)ws++;
-  if(w>=2&&w<=3&&l>=2)add(2,"<b>Inconsistent:</b> "+T[fav]+"’s last "+l6.length+" were "+str+" (latest on the right), so it is hard to know which version turns up.");
-  else if(ws>=4)add(2,"<b>Winless run:</b> "+T[fav]+" have not won in their last "+ws+" games.");
-  else if(l>=3)add(2,"<b>Poor recent form:</b> "+T[fav]+" have lost "+l+" of their last "+l6.length+".");
-  var cs=cnt(l6,function(g){return g.ga>0}),gc=l6.reduce(function(x,g){return x+g.ga},0)/l6.length;
-  if(gc>=1.5||(cs>=5&&gc>=1.3))add(1,"<b>Leaky at the back:</b> "+T[fav]+" conceded in "+cs+" of their last "+l6.length+" ("+gc.toFixed(1)+" a game), so the underdog is likely to get chances.");
-  var bl=cnt(l6,function(g){return g.gf==0});
-  if(bl>=3)add(1,"<b>Blunt attack:</b> "+T[fav]+" failed to score in "+bl+" of their last "+l6.length+".")}
- // 3. record at this venue
- var vh=hf.filter(function(g){return g.hm===(fav==h)}),vflag=false;
- if(vh.length>=4){var vw=cnt(vh,function(g){return g.gf>g.ga});
-  if(vw/vh.length<=.34){vflag=true;add(1,"<b>Weak "+(fav==h?"at home":"away")+":</b> "+T[fav]+" have won only "+vw+" of "+vh.length+" "+(fav==h?"home":"away")+" games on record.")}}
- if(fav==a&&gap>=6&&!vflag)add(1,"<b>Away favourite:</b> "+T[fav]+" are favoured away from home"+(vh.length>=3?", where they have won "+cnt(vh,function(g){return g.gf>g.ga})+" of "+vh.length+" so far":"")+".");
- // 4. the underdog is hard to beat
+  cnt=function(arr,fn){return arr.filter(fn).length},pc=function(x){return Math.round(x*100)+"%"},
+  ppgOf=function(arr){return arr.length?arr.reduce(function(x,g){return x+pts(g)},0)/arr.length:0},home=fav==h;
+ // 1. record at this venue, compared with the league's normal home / away win rate
+ var vh=hf.filter(function(g){return g.hm===home}),base=home?B.home:B.away;
+ if(vh.length>=5){var vw=cnt(vh,function(g){return g.gf>g.ga}),vr=vw/vh.length;
+  if(vr<=base-.2)add(vr<=base-.3?2:1,"<b>Poor "+(home?"home":"away")+" record:</b> "+T[fav]+" have won "+vw+" of "+vh.length+" "+(home?"home":"away")+" games ("+pc(vr)+"); in this league "+(home?"home":"away")+" teams win about "+pc(base)+".");
+  else if(vr>=base+.15)pro.push("they have won "+vw+" of "+vh.length+" "+(home?"at home":"away")+" ("+pc(vr)+", league norm "+pc(base)+")")}
+ // 2. points against clearly weaker teams (a side favoured like this normally takes 2+ a game)
+ var weak=hf.filter(function(g){return rank[g.o]!==undefined&&rank[g.o]>=rank[fav]+6}),wp=weak.reduce(function(x,g){return x+pts(g)},0);
+ if(weak.length>=4){var wppg=wp/weak.length;
+  if(wppg<1.5)add(wppg<1.2?2:1,"<b>Drops points against weaker teams:</b> "+T[fav]+" have taken "+wp+" of "+weak.length*3+" points ("+wppg.toFixed(1)+" a game) against sides 6+ places below them, e.g. "+weak.filter(function(g){return g.gf<=g.ga}).slice(-2).map(line).join(", ")+".");
+  else if(wppg>=2.2)pro.push("they reliably beat weaker teams ("+wp+" of "+weak.length*3+" points)")}
+ // 3. recent form compared with their own season
+ var l6=hf.slice(-6),sp=ppgOf(hf),rp=ppgOf(l6);
+ if(l6.length>=5&&hf.length>=10){
+  if(rp<=sp-.7&&rp<1.2)add(rp<=.8?2:1,"<b>Form has dipped:</b> "+Math.round(rp*l6.length)+" points from their last "+l6.length+" ("+l6.map(res).join(" ")+", latest on the right), against "+sp.toFixed(1)+" a game over the season.");
+  else if(rp>=2.2)pro.push("strong recent form: "+Math.round(rp*l6.length)+" points from the last "+l6.length)}
+ // 4. defence and attack, compared with the league's average team
+ if(l6.length>=5){var gc=l6.reduce(function(x,g){return x+g.ga},0)/l6.length,bl=cnt(l6,function(g){return g.gf==0});
+  if(gc>=1.5&&gc>=B.gpt*1.35)add(1,"<b>Leaky defence:</b> "+T[fav]+" have conceded "+gc.toFixed(1)+" a game over their last "+l6.length+"; the league average is "+B.gpt.toFixed(1)+".");
+  if(bl>=3)add(1,"<b>Struggling to score:</b> "+T[fav]+" failed to score in "+bl+" of their last "+l6.length+".")}
+ // 5. the underdog is in genuinely good form
  var d6=hd.slice(-6);
- if(d6.length>=5){var dl=cnt(d6,function(g){return g.gf<g.ga});if(dl==0)add(1,"<b>Hard to beat:</b> "+T[dog]+" are unbeaten in their last "+d6.length+".")}
- // 5. draw, fatigue and team news (counts only: names are listed once, under Team news & injuries)
- if(pd>=27)add(1,"<b>Draw-prone:</b> the model gives the draw "+pd+"%, so the favourite can easily drop points.");
+ if(d6.length>=5&&cnt(d6,function(g){return g.gf<g.ga})==0&&ppgOf(d6)>=1.8)add(1,"<b>Underdog in form:</b> "+T[dog]+" are unbeaten in their last "+d6.length+" ("+d6.map(res).join(" ")+").");
+ // 6. draw-heavy matchup, fixture congestion, team news, thin evidence
+ if(pd>=29)add(1,"<b>Draw-prone:</b> the model gives the draw "+pd+"%, higher than usual.");
  var rf=rest(m,fav),rd=rest(m,dog);
- if(rf!==null&&rd!==null&&rf<=5&&(rd-rf>=2||rf<=3))add(1,"<b>Short turnaround:</b> "+T[fav]+" played "+rf+" days before this game ("+T[dog]+": "+rd+").");
- if(n){var pc=function(arr){return arr.reduce(function(x,t){return x+((t.match(/\(/g)||[]).length||t.split(/ and |, /).length)},0)},
-  no=pc(absOf(n,T[fav],"out")),nd=pc(absOf(n,T[fav],"doubt").filter(function(z){return!/verified/.test(z)}));
-  if(no>=2||no+nd>=3)add(no>=3||no+nd>=5?2:1,"<b>Team news:</b> "+T[fav]+" have "+no+" player"+(no==1?"":"s")+" out"+(nd?" and "+nd+" doubtful":"")+", so the favourite may be weaker than the numbers suggest.")}
-
- // 6. checks that do not depend on how strong the favourite looks
- var fpv=Math.max(m[4],m[6]),OD=(typeof ODDS!=="undefined"&&ODDS)?ODDS[lg+":"+h+"-"+a]:null;
- if(OD){var odq=[1/OD[0],1/OD[1],1/OD[2]],odt=odq[0]+odq[1]+odq[2],odm=(fav==h?odq[0]:odq[2])/odt*100;
-  if(fpv-odm>=6)add(fpv-odm>=10?3:2,"<b>Bookmakers are less convinced:</b> the model gives "+T[fav]+" "+Math.round(fpv)+"% but the market implies about "+Math.round(odm)+"%, so the model may be overrating them.")}
- var tophalf=hf.filter(function(g){return rank[g.o]!==undefined&&rank[g.o]<=Math.ceil(S.length/2)});
- if(tophalf.length>=2&&cnt(tophalf,function(g){return g.gf>g.ga})==0)add(2,"<b>Yet to beat a top-half side:</b> 0 wins in "+tophalf.length+" against teams in the top half ("+tophalf.slice(-3).map(line).join(", ")+").");
- if(rank[fav]>rank[dog]+3)add(1,"<b>Table disagrees with the model:</b> "+T[fav]+" sit #"+rank[fav]+", below "+T[dog]+" (#"+rank[dog]+"), so the lean rests on recent form"+(fav==h?" and home advantage":"")+" rather than league position.");
- if(gp(fav)<6)add(1,"<b>Thin evidence:</b> "+T[fav]+" have played only "+gp(fav)+" games this season, so their ratings are noisy.");
- f.sort(function(x,y){return y.w-x.w});f=f.slice(0,5);
- var s=f.reduce(function(x,y){return x+y.w},0),o=f.map(function(x,i){return(i==0?"🚩 <b>Biggest red flag:</b> ":x.w>=2?"⚠ ":"")+x.t}),
-  nf=Math.max(1,Math.round((100-fpv)/10)),topf=f.length?{w:f[0].w,s:f[0].s}:{w:0,s:"Fails to win ~"+nf+" in 10"};
- if(!o.length)o.push("<b>No red flag found in the data:</b> nothing in "+T[fav]+"’s recent form, defence or team news stands out"+(weak.length>=3?" (they took "+wp+" of "+weak.length*3+" points against sides ranked 6+ places below)":"")+". The data can’t see everything, so treat that as a limit of the model, not a clean bill of health.");
-
- var lv=s>=6?"High":(s>=3||f.some(function(x){return x.w>=2}))?"Medium":"Low";
- o.unshift("<b>Think twice:</b> "+T[fav]+" are the model’s pick at "+fpv+"%, "+(!f.length?"and no single flag stands out in the data, but no pick is a banker.":lv=="Low"?"and the flags below are small, but even a favourite is never a banker.":"but the flags below are why this is not a banker."));
- // worst case: the concrete way the underdog nicks it, built from their form and the favourite's own worst result
- var dpu=fav==h?m[6]:m[4],d6w=hd.slice(-6),dn=d6w.length,wc=[];
+ if(rf!==null&&rd!==null&&rf>=0&&rf<=3&&rd-rf>=2)add(1,"<b>Short turnaround:</b> "+T[fav]+" last played "+rf+" days before this game, "+T[dog]+" "+rd+" days before.");
+ if(n){var cn=function(arr){return arr.reduce(function(x,t){return x+((t.match(/\(/g)||[]).length||1)},0)},no=cn(absOf(n,T[fav],"out"));
+  if(no>=2)add(no>=4?2:1,"<b>Missing players:</b> "+T[fav]+" have "+no+" players out (see Team news); the win chances do not include team news.")}
+ var OD=(typeof ODDS!=="undefined"&&ODDS)?ODDS[lg+":"+h+"-"+a]:null;
+ if(OD){var odq=[1/OD[0],1/OD[1],1/OD[2]],odt=odq[0]+odq[1]+odq[2],odm=(home?odq[0]:odq[2])/odt*100;
+  if(fp-odm>=6)add(fp-odm>=10?3:2,"<b>Bookmakers are less convinced:</b> the model gives "+T[fav]+" "+Math.round(fp)+"% but the market implies about "+Math.round(odm)+"%.")}
+ if(gp(fav)<6)add(1,"<b>Thin evidence:</b> "+T[fav]+" have played only "+gp(fav)+" games, so the numbers are less reliable.");
+ // things that support the pick
+ if(rank[dog]-rank[fav]>=5)pro.unshift("they sit "+ord(rank[fav])+", "+(rank[dog]-rank[fav])+" places above "+T[dog]);
+ var X=m[7];if(X&&X.lh!==undefined){var ef=home?X.lh:X.la,ed=home?X.la:X.lh;if(ef-ed>=.5)pro.push("the model expects about "+ef.toFixed(1)+" goals for them and "+ed.toFixed(1)+" for "+T[dog])}
+ // risk level: how likely the pick fails, plus only the meaningful warnings
+ f.sort(function(x,y){return y.w-x.w});f=f.slice(0,4);
+ var REL=lgRel(lg),sc=(fp<55?4:fp<65?2:fp<75?1:0)+(REL.tier=="less"||REL.tier=="unknown"?1:0)+f.slice(0,3).reduce(function(x,y){return x+y.w},0),lv=sc>=4?"High":sc>=2?"Medium":"Low";
+ var fails=Math.round((100-fp)/10),o=[];
+ o.push("<b>Reality check:</b> the model makes "+T[fav]+" favourites at "+fp+"% (draw "+pd+"%, "+T[dog]+" "+pu+"%). "+(fp<55?"That is close to a coin flip: they fail to win about "+fails+" times in 10.":"Even so, a favourite at this level fails to win about "+fails+" times in 10."));
+ o.push("<b>League:</b> "+REL.txt);
+ if(pro.length)o.push("<b>What backs the pick:</b> "+pro.slice(0,3).join("; ")+".");
+ if(f.length)f.forEach(function(x,i){o.push((i==0?"🚩 <b>Main concern</b> · ":"⚠ ")+x.t)});
+ else o.push("<b>No unusual warning signs:</b> nothing in "+T[fav]+"’s record stands out as worse than normal for this league; the risk is ordinary football randomness.");
+ var dpu=pu,d6w=hd.slice(-6),dn=d6w.length,wc=[];
  if(dn>=4){var dlo=cnt(d6w,function(g){return g.gf<g.ga}),dga=d6w.reduce(function(x,g){return x+g.ga},0);
   if(dlo==0)wc.push("are unbeaten in their last "+dn);else if(dlo==1)wc.push("have lost just 1 of their last "+dn);
   if(dga/dn<=1)wc.push("have conceded just "+dga+" in their last "+dn)}
- var wl=hf.filter(function(g){return g.gf<g.ga&&rank[g.o]!==undefined}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
- var wtxt=wl?T[fav]+" already lost "+wl.gf+"–"+wl.ga+(wl.hm?" at home to ":" at ")+T[wl.o]+" ("+ord(rank[wl.o])+") this season":"";
- o.push("<b>Worst case:</b> "+T[dog]+" ("+ord(rank[dog])+", "+dpu+"% on the model) nick it."+(wc.length?" They "+wc.join(" and "):"")+(wc.length&&wtxt?", while "+wtxt+".":wc.length?".":wtxt?" Note that "+wtxt+".":""));
- return [lv,o,topf]}
+ var wl=hf.filter(function(g){return g.gf<g.ga&&rank[g.o]!==undefined&&rank[g.o]>rank[fav]}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
+ var wtxt=wl?T[fav]+" have already lost "+wl.gf+"–"+wl.ga+(wl.hm?" at home to ":" at ")+T[wl.o]+" ("+ord(rank[wl.o])+")":"";
+ var up=[];
+ if(wc.length)up.push("<b>The underdog:</b> "+T[dog]+" ("+ord(rank[dog])+") "+wc.join(" and ")+".");
+ if(wtxt)up.push("<b>It has happened already:</b> "+wtxt+" this season.");
+ if(f.length)up.push("<b>Main weakness to watch:</b> "+f[0].t.replace(/^<b>[^<]*<\/b>\s*/,""));
+ var topf=f.length?{w:f[0].w,s:f[0].s}:{w:0,s:"Fails to win ~"+fails+" in 10"};
+ return [lv,o,topf,up]}
 function extra(m){
  var h=m[2],a=m[3],n=NEWS[lg+":"+h+"-"+a],o="",why=[],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,pu=fav==h?m[6]:m[4],g=gx(m),r=rk(m);
  if(rank[h]<=4&&rank[a]<=4)why.push("Top-four clash: points here shape the title and Champions League race.");
  [h,a].forEach(function(t){if(rank[t]>S.length-3)why.push(T[t]+" are in the bottom three on "+st[t][4]+" pts, so expect urgency.")});
  if(!why.length&&Math.abs(st[h][4]-st[a][4])<=2)why.push("Table neighbours ("+st[h][4]+" v "+st[a][4]+" pts): close to a six-pointer.");
- if(rank[h]<=2&&rank[a]>=10)why.push(T[h]+" can’t afford a slip while title rivals keep winning.");
+ 
  if(!why.length)why.push(T[h]+" (#"+rank[h]+", "+st[h][4]+" pts) host "+T[a]+" (#"+rank[a]+", "+st[a][4]+" pts).");
  var P=function(x){return"<p>"+x+"</p>"};
  o+='<div class="sec"><h4>Why it matters</h4>'+why.map(P).join("")+'</div>';
  o+='<div class="sec"><h4>Goals outlook: '+g[0]+'</h4>'+g[1].map(P).join("")+'<p class="nv">'+(m[7]&&m[7].lh!==undefined?'Built from the shared model ('+mdpModelName()+'), the same numbers used for the tracked picks.':'Indicative only: built from win chances, draw rates and last round’s scores.'+(LG[lg].G?' Season goals scored and conceded are included.':' Season goal totals weren’t available.'))+'</p></div>';
- o+='<div class="sec"><h4>Risk factors: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
+ if(inPre)o+=upsetBox(m,r);
+ o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
  var D=dg(m),PL=function(c,t){return'<p><span class="'+c+'">'+(c=="w"?"+":"–")+'</span> '+t+'</p>'};
  o+='<div class="sec"><h4>Underdog angle: '+T[D.dog]+' ('+D.pu+'% to win)</h4><p>About 1 in '+Math.round(100/D.pu)+' on the model; a draw or better is about <b>'+(D.pu+D.pd).toFixed(0)+'%</b>.'+(m[7]&&m[7].dog15!==undefined?' On the +1.5 handicap the model gives them about <b>'+Math.round(m[7].dog15)+'%</b>.':'')+'</p>'+(D.pro.length?'<p class="nv">Points in their favour</p>'+D.pro.map(function(x){return PL("w",x)}).join(""):'<p class="nv">No data-backed points in their favour beyond the odds above.</p>')+(D.con.length?'<p class="nv">Working against them</p>'+D.con.map(function(x){return PL("lo",x)}).join(""):'')+'</div>';
  o+=mhtml(mm(m));
@@ -386,8 +420,8 @@ function keyFactors(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,factors=[];factors.p
 function match(m){
  var h=m[2],a=m[3],l=leanOf(m),pick=l=="D"?"Draw":T[l]+" win",g=gx(m),r=rk(m),D=dg(m),MR=mm(m),ps=predScore(m),pa=predScore(m,true),cf=confLabel(m);if(r[0]=="High"&&cf=="High")cf="Medium";
  return '<div class="m" data-i="u"><div class="row"><span class="t">'+bd(h)+'<span class="nm">'+T[h]+'</span></span><span class="time">'+m[1]+'</span><span class="t"><span class="nm">'+T[a]+'</span>'+bd(a)+'</span></div>'+bar(m)+
- mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+(D.pn>=4&&D.pu>=20?'<span class="tag am">⚡ Upset watch: '+T[D.dog]+'</span>':'')+mdpNewsTags(h,a)+'<span class="tag '+(g[0]=="Low-scoring risk"?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+'<span class="tag '+(r[2].w>=3?'rd':r[2].w>=1?'am':'')+'">🚩 '+r[2].s+'</span>'+ 
- '<div class="det"><div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor">'+x+'</div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
+ mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+(D.pn>=4&&D.pu>=20?'<span class="tag am">⚡ Upset watch: '+T[D.dog]+'</span>':'')+mdpNewsTags(h,a)+'<span class="tag '+(g[0]=="Low-scoring risk"?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
+ '<div class="det">'+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor">'+x+'</div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
 function buildPre(r){PST={};var i=Math.max(0,R.indexOf(r));S.forEach(function(x){PST[x[0]]=x.slice()});for(var j=i;j<R.length;j++){var q=R[j];[[q[2],q[3],q[5]],[q[4],q[5],q[3]]].forEach(function(z){var x=PST[z[0]];if(!x)return;if(z[1]>z[2]){x[1]--;x[4]-=3}else if(z[1]==z[2]){x[2]--;x[4]-=1}else x[3]--})}var arr=Object.keys(PST).map(function(k){return PST[k]});arr.sort(function(a,b){return b[4]-a[4]});PRK={};arr.forEach(function(x,i){PRK[x[0]]=i+1})}
 function est(r){buildPre(r);var h=r[2],a=r[4];if(r[6]&&r[6].lh!==undefined)return [r[0],r[1],h,a,r[6].h,r[6].d,r[6].a,r[6]];var g=function(t){var s=PST[t];return s[4]/Math.max(1,s[1]+s[2]+s[3])},d=g(h)-g(a)+0.3,raw=1/(1+Math.exp(-1.4*d)),dd=0.28-0.05*Math.min(Math.abs(d),2),ph=(1-dd)*raw*100,pa=(1-dd)*(1-raw)*100;return [r[0],r[1],h,a,+ph.toFixed(1),+(dd*100).toFixed(1),+pa.toFixed(1)]}
 var NLC={FEY:["#e4002b","#fff","#111"],AJA:["#fff","#d2122e","#d2122e"],PSV:["#e2001a","#fff","#fff"],TWE:["#d71920","#fff","#111"],AZA:["#c8102e","#fff","#fff"],FOR:["#ffd400","#0a7a2f","#0a7a2f"],HEE:["#0057b8","#fff","#fff"],GRO:["#00a651","#fff","#fff"],GAE:["#e30613","#ffd400","#ffd400"],CAM:["#ffd400","#0033a0","#0033a0"],UTR:["#d4002a","#fff","#0b2a6b"],NEC:["#e30613","#fff","#111"],EXC:["#111","#e30613","#e30613"],SPA:["#d4002a","#fff","#111"],ZWO:["#1f5fa8","#fff","#fff"],TEL:["#fff","#111","#111"],ADO:["#0a8f3c","#ffd400","#ffd400"],WIL:["#1b3a8a","#fff","#d71920"]};
@@ -410,9 +444,9 @@ function post(r){
  var od=oddsLine(h,a,m);if(od)o.push(od);var k=lg+":"+h+"-"+a;if(PAST[k])o.push(PAST[k]);
  return '<span class="tag pk">'+(lean==res?'Model lean hit':'Model lean missed')+'</span><ul class="ins review">'+o.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'}
 function pre(r){
- var m=est(r),sr=rank,ss=st,sl=last,h=m[2],a=m[3],o;rank=PRK;st=PST;last={};inPre=true;
+ MDP_CUT=r[8]||null;var m=est(r),sr=rank,ss=st,sl=last,h=m[2],a=m[3],o;rank=PRK;st=PST;last={};inPre=true;
  try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px">Pre-match view, rebuilt from the table as it stood before kick-off</div>'+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
- finally{rank=sr;st=ss;last=sl;inPre=false}
+ finally{rank=sr;st=ss;last=sl;inPre=false;MDP_CUT=null}
  var l=leanOf(m),res=r[3]>r[5]?h:r[5]>r[3]?a:"D",nm=function(x){return x=="D"?"Draw":T[x]+" win"};
  return o+'<div class="sec"><h4>Prediction vs result</h4><p>Pre-match lean: <b>'+nm(l)+'</b>. Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). <span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span></p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). Most likely score for the lean: <b>'+predScore(m).h+'–'+predScore(m).a+'</b>; single most likely score overall: <b>'+predScore(m,true).h+'–'+predScore(m,true).a+'</b>.</p>'+(MR.c?'<p>Most likely market was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<(res==h?m[6]:m[4])?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
 function record0(){var n=0,t=0;R.forEach(function(r){var l=leanOf(est(r)),res=r[3]>r[5]?r[2]:r[5]>r[3]?r[4]:"D";t++;if(l==res)n++});
@@ -464,7 +498,7 @@ function mdpDays(){
  var cur=lg,days={};
  Object.keys(LG).forEach(function(k){var L=LG[k];if(!L.CAL)return;setL(k);
   L.CAL.forEach(function(c){var d=c.dk||(c.dk=mdpDK(c.utc)),x=days[d]||(days[d]={}),y=x[k]||(x[k]={n:0,fin:0,hit:0,up:0});y.n++;
-   if(c.k=="r"){y.fin++;try{c.hit=leanOf(est(R[c.i]))==mdpResOf(R[c.i])}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
+   if(c.k=="r"){y.fin++;try{var em=est(R[c.i]),rr=R[c.i];c.hit=leanOf(em)==mdpResOf(rr);c.fp=Math.max(em[4],em[6]);c.fw=mdpResOf(rr)==(em[4]>=em[6]?em[2]:em[3]);c.lock=!!(rr[6]&&rr[6].frozen)}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
  setL(cur);MDP_DAYS={stamp:MDP_LIVE.stampKey,days:days};return MDP_DAYS}
 function mdpDaySum(x){var t={n:0,fin:0,hit:0,up:0};Object.keys(x).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var y=x[k];t.n+=y.n;t.fin+=y.fin;t.hit+=y.hit;t.up+=y.up});return t}
 function mdpCal(){
@@ -489,7 +523,7 @@ function mdpCal(){
 function mdpMini(m){return'<span class="mb"><i style="width:'+m[4]+'%;background:var(--home)"></i><i style="width:'+m[5]+'%;background:var(--draw)"></i><i style="width:'+m[6]+'%;background:var(--away)"></i></span>'}
 function mdpRowU(k,c){var m=U[c.i];if(!m)return'';var h=m[2],a=m[3];if(!hit(h,a))return'';var l=leanOf(m),st=MDP_STATUS[k+":"+h+"-"+a],p=l=="D"?m[5]:l==h?m[4]:m[6];
  return'<div class="cr" data-k="'+k+'" data-t="u" data-x="'+c.i+'"><div class="crm"><span class="crt'+(st?' lv':'')+'">'+(st?(st=="SUSPENDED"?"Susp.":"Live/<br>pending"):m[1])+'</span><span class="crh"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs vs">vs</span><span class="cra">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
- '<div class="crb">'+mdpMini(m)+'<span>Lean: <b style="color:var(--tx)">'+(l=="D"?"Draw":mdpEscape(T[l]))+'</b> '+Math.round(p)+'%</span></div><div class="crd"></div></div>'}
+ '<div class="crb">'+mdpMini(m)+'<span>Lean: <b style="color:var(--tx)">'+(l=="D"?"Draw":mdpEscape(T[l]))+'</b> '+Math.round(p)+'%'+(l!="D"&&Math.abs(m[4]-m[6])>=6?' · <span style="color:'+(100-p>=40?'var(--l)':'var(--am)')+'">fails to win '+Math.round(100-p)+'%</span>':'')+'</span></div><div class="crd"></div></div>'}
 function mdpRowR(k,c){var r=R[c.i];if(!r)return'';var h=r[2],a=r[4];if(!hit(h,a))return'';var res=mdpResOf(r),q=r[6];
  return'<div class="cr" data-k="'+k+'" data-t="r" data-x="'+c.i+'"><div class="crm"><span class="crt ft">FT</span><span class="crh'+(res==a?' lose':'')+'"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs">'+r[3]+' – '+r[5]+'</span><span class="cra'+(res==h?' lose':'')+'">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
  '<div class="crb"><span class="pill '+(c.hit?'ok':'no')+'">'+(c.hit?'✓ Lean right':'✗ Lean missed')+'</span>'+(q&&q.frozen?'<span class="pill lk">🔒 Saved before kick-off</span>':'<span class="pill">Rebuilt</span>')+'</div><div class="crd"></div></div>'}
@@ -505,6 +539,11 @@ function mdpRecordTab(){
  var o=mdpRecordHtml();
  o+='<div class="sec"><h4>Model lean by league (this season)</h4><p>How often the model’s lean (home win, draw or away win) matched the result'+(all.fin?': <b>'+all.hit+' of '+all.fin+'</b> overall ('+Math.round(100*all.hit/all.fin)+'%)':'')+'. Games with a 🔒 were predicted before kick-off; the rest were rebuilt afterwards using only earlier results.</p></div>';
  o+='<div class="sc2" style="margin-top:12px"><table><tr><th>League</th><th>Games</th><th>Lean right</th><th>%</th></tr>'+Object.keys(LG).filter(function(k){return tot[k]&&tot[k].fin}).map(function(k){var t=tot[k];return'<tr><td>'+lgLogo(k)+mdpEscape(LG[k].n)+' <span style="color:var(--mu);font-weight:500;font-size:12px">'+mdpEscape(lgCountry(k))+'</span></td><td>'+t.fin+'</td><td>'+t.hit+'</td><td><b>'+Math.round(100*t.hit/t.fin)+'%</b></td></tr>'}).join("")+'</table></div>';
+ var bands=[[0,50,"Under 50%"],[50,55,"50–55%"],[55,60,"55–60%"],[60,65,"60–65%"],[65,75,"65–75%"],[75,101,"75%+"]],cal=bands.map(function(){return{n:0,p:0,w:0}}),locked=0;
+ Object.keys(LG).forEach(function(k){(LG[k].CAL||[]).forEach(function(c){if(c.k!="r"||c.fp===undefined)return;bands.forEach(function(b,i){if(c.fp>=b[0]&&c.fp<b[1]){cal[i].n++;cal[i].p+=c.fp;cal[i].w+=c.fw?1:0}});if(c.lock)locked++})});
+ o+='<div class="sec"><h4>Honesty check: are the percentages right?</h4><p>If the model is honest, favourites given 60% should win about 60 games in 100. This compares what the model said with what happened, across every finished game this season ('+locked+' of them predicted and locked before kick-off).</p></div>';
+ o+='<div class="sc2" style="margin-top:12px"><table><tr><th>Favourite given</th><th>Games</th><th>Model said</th><th>Won</th><th>Verdict</th></tr>'+bands.map(function(b,i){var c=cal[i];if(!c.n)return"";var ps=c.p/c.n,ws=100*c.w/c.n,d=ws-ps;
+  return'<tr><td>'+b[2]+'</td><td>'+c.n+'</td><td>'+Math.round(ps)+'%</td><td><b>'+Math.round(ws)+'%</b></td><td>'+(c.n<30?'<span class="d">Too few games</span>':Math.abs(d)<=5?'<span class="w">✓ About right</span>':d<0?'<span class="lo">⚠ Too confident</span>':'<span class="am" style="color:var(--am)">Too cautious</span>')+'</td></tr>'}).join("")+'</table></div>';
  o+='<div class="foot">For any finished game, open the <b>Matchday</b> tab and pick its date to see the score, the pre-match prediction and the full analysis.</div>';
  return o}
 function render(){
@@ -541,6 +580,7 @@ var MDP_LIVE={matches:null,picks:[],log:[],summary:null,loaded:false};
 var MDP_LEAGUE_NAMES={epl:"Premier League",laliga:"La Liga",seriea:"Serie A",bundesliga:"Bundesliga",ligue1:"Ligue 1",champ:"Championship",nl:"Eredivisie",ppl:"Primeira Liga",bsa:"Brasileirão Série A",ucl:"Champions League",euro:"European Championship",wc:"World Cup",cli:"Copa Libertadores"};
 function mdpNorm(v){return String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"")}
 var MDP_WINDOW_DAYS=10;
+var MDP_UTC={},MDP_CUT=null;
 var MDP_PENDING={IN_PLAY:1,PAUSED:1,LIVE:1,SUSPENDED:1,AWARDED:0},MDP_STATUS={};
 function mdpPendingTag(h,a){var s=MDP_STATUS[lg+":"+h+"-"+a];return s?'<span class="tag am">'+(s==="SUSPENDED"?'Suspended':'⏱ Kicked off · result pending')+'</span>':''}
 function mdpParts(iso,opts){var o={};new Intl.DateTimeFormat("en-GB",Object.assign({timeZone:"Africa/Johannesburg"},opts)).formatToParts(new Date(iso)).forEach(function(p){o[p.type]=p.value});return o}
@@ -582,15 +622,15 @@ function mdpBuildLeague(key,ms,P){
  Object.keys(teams).forEach(function(n){T[teams[n]]=n});
  (ms||[]).forEach(function(m){var nw=P&&P.news&&P.news[String(m.id)];if(nw&&teams[m.home]&&teams[m.away])NEWS[key+":"+teams[m.home]+"-"+teams[m.away]]=mdpNewsObj(nw,m.home,m.away)});
  var C={};(ms||[]).forEach(function(m){if(m.hc&&teams[m.home])C[teams[m.home]]=m.hc;if(m.ac&&teams[m.away])C[teams[m.away]]=m.ac});
- (ms||[]).forEach(function(m){var h=teams[m.home],a=teams[m.away];if(!h||!a)return;var date=mdpDate(m.utc),time=mdpTime(m.utc);if(m.status==="FINISHED"&&m.hg!==null&&m.ag!==null){finished.push([date,time,h,+m.hg,a,+m.ag,m.utc,m.id])}else if((m.status==="SCHEDULED"||m.status==="TIMED")&&mdpInWindow(m.utc)){upcoming.push([date,time,h,a,m.utc,m.id])}else if(MDP_PENDING[m.status]&&new Date(m.utc).getTime()>Date.now()-3*864e5){MDP_STATUS[key+":"+h+"-"+a]=m.status;upcoming.push([date,time,h,a,m.utc,m.id])}});
+ (ms||[]).forEach(function(m){var h=teams[m.home],a=teams[m.away];if(!h||!a)return;var date=mdpDate(m.utc),time=mdpTime(m.utc);if(m.status==="FINISHED"&&m.hg!==null&&m.ag!==null){finished.push([date,time,h,+m.hg,a,+m.ag,m.utc,m.id])}else if((m.status==="SCHEDULED"||m.status==="TIMED")&&mdpInWindow(m.utc)){upcoming.push([date,time,h,a,m.utc,m.id]);MDP_UTC[key+":"+h+"-"+a]=m.utc}else if(MDP_PENDING[m.status]&&new Date(m.utc).getTime()>Date.now()-3*864e5){MDP_STATUS[key+":"+h+"-"+a]=m.status;upcoming.push([date,time,h,a,m.utc,m.id])}});
  var stats={};Object.keys(T).forEach(function(id){stats[id]={w:0,d:0,l:0,pts:0,gf:0,ga:0,played:0}});
  finished.forEach(function(r){var h=stats[r[2]],a=stats[r[4]],hg=r[3],ag=r[5];if(!h||!a)return;h.played++;a.played++;h.gf+=hg;h.ga+=ag;a.gf+=ag;a.ga+=hg;if(hg>ag){h.w++;h.pts+=3;a.l++}else if(ag>hg){a.w++;a.pts+=3;h.l++}else{h.d++;a.d++;h.pts++;a.pts++}});
  var S=Object.keys(T).map(function(id){var x=stats[id];return [id,x.w,x.d,x.l,x.pts,x.gf,x.ga,x.played]}).sort(function(a,b){return b[4]-a[4]||(b[5]-b[6])-(a[5]-a[6])||b[5]-a[5]});
- var R=finished.sort(function(a,b){return a[6].localeCompare(b[6])}).map(function(r){var x=r.slice(0,6),q=PM[String(r[7])];x[6]=q||undefined;x[7]=r[6].slice(0,4);return x});
+ var R=finished.sort(function(a,b){return a[6].localeCompare(b[6])}).map(function(r){var x=r.slice(0,6),q=PM[String(r[7])];x[6]=q||undefined;x[7]=r[6].slice(0,4);x[8]=r[6];return x});
  var CAL=finished.map(function(r,i){return{k:"r",i:i,utc:r[6]}}).concat(upcoming.slice().sort(function(a,b){return a[4].localeCompare(b[4])}).map(function(r,i){return{k:"u",i:i,utc:r[4]}}));
  var U=upcoming.sort(function(a,b){return a[4].localeCompare(b[4])}).map(function(r){var q=PM[String(r[5])];if(!q){noPred++;return [r[0],r[1],r[2],r[3]]}return [r[0],r[1],r[2],r[3],q.h,q.d,q.a,q]});
  var G={};Object.keys(T).forEach(function(id){G[id]=[stats[id].gf,stats[id].ga]});
- var H={};Object.keys(T).forEach(function(id){H[id]=[]});finished.slice().sort(function(a,b){return a[6].localeCompare(b[6])}).forEach(function(r){if(H[r[2]])H[r[2]].push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0]});if(H[r[4]])H[r[4]].push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0]})});
+ var H={};Object.keys(T).forEach(function(id){H[id]=[]});finished.slice().sort(function(a,b){return a[6].localeCompare(b[6])}).forEach(function(r){if(H[r[2]])H[r[2]].push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0],u:r[6]});if(H[r[4]])H[r[4]].push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0],u:r[6]})});
  return {CAL:CAL,n:((MDP_LIVE.matches&&MDP_LIVE.matches.names&&MDP_LIVE.matches.names[key])||MDP_LEAGUE_NAMES[key])||prior.n||key,T:T,C:C,S:S,G:G,H:H,R:R,U:U,avg:(P&&P.avg)||null,np:noPred,est:false};
 }
 function mdpRecordHtml(){
@@ -605,11 +645,12 @@ function mdpRecordHtml(){
  return o+'</div>'}
 function mdpModelName(){var M=MDP_LIVE.preds&&MDP_LIVE.preds.model;return M&&M.short?M.short:'each team’s last 10 games'}
 function mdpStamp(iso){try{return new Intl.DateTimeFormat('en-ZA',{timeZone:'Africa/Johannesburg',dateStyle:'medium',timeStyle:'short'}).format(new Date(iso))+' SAST'}catch(e){return String(iso||'an unknown time')}}
-function mdpNewsStatus(){var N=MDP_LIVE.preds&&MDP_LIVE.preds.news_sources;if(!N)return'';var f=N.fpl||{},a=N.api_football||{};return' · injury news: Premier League '+(f.ok?'✓':'✗')+', other leagues '+(a.ok?'✓':'✗'+(a.problem&&/plan|season/i.test(a.problem)?' (free plan can’t see this season)':a.problem&&/API_FOOTBALL_KEY/.test(a.problem)?' (no key added)':''))}
+function mdpNewsStatus(){var N=MDP_LIVE.preds&&MDP_LIVE.preds.news_sources;if(!mdpNewsOn())return'';var f=N.fpl||{},a=N.api_football||{};return' · injury news: Premier League '+(f.ok?'✓':'✗')+', other leagues '+(a.ok?'✓':'✗'+(a.problem&&/plan|season/i.test(a.problem)?' (free plan can’t see this season)':a.problem&&/API_FOOTBALL_KEY/.test(a.problem)?' (no key added)':''))}
 function mdpNewsList(arr){return arr.map(function(i){return i.p+" ("+(i.why||"no reason given").replace(/[()]/g,"")+")"}).join(", ")}
 function mdpNewsObj(nw,hn,an){var o={out:[],doubt:[],key:[],raw:nw,hn:hn,an:an};[[nw.h,hn],[nw.a,an]].forEach(function(z){var x=z[0];if(!x)return;if(x.out.length)o.out.push(z[1]+": "+mdpNewsList(x.out));if(x.doubt.length)o.doubt.push(z[1]+": "+mdpNewsList(x.doubt));x.out.forEach(function(i){if(i.key)o.key.push(i.p)})});return o}
 function mdpNewsTags(h,a){var n=NEWS[lg+":"+h+"-"+a];if(!n||!(n.out.length||n.doubt.length))return'';return'<span class="tag pk">🩹 Team news</span>'+(n.key.length?'<span class="tag am">⭐ Key out: '+mdpEscape(n.key.slice(0,3).join(", "))+'</span>':'')}
-function mdpNewsHtml(h,a){if(!(MDP_LIVE.preds&&MDP_LIVE.preds.news_sources))return'';var n=NEWS[lg+":"+h+"-"+a],nw=n&&n.raw,o='<div class="sec"><h4>'+(nw&&nw.frozen?'Team news before kick-off (saved, locked)':'Team news & injuries')+'</h4>';
+function mdpNewsOn(){var N=MDP_LIVE.preds&&MDP_LIVE.preds.news_sources;return!!(N&&Object.keys(N).length)}
+function mdpNewsHtml(h,a){if(!mdpNewsOn())return'';var n=NEWS[lg+":"+h+"-"+a],nw=n&&n.raw,o='<div class="sec"><h4>'+(nw&&nw.frozen?'Team news before kick-off (saved, locked)':'Team news & injuries')+'</h4>';
  if(!nw)return o+'<p class="nv">'+(inPre?'No team news was saved for this game before kick-off.':'No injury source covers this competition yet, so check official club news before kick-off.')+'</p></div>';
  var side=function(x,name){if(!x)return'';var r='<p><b>'+mdpEscape(name)+'</b></p>';x.out.forEach(function(i){r+='<p class="out">Out: '+mdpEscape(i.p)+(i.why?' – '+mdpEscape(i.why):'')+(i.key?' ⭐':'')+'</p>'});x.doubt.forEach(function(i){r+='<p>Doubt: '+mdpEscape(i.p)+(i.why?' – '+mdpEscape(i.why):'')+(i.ch!=null&&String(i.why||'').indexOf('%')<0?' ('+i.ch+'% chance of playing)':'')+'</p>'});return r};
  var body=side(nw.h,n.hn)+side(nw.a,n.an);
@@ -641,7 +682,7 @@ async function mdpLoadLive(){
   MDP_LIVE.stampKey=stampKey;MDP_LIVE.picks=all[1];MDP_LIVE.log=all[2];MDP_LIVE.summary=all[3];MDP_LIVE.preds=all[4];
   if(!Array.isArray(MDP_LIVE.picks))MDP_LIVE.picks=[];
   if(!data||!data.leagues||!Object.keys(data.leagues).length)throw new Error('data/matches.json has no leagues yet (check that the GitHub Action ran successfully)');
-   MDP_LIVE.matches=data;MDP_STATUS={};NEWS={};
+   MDP_LIVE.matches=data;MDP_STATUS={};NEWS={};MDP_UTC={};MDP_BASE={};
   var keep=Object.keys(data.leagues),cur=lg;
   var PL=(MDP_LIVE.preds&&MDP_LIVE.preds.leagues)||{};
   keep.forEach(function(k){LG[k]=mdpBuildLeague(k,data.leagues[k]||[],PL[k])});
