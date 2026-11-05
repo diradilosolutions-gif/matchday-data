@@ -64,7 +64,9 @@ h1 span{display:block;background:linear-gradient(90deg,var(--ac),#7be0b5 60%,var
 .cmp span{align-self:center}.cmp span small{color:var(--mu);font-size:11px}
 .cmp .bt{color:var(--w);font-weight:800;background:color-mix(in srgb,var(--w) 13%,transparent);border-radius:9px;padding:4px 6px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--w) 30%,transparent)}
 .cmp .bt small{color:var(--w)}
-.cmp .sm{font-size:12px;line-height:1.3}.cmp em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mu)}
+.cmp .sm{font-size:12px;line-height:1.3}.gxh{display:flex;align-items:center;gap:12px;margin-bottom:10px}.gxh b{font:700 34px var(--fd);letter-spacing:-.02em}.gxh span{font-size:12.5px;color:var(--mu);line-height:1.35}
+.gxg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.gxg div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 4px;text-align:center}.gxg b{display:block;font:700 17px var(--fd)}.gxg span{display:block;font-size:11px;color:var(--mu);line-height:1.2;margin-top:2px}
+.cmp.gx{margin:8px 0 0;background:var(--card)}.cmp.gx .t{display:block;text-align:center}.cmp .t small{display:block;font-weight:500;color:var(--mu);font-size:11px}.cmp em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mu)}
 .cmp{row-gap:10px!important}
 .ins{margin:12px 0 0;padding:0;list-style:none}
 .ins li{padding:6px 0 6px 20px;position:relative;font-size:14px}
@@ -262,13 +264,14 @@ function insights(m){
 function gx(m){
  var X=m[7];
  if(X&&X.lh!==undefined){
-  var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),av=LG[lg]&&LG[lg].avg,avgT=av?av.home+av.away:(MU[lg]||2.7),tot=X.lh+X.la,n=[],gh=lgl(h),ga=lgl(a),
-   lab=tot>=avgT+.35?"Goals likely":tot<=avgT-.35?"Low-scoring risk":"Balanced";
-  n.push("<b>Model:</b> about "+tot.toFixed(1)+" goals expected ("+T[h]+" "+X.lh.toFixed(1)+", "+T[a]+" "+X.la.toFixed(1)+"), against a league average of "+avgT.toFixed(1)+".");
-  var GA=tst(h,m),GB=tst(a,m);if(GA.h.n>=4&&GB.a.n>=4)n.push("<b>Their games:</b> "+T[h]+"’s home games average "+pg1(GA.h.gf+GA.h.ga,GA.h.n)+" goals (over 2.5 in "+pctOf(GA.h.o25,GA.h.n)+", both teams score in "+pctOf(GA.h.bt,GA.h.n)+"); "+T[a]+"’s away games "+pg1(GB.a.gf+GB.a.ga,GB.a.n)+" (over 2.5 in "+pctOf(GB.a.o25,GB.a.n)+", both score in "+pctOf(GB.a.bt,GB.a.n)+").");
-  
-  var wn=fav==h?(1-Math.exp(-X.lh))*Math.exp(-X.la):(1-Math.exp(-X.la))*Math.exp(-X.lh);n.push("<b>Win to nil:</b> the model gives "+T[fav]+" about "+Math.round(wn*100)+"% ("+(wn>=.35?"a realistic outcome":wn>=.2?"possible, but not the main route":"unlikely")+").");
-  
+  var h=m[2],a=m[3],tot=X.lh+X.la,n=[],A=pois(X.lh,10),Bp=pois(X.la,10),T0=pois(tot,12),
+   o05=1-T0[0],o35=1-T0[0]-T0[1]-T0[2]-T0[3],o15=X.o15!==undefined?X.o15/100:1-T0[0]-T0[1],o25=X.o25!==undefined?X.o25/100:1-T0[0]-T0[1]-T0[2],
+   bt=X.btts!==undefined?X.btts/100:(1-A[0])*(1-Bp[0]),sh=1-A[0],sa=1-Bp[0],bestT=0;
+  for(var k=1;k<=6;k++)if(T0[k]>T0[bestT])bestT=k;
+  var lab=tot.toFixed(1)+" goals expected",box=function(v,t){return'<div><b>'+Math.round(v*100)+'%</b><span>'+t+'</span></div>'};
+  n.push('<div class="gxs"><div class="gxh"><b>'+tot.toFixed(1)+'</b><span>goals expected<br>'+mdpEscape(T[h])+' '+X.lh.toFixed(1)+' · '+mdpEscape(T[a])+' '+X.la.toFixed(1)+'</span></div>'+
+   '<div class="gxg">'+box(o15,"Over 1.5")+box(o25,"Over 2.5")+box(o35,"Over 3.5")+box(bt,"Both teams score")+box(sh,mdpEscape(T[h])+" score")+box(sa,mdpEscape(T[a])+" score")+'</div>'+
+   '<p class="nv" style="margin:8px 0 0">Most likely total: '+bestT+' goal'+(bestT==1?'':'s')+' ('+Math.round(T0[bestT]*100)+'%). Over 0.5 goals: '+Math.round(o05*100)+'%.</p></div>');
   return [lab,n]}
  var h=m[2],a=m[3],pd=m[5],gap=Math.abs(m[4]-m[6]),fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),lo=0,hi=0,n=[],gh=lgl(h),ga=lgl(a),d2=dr(h)+dr(a);
  if(pd>=27)lo++;if(gap<8)lo++;if(d2>=0.7)lo++;if(gh!==null&&ga!==null&&gh<=2&&ga<=2)lo++;
@@ -384,8 +387,8 @@ function fpts(l5){return l5.reduce(function(s,x){return s+(x.gf>x.ga?3:x.gf==x.g
 function pg1(x,n){return n?(x/n).toFixed(1):"–"}
 function pctOf(x,n){return n?Math.round(100*x/n)+"%":"–"}
 var MDP_RELEG={epl:3,champ:3,l1:4,laliga:3,seriea:3,bundesliga:2,bl2:2,ligue1:2,nl:2,ppl:2,bsa:4},MDP_CUPS={ucl:1,wc:1,euro:1,cli:1};
-function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5]});
- return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2}:{home:.45,away:.29,gpt:1.35}}
+function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0,o25=0,bt=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5];if(r[3]+r[5]>=3)o25++;if(r[3]>0&&r[5]>0)bt++});
+ return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2,o25:o25/n,bt:bt/n}:{home:.45,away:.29,gpt:1.35,o25:.5,bt:.5}}
 function rk(m){
  var h=m[2],a=m[3],pd=m[5],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pu=fav==h?m[6]:m[4],B=lgBase(),
   hf=histOf(fav,m),hd=histOf(dog,m),f=[],pro=[],n=NEWS[lg+":"+h+"-"+a],
@@ -482,7 +485,7 @@ function extra(m){
  
  var P=function(x){return"<p>"+x+"</p>"};
  
- o+='<div class="sec"><h4>Goals outlook: '+g[0]+'</h4>'+g[1].map(P).join("")+'<p class="nv">'+(m[7]&&m[7].lh!==undefined?'Built from the shared model ('+mdpModelName()+'), the same numbers used for the tracked picks.':'Indicative only: built from win chances, draw rates and last round’s scores.'+(LG[lg].G?' Season goals scored and conceded are included.':' Season goal totals weren’t available.'))+'</p></div>';
+ o+='<div class="sec"><h4>Goals outlook</h4>'+g[1].map(function(x){return x.indexOf('<div')==0?x:P(x)}).join("")+'<p class="nv">'+(m[7]&&m[7].lh!==undefined?'Built from the shared model ('+mdpModelName()+'), the same numbers used for the tracked picks.':'Indicative only: built from win chances, draw rates and last round’s scores.'+(LG[lg].G?' Season goals scored and conceded are included.':' Season goal totals weren’t available.'))+'</p></div>';
  if(inPre)o+=upsetBox(m,r);
  o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
  var D=dg(m),PL=function(c,t){return'<p><span class="'+c+'">'+(c=="w"?"+":"–")+'</span> '+t+'</p>'};
@@ -524,7 +527,7 @@ function keyFactors(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,factors=[];factors.p
 function match(m){
  var h=m[2],a=m[3],l=leanOf(m),pick=l=="D"?"Draw":T[l]+" win",g=gx(m),r=rk(m),D=dg(m),MR=mm(m),ps=predScore(m),pa=predScore(m,true),cf=confLabel(m);if(r[0]=="High"&&cf=="High")cf="Medium";
  return '<div class="m" data-i="u"><div class="row"><span class="t">'+bd(h)+'<span class="nm">'+T[h]+'</span></span><span class="time">'+m[1]+'</span><span class="t"><span class="nm">'+T[a]+'</span>'+bd(a)+'</span></div>'+bar(m)+
- mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+''+mdpNewsTags(h,a)+'<span class="tag '+(g[0]=="Low-scoring risk"?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
+ mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+''+mdpNewsTags(h,a)+'<span class="tag '+(/^Low|Mixed/.test(g[0])?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
  '<div class="det">'+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true,m)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor"><span>'+x+'</span></div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
 function buildPre(r){PST={};var i=Math.max(0,R.indexOf(r));S.forEach(function(x){PST[x[0]]=x.slice()});for(var j=i;j<R.length;j++){var q=R[j];[[q[2],q[3],q[5]],[q[4],q[5],q[3]]].forEach(function(z){var x=PST[z[0]];if(!x)return;if(z[1]>z[2]){x[1]--;x[4]-=3}else if(z[1]==z[2]){x[2]--;x[4]-=1}else x[3]--})}var arr=Object.keys(PST).map(function(k){return PST[k]});arr.sort(function(a,b){return b[4]-a[4]});PRK={};arr.forEach(function(x,i){PRK[x[0]]=i+1})}
 function est(r){buildPre(r);var h=r[2],a=r[4];if(r[6]&&r[6].lh!==undefined)return [r[0],r[1],h,a,r[6].h,r[6].d,r[6].a,r[6]];var g=function(t){var s=PST[t];return s[4]/Math.max(1,s[1]+s[2]+s[3])},d=g(h)-g(a)+0.3,raw=1/(1+Math.exp(-1.4*d)),dd=0.28-0.05*Math.min(Math.abs(d),2),ph=(1-dd)*raw*100,pa=(1-dd)*(1-raw)*100;return [r[0],r[1],h,a,+ph.toFixed(1),+(dd*100).toFixed(1),+pa.toFixed(1)]}
