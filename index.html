@@ -95,6 +95,8 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .lgh{text-transform:none!important;letter-spacing:0!important;font-size:14px!important;color:var(--tx)!important;gap:0!important}
 .lgh .lgc{color:var(--mu);font-weight:500;margin-left:8px;font-size:13px}
 .lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
+.dbt td:nth-child(2),.dbt th:nth-child(2){text-align:center}
+.dbt{box-shadow:none;border-radius:12px;font-size:13px;margin-top:2px}.dbt th,.dbt td{padding:8px 6px}.dbt td:first-child,.dbt th:first-child{text-align:left;font-weight:500}
 .upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
 .upbox h4{margin:0 0 10px;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.07em;color:var(--l)}
 .upbox p{margin:6px 0}
@@ -320,6 +322,13 @@ function mdpShocks(t,fav){var cut=MDP_CUT||"9999",n=0,exp=0,wins=0,big=[],won=[]
   else if(res=="W"&&rank[opp]!==undefined&&rank[t]!==undefined&&rank[t]-rank[opp]>=10)big.push({pw:0,t:txt+" (they sit #"+rank[opp]+")"})});
  won.sort(function(a,b){return a.pw-b.pw});big.sort(function(a,b){return a.pw-b.pw});
  return{n:n,exp:exp,wins:wins,won:won,big:big,h2h:h2h,h2hw:h2hw,hot:wins>=2&&wins>=exp+1.5}}
+/* Underdog bets: the model's chance and fair odds for each underdog market */
+function dogBets(m){if(Math.abs(m[4]-m[6])<6)return'';var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,L=mm(m).L,lh=L[0],la=L[1],dh=dog==h,A=pois(lh,8),Bp=pois(la,8),p={w:0,d:0,h15:0,h25:0},X=m[7];
+ for(var i=0;i<=8;i++)for(var j=0;j<=8;j++){var v=A[i]*Bp[j],dgl=dh?i:j,fgl=dh?j:i;if(dgl>fgl)p.w+=v;else if(dgl==fgl)p.d+=v;if(fgl-dgl<2)p.h15+=v;if(fgl-dgl<3)p.h25+=v}
+ var t=p.w+p.d+(1-p.w-p.d),pu=(dh?m[4]:m[6])/100,pd=m[5]/100,score=1-Math.exp(-(dh?lh:la)),h15=X&&X.dog15!==undefined?X.dog15/100:p.h15,
+  rows=[["To win",pu],["Win or draw (double chance)",pu+pd],["+1.5 handicap (lose by 1 at most)",h15],["+2.5 handicap (lose by 2 at most)",Math.min(.995,p.h25)],["To score at least once",score]];
+ var o='<div class="sec"><h4>Underdog bets: '+mdpEscape(T[dog])+'</h4><div class="sc2"><table class="dbt"><tr><th>Market</th><th>Model</th><th>Fair odds</th></tr>'+rows.map(function(r){return'<tr><td>'+r[0]+'</td><td><b>'+Math.round(r[1]*100)+'%</b></td><td>'+(r[1]>0?(1/r[1]).toFixed(2):'–')+'</td></tr>'}).join("")+'</table></div>';
+ return o+'<p class="nv">Fair odds = what the price should be if the model is right. A bet only has value if your bookmaker pays <b>more</b> than the fair odds; bookmakers include a margin, so most prices will be below it. These are model estimates, not guarantees.</p></div>'}
 /* Worst case: how the favourite could slip */
 function upsetData(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pd=m[5],pu=fav==h?m[6]:m[4],L=mm(m).L,lh=L[0],la=L[1],lf=fav==h?lh:la,ld=fav==h?la:lh,A=pois(lh,7),Bp=pois(la,7),bd={p:-1},bu={p:-1};
  for(var i=0;i<=7;i++)for(var j=0;j<=7;j++){var v=A[i]*Bp[j],fg=fav==h?i:j,dg2=fav==h?j:i;if(fg==dg2&&v>bd.p)bd={p:v,s:i+"–"+j};if(dg2>fg&&v>bu.p)bu={p:v,s:i+"–"+j}}
@@ -422,7 +431,7 @@ function extra(m){
  if(inPre)o+=upsetBox(m,r);
  o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
  var D=dg(m),PL=function(c,t){return'<p><span class="'+c+'">'+(c=="w"?"+":"–")+'</span> '+t+'</p>'};
- o+='<div class="sec"><h4>Underdog angle: '+T[D.dog]+' ('+D.pu+'% to win)</h4><p>About 1 in '+Math.round(100/D.pu)+' on the model; a draw or better is about <b>'+(D.pu+D.pd).toFixed(0)+'%</b>.'+(m[7]&&m[7].dog15!==undefined?' On the +1.5 handicap the model gives them about <b>'+Math.round(m[7].dog15)+'%</b>.':'')+'</p>'+(D.pro.length?'<p class="nv">Points in their favour</p>'+D.pro.map(function(x){return PL("w",x)}).join(""):'<p class="nv">No data-backed points in their favour beyond the odds above.</p>')+(D.con.length?'<p class="nv">Working against them</p>'+D.con.map(function(x){return PL("lo",x)}).join(""):'')+'</div>';
+ o+=dogBets(m);
  o+=mhtml(mm(m));
  o+=mdpNewsHtml(h,a);
  return o}
