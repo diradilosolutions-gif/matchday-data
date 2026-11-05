@@ -25,6 +25,26 @@ def pack(p):
             "dog15": pct(p["dog15"]), "fav": p["fav"]}
 
 
+def news_for(news, cover, lg, m, now):
+    """Injury/suspension news for one match, from data/team_news.json (or None)."""
+    T = (news.get("teams") or {}).get(lg, {})
+    ko = datetime.fromisoformat(m["utc"].replace("Z", "+00:00"))
+
+    def ok(i):
+        if i.get("fx"):   # API-Football news belongs to one fixture date
+            return abs((datetime.fromisoformat(i["fx"]).date() - ko.date()).days) <= 1
+        return ko - now <= timedelta(days=8)   # FPL / manual notes describe the current situation
+
+    def side(team):
+        x = T.get(team) or {}
+        o, d = [i for i in x.get("out", []) if ok(i)], [i for i in x.get("doubt", []) if ok(i)]
+        return {"out": o, "doubt": d} if o or d else None
+    h, a = side(m["home"]), side(m["away"])
+    if not h and not a and not cover.get(lg):
+        return None
+    return {"h": h, "a": a, "cover": cover.get(lg, []), "upd": news.get("updated")}
+
+
 def main(now=None):
     now = now or datetime.now(timezone.utc)
     iso = lambda dt: dt.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -40,6 +60,24 @@ def main(now=None):
     arch_path = D / "predictions_archive.json"
     arch = json.loads(arch_path.read_text()) if arch_path.exists() else {}
     out = {"updated": iso(now), "model": desc, "leagues": {}}
+    try:   # per-league reliability from the back-test, shown on the site
+        out["model"]["league_reliability"] = json.loads((D / "model_choice.json").read_text()).get("league_reliability", {})
+    except (OSError, ValueError):
+        pass
+    # team news: shown on the site, saved and locked at kick-off like the predictions
+    news = json.loads((D / "team_news.json").read_text()) if (D / "team_news.json").exists() else {}
+    src = news.get("sources") or {}
+    cover = {}
+    for lg in data["leagues"]:
+        c = []
+        if lg == "epl" and (src.get("fpl") or {}).get("ok"):
+            c.append("Fantasy Premier League")
+        elif lg != "epl" and (src.get("api_football") or {}).get("ok"):
+            c.append("API-Football")
+        cover[lg] = c
+    out["news_sources"] = {k: {kk: vv for kk, vv in v.items() if kk != "entries"} for k, v in src.items()}
+    news_path = D / "news_archive.json"
+    narch = json.loads(news_path.read_text()) if news_path.exists() else {}
     locked = rebuilt = 0
     for lg, ms in data["leagues"].items():
         A = arch.setdefault(lg, {})
@@ -78,11 +116,23 @@ def main(now=None):
                     matches[mid] = dict(pack(p), frozen=False); rebuilt += 1
         avg = ({"home": round(sum(m["hg"] for m in fin) / len(fin), 2),
                 "away": round(sum(m["ag"] for m in fin) / len(fin), 2)} if fin else None)
-        out["leagues"][lg] = {"avg": avg, "matches": matches}
+        NA, NM = narch.setdefault(lg, {}), {}
+        for m in ms:
+            mid = str(m["id"])
+            ko = datetime.fromisoformat(m["utc"].replace("Z", "+00:00"))
+            if m["status"] in ("SCHEDULED", "TIMED") and now < ko <= now + WINDOW:
+                nw = news_for(news, cover, lg, m, now)
+                if nw:
+                    NA[mid] = dict(nw, saved=iso(now))   # overwritten until kick-off, then locked
+                    NM[mid] = NA[mid]
+            elif mid in NA and ko >= now - timedelta(days=14):
+                NM[mid] = dict(NA[mid], frozen=True)     # team news as it stood before kick-off
+        out["leagues"][lg] = {"avg": avg, "matches": matches, "news": NM}
         print(f"{lg}: {len(matches)} predictions" + ("" if enough else f" (only {len(fin)} finished games, too few to predict)"))
     print(f"finished/started games: {locked} locked pre-match predictions, {rebuilt} rebuilt back-tests")
     (D / "predictions.json").write_text(json.dumps(out, separators=(",", ":")))
     arch_path.write_text(json.dumps(arch, separators=(",", ":")))
+    news_path.write_text(json.dumps(narch, ensure_ascii=False, separators=(",", ":")))
 
 
 if __name__ == "__main__":

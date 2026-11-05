@@ -17,6 +17,8 @@ from model import predict_v1, predict_v2, V2_DEFAULTS  # noqa: E402
 from backtest import load, devig  # noqa: E402
 
 D = Path(__file__).resolve().parent.parent / "data"
+SITE_KEY = {"E0": "epl", "E1": "champ", "SP1": "laliga", "I1": "seriea", "D1": "bundesliga",
+            "F1": "ligue1", "N1": "nl", "P1": "ppl", "BRA": "bsa"}
 LEAGUE_NAMES = {"E0": "Premier League", "E1": "Championship", "SP1": "La Liga", "I1": "Serie A",
                 "D1": "Bundesliga", "F1": "Ligue 1", "N1": "Eredivisie", "P1": "Primeira Liga",
                 "BRA": "Brasileirão Série A"}
@@ -103,6 +105,12 @@ def main(folder):
     choice = dict(use["settings"], chosen=use["name"], tested=now, matches=use["matches"],
                   reason=("beat v1 on past seasons" if use is not v1 else
                           "v2 was not clearly better than v1, so v1 stays"))
+    # how predictable each league is for the chosen model (lower log loss = more predictable)
+    rel = {SITE_KEY.get(lg, lg.lower()): {"logloss": x[use["name"]], "matches": x["matches"]}
+           for lg, x in per_league.items() if use["name"] in x}
+    for i, k in enumerate(sorted(rel, key=lambda k: rel[k]["logloss"])):
+        rel[k]["rank"] = i + 1
+    choice["league_reliability"] = rel
     D.mkdir(exist_ok=True)
     (D / "model_choice.json").write_text(json.dumps(choice, indent=1))
     bk = {"logloss_1x2": round(book["ll"] / book["n"], 4), "brier_1x2": round(book["brier"] / book["n"], 4),
