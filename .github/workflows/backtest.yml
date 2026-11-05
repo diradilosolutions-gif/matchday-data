@@ -32,14 +32,18 @@ jobs:
           ls -la hist
       - name: Compare old and new model, pick the better one
         run: python scripts/compare_models.py hist
+      - name: Test which upset signals really work (for the Upset Pick of the Day)
+        run: python scripts/upset_backtest.py hist
       - name: Re-calculate predictions with the chosen model
         run: |
-          if [ -f data/matches.json ]; then python scripts/make_predictions.py; fi
+          if [ -f data/matches.json ]; then python scripts/make_predictions.py && python scripts/pick_of_day.py; fi
       - name: Save results
         run: |
           git config user.name "matchday-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/model_choice.json data/backtest_report.md data/predictions.json data/predictions_archive.json 2>/dev/null || true
+          for f in model_choice.json backtest_report.md predictions.json predictions_archive.json upset_rules.json potd.json potd_preview.json potd_backtest.json; do
+            if [ -f "data/$f" ]; then git add "data/$f"; fi
+          done
           git diff --cached --quiet || git commit -m "Back-test models $(date -u +'%Y-%m-%d')"
           git pull --rebase
           git push

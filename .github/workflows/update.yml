@@ -23,10 +23,17 @@ jobs:
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: python scripts/fetch_data.py
+      - name: Fetch injury and suspension news (free sources)
+        continue-on-error: true      # news problems must never stop predictions
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python scripts/fetch_news.py
       - name: Calculate predictions (one model for the site and the pick log; locks pre-match numbers)
         run: python scripts/make_predictions.py
       - name: Log picks and settle results
         run: python scripts/run_picks.py
+      - name: Pick of the Day (fixed rules, locked once chosen)
+        run: python scripts/pick_of_day.py
       - name: Save changes (this timestamps every pick)
         run: |
           git config user.name "matchday-bot"
