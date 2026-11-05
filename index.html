@@ -309,6 +309,17 @@ function lgRel(k){var M=MDP_LIVE.preds&&MDP_LIVE.preds.model&&MDP_LIVE.preds.mod
  if(i<0)return{rank:0,of:ks.length,txt:"This competition is not in our back-test (too few games per team), so treat the numbers with extra caution.",tier:"unknown"};
  var r=i+1,n=ks.length,tier=r<=3?"more":r>=n-2?"less":"average";
  return{rank:r,of:n,tier:tier,txt:LG[k].n+" is "+(r==n?"the least predictable":r==1?"the most predictable":tier=="less"?"one of the least predictable":tier=="more"?"one of the more predictable":"about average")+" of the "+n+" leagues in our back-test ("+ord(r)+" of "+n+")."}}
+/* Giant-killer check: results where this team won or drew when the model gave them little chance */
+function mdpAbout(x){return x<1?x.toFixed(1):String(Math.round(x))}
+function mdpShocks(t,fav){var cut=MDP_CUT||"9999",n=0,exp=0,wins=0,big=[],won=[],h2h=[],h2hw=0;
+ R.forEach(function(r){if(r[2]!==t&&r[4]!==t)return;if(r[8]&&r[8]>=cut)return;var home=r[2]===t,opp=home?r[4]:r[2],gf=home?r[3]:r[5],ga=home?r[5]:r[3],q=r[6],res=gf>ga?"W":gf==ga?"D":"L",
+  txt=(res=="W"?"beat ":"drew with ")+T[opp]+" "+gf+"–"+ga+(home?" at home":" away");
+  if(opp===fav&&res!="L"){h2h.push((res=="W"?"beat them ":"drew with them ")+gf+"–"+ga+(home?" at home":" away")+" on "+r[0]);if(res=="W")h2hw++}
+  if(q&&q.h!==undefined){var pw=home?q.h:q.a;
+   if(pw<=35){n++;exp+=pw/100;if(res=="W"){wins++;won.push({pw:pw,t:txt+" (given "+Math.round(pw)+"%)"});if(pw<=15)big.push({pw:pw,t:txt+" when given just "+Math.round(pw)+"%"})}}}
+  else if(res=="W"&&rank[opp]!==undefined&&rank[t]!==undefined&&rank[t]-rank[opp]>=10)big.push({pw:0,t:txt+" (they sit #"+rank[opp]+")"})});
+ won.sort(function(a,b){return a.pw-b.pw});big.sort(function(a,b){return a.pw-b.pw});
+ return{n:n,exp:exp,wins:wins,won:won,big:big,h2h:h2h,h2hw:h2hw,hot:wins>=2&&wins>=exp+1.5}}
 /* Worst case: how the favourite could slip */
 function upsetData(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pd=m[5],pu=fav==h?m[6]:m[4],L=mm(m).L,lh=L[0],la=L[1],lf=fav==h?lh:la,ld=fav==h?la:lh,A=pois(lh,7),Bp=pois(la,7),bd={p:-1},bu={p:-1};
  for(var i=0;i<=7;i++)for(var j=0;j<=7;j++){var v=A[i]*Bp[j],fg=fav==h?i:j,dg2=fav==h?j:i;if(fg==dg2&&v>bd.p)bd={p:v,s:i+"–"+j};if(dg2>fg&&v>bu.p)bu={p:v,s:i+"–"+j}}
@@ -355,6 +366,11 @@ function rk(m){
  // 5. the underdog is in genuinely good form
  var d6=hd.slice(-6);
  if(d6.length>=5&&cnt(d6,function(g){return g.gf<g.ga})==0&&ppgOf(d6)>=1.8)add(1,"<b>Underdog in form:</b> "+T[dog]+" are unbeaten in their last "+d6.length+" ("+d6.map(res).join(" ")+").");
+ // 5b. giant-killer: the underdog has already pulled surprises this season
+ var SH=mdpShocks(dog,fav);
+ if(SH.h2h.length)add(SH.h2hw?2:1,"<b>Already done it to them:</b> "+T[dog]+" "+SH.h2h.join("; ")+" this season.");
+ if(SH.hot)add(2,"<b>Giant-killers:</b> as underdogs this season "+T[dog]+" have won "+SH.wins+" of "+SH.n+" games, when the model expected about "+mdpAbout(SH.exp)+": "+SH.won.slice(0,3).map(function(e){return e.t}).join("; ")+".");
+
  // 6. draw-heavy matchup, fixture congestion, team news, thin evidence
  if(pd>=29)add(1,"<b>Draw-prone:</b> the model gives the draw "+pd+"%, higher than usual.");
  var rf=rest(m,fav),rd=rest(m,dog);
@@ -377,16 +393,20 @@ function rk(m){
  if(pro.length)o.push("<b>What backs the pick:</b> "+pro.slice(0,3).join("; ")+".");
  if(f.length)f.forEach(function(x,i){o.push((i==0?"🚩 <b>Main concern</b> · ":"⚠ ")+x.t)});
  else o.push("<b>No unusual warning signs:</b> nothing in "+T[fav]+"’s record stands out as worse than normal for this league; the risk is ordinary football randomness.");
+ if(!SH.hot&&SH.big.length)o.push("ℹ <b>Shock on record:</b> "+T[dog]+" "+SH.big.slice(0,2).map(function(e){return e.t}).join("; ")+" this season. Worth knowing, though one-off upsets happen to most teams.");
  var dpu=pu,d6w=hd.slice(-6),dn=d6w.length,wc=[];
  if(dn>=4){var dlo=cnt(d6w,function(g){return g.gf<g.ga}),dga=d6w.reduce(function(x,g){return x+g.ga},0);
   if(dlo==0)wc.push("are unbeaten in their last "+dn);else if(dlo==1)wc.push("have lost just 1 of their last "+dn);
   if(dga/dn<=1)wc.push("have conceded just "+dga+" in their last "+dn)}
- var wl=hf.filter(function(g){return g.gf<g.ga&&rank[g.o]!==undefined&&rank[g.o]>rank[fav]}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
+ var wl=hf.filter(function(g){return g.gf<g.ga&&g.o!==dog&&rank[g.o]!==undefined&&rank[g.o]>rank[fav]}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
  var wtxt=wl?T[fav]+" have already lost "+wl.gf+"–"+wl.ga+(wl.hm?" at home to ":" at ")+T[wl.o]+" ("+ord(rank[wl.o])+")":"";
  var up=[];
  if(wc.length)up.push("<b>The underdog:</b> "+T[dog]+" ("+ord(rank[dog])+") "+wc.join(" and ")+".");
+ if(SH.h2h.length)up.push("<b>Head to head:</b> "+T[dog]+" already "+SH.h2h.join("; ")+".");
+ if(SH.n>=3)up.push("<b>As underdogs this season:</b> "+T[dog]+" won "+SH.wins+" of "+SH.n+" (the model expected about "+mdpAbout(SH.exp)+")"+(SH.hot?" — more upsets than expected.":SH.wins?": "+SH.won.slice(0,2).map(function(e){return e.t}).join("; ")+".":", no upsets so far."));
+ else if(SH.big.length)up.push("<b>Biggest shock this season:</b> "+T[dog]+" "+SH.big[0].t+".");
  if(wtxt)up.push("<b>It has happened already:</b> "+wtxt+" this season.");
- if(f.length)up.push("<b>Main weakness to watch:</b> "+f[0].t.replace(/^<b>[^<]*<\/b>\s*/,""));
+ var fw0=f.filter(function(x){return!/Giant-killers|Already done it/.test(x.t)})[0];if(fw0)up.push("<b>Main weakness to watch:</b> "+fw0.t.replace(/^<b>[^<]*<\/b>\s*/,""));
  var topf=f.length?{w:f[0].w,s:f[0].s}:{w:0,s:"Fails to win ~"+fails+" in 10"};
  return [lv,o,topf,up]}
 function extra(m){
