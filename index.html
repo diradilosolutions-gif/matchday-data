@@ -95,7 +95,7 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .lgh{text-transform:none!important;letter-spacing:0!important;font-size:14px!important;color:var(--tx)!important;gap:0!important}
 .lgh .lgc{color:var(--mu);font-weight:500;margin-left:8px;font-size:13px}
 .lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
-.dbt td:nth-child(2),.dbt th:nth-child(2){text-align:center}
+.dbt td:nth-child(2),.dbt th:nth-child(2){text-align:center}.mkt td:nth-child(3),.mkt td:nth-child(4),.mkt th:nth-child(3),.mkt th:nth-child(4){text-align:center;color:var(--mu)}.mkt td:nth-child(4){color:var(--tx)}.mkt td:nth-child(2){white-space:nowrap}.mkt td:first-child{min-width:110px}
 .dbt{box-shadow:none;border-radius:12px;font-size:13px;margin-top:2px}.dbt th,.dbt td{padding:8px 6px}.dbt td:first-child,.dbt th:first-child{text-align:left;font-weight:500}
 .kick{display:inline-block;margin:0 0 10px;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--mu);font:600 12px var(--fd)}
 .upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
@@ -272,13 +272,19 @@ function mm(m){var X=m[7];
    ov={o15:X.o15/100,o25:X.o25/100,u25:1-X.o25/100,by:X.btts/100,bn:1-X.btts/100};
   mk.forEach(function(x){if(ov[x[0]]!==undefined&&!isNaN(ov[x[0]]))x[2]=ov[x[0]]});
   for(i=0;i<mk.length;i++){p=mk[i][2];u=p-Y[i][2];if(p>=.55&&p<=.8&&u>=.04&&(!c||u>c.u))c={id:mk[i][0],n:mk[i][1],p:p,u:u,b:Y[i][2]}}
-  return{L:L,X:mk,c:c,pm:true}}
+  return{L:L,X:mk,Y:Y,c:c,pm:true}}
  var g=gx(m)[0],b0=MU[lg]||2.7,mu=b0+(g=="Goals likely"?.35:g=="Low-scoring risk"?-.35:0),L=sol(mu,m[4]/100,m[6]/100),X=mkt(L),Y=mkt(sol(b0,.45,.28)),c=null,i,p,u;
  for(i=0;i<X.length;i++){p=X[i][2];u=p-Y[i][2];if(p>=.55&&p<=.8&&u>=.04&&(!c||u>c.u))c={id:X[i][0],n:X[i][1],p:p,u:u,b:Y[i][2]}}
- return{L:L,X:X,c:c}}
+ return{L:L,X:X,Y:Y,c:c}}
 function ev(id,h,a){var t=h+a;return id=="h"?h>a:id=="a"?a>h:id=="1x"?h>=a:id=="x2"?a>=h:id=="o15"?t>1:id=="o25"?t>2:id=="u25"?t<3:id=="u35"?t<4:id=="by"?h>0&&a>0:id=="bn"?!(h>0&&a>0):null}
-function mhtml(R){var c=R.c;if(!c)return'<div class="sec"><h4>Most likely markets</h4><p>No clear edge: no market is more than 4 points above a typical game. Pass, or stick with the win-chance lean.</p><p class="nv">Model goals '+(R.L[0]+R.L[1]).toFixed(1)+' in total, '+R.L[0].toFixed(1)+' – '+R.L[1].toFixed(1)+(R.pm?' (from the shared model: '+mdpModelName()+', not tracked xG).':' (implied, not tracked xG).')+'</p></div>';var pc=function(x){return Math.round(x*100)+"%"},al=R.X.filter(function(x){return x[0]!=c.id&&["o15","u35","by","h1"].indexOf(x[0])>-1}).map(function(x){return x[1].replace("Both teams to score","BTTS").replace("A goal in the first half (1H over 0.5)","1H goal")+" "+pc(x[2])}).join(" · ");
- return '<div class="sec"><h4>Most likely markets</h4><p><b>'+c.n+'</b>: model '+pc(c.p)+(c.u>.02?' (a typical game: '+pc(c.b)+')':'')+'. Fair odds <b>'+(1/c.p).toFixed(2)+'</b>.</p><p class="nv">Value check: only worth it if your bookmaker pays more than '+(1/c.p).toFixed(2)+'. Model goals '+(R.L[0]+R.L[1]).toFixed(1)+' in total, '+R.L[0].toFixed(1)+' – '+R.L[1].toFixed(1)+(R.pm?' (from the shared model: '+mdpModelName()+', not tracked xG).':' (implied from win chances and league scoring, not tracked xG).')+'</p><p class="nv">Also: '+al+'</p></div>'}
+function mhtml(R,m){var h=m[2],a=m[3],get=function(L,id){var x=L.filter(function(z){return z[0]==id})[0];return x?x[2]:null};
+ var hw=get(R.X,"h"),aw=get(R.X,"a"),yh=get(R.Y,"h"),ya=get(R.Y,"a"),
+  rows=[[T[h]+" win",hw,yh],["Draw",1-hw-aw,1-yh-ya],[T[a]+" win",aw,ya],["Over 1.5 goals",get(R.X,"o15"),get(R.Y,"o15")],["Over 2.5 goals",get(R.X,"o25"),get(R.Y,"o25")],["Under 2.5 goals",get(R.X,"u25"),get(R.Y,"u25")],["Under 3.5 goals",get(R.X,"u35"),get(R.Y,"u35")],["Both teams score",get(R.X,"by"),get(R.Y,"by")],["Both teams don’t score",get(R.X,"bn"),get(R.Y,"bn")]];
+ var big=null;rows.forEach(function(r){if(r[1]==null||r[2]==null)return;var d=r[1]-r[2];if(r[1]>=.5&&(!big||Math.abs(d)>Math.abs(big.d)))big={n:r[0],p:r[1],y:r[2],d:d}});
+ var o='<div class="sec"><h4>Match markets</h4>'+(big&&Math.abs(big.d)>=.06?'<p><b>Biggest difference from a typical game:</b> '+mdpEscape(big.n)+', '+Math.round(big.p*100)+'% here against about '+Math.round(big.y*100)+'% in a typical '+mdpEscape(LG[lg].n)+' game.</p>':'<p>This game looks close to a typical '+mdpEscape(LG[lg].n)+' game in every market, so there is no stand-out angle.</p>');
+ o+='<div class="sc2"><table class="dbt mkt"><tr><th>Market</th><th>Model</th><th>Typical</th><th>Fair odds</th></tr>'+rows.map(function(r){if(r[1]==null)return"";var d=r[2]!=null?r[1]-r[2]:0,mk=d>=.08?' <span class="w">▲</span>':d<=-.08?' <span class="lo">▼</span>':'';
+  return'<tr><td>'+mdpEscape(r[0])+'</td><td><b>'+Math.round(r[1]*100)+'%</b>'+mk+'</td><td>'+(r[2]!=null?Math.round(r[2]*100)+'%':'–')+'</td><td>'+(r[1]>0?(1/r[1]).toFixed(2):'–')+'</td></tr>'}).join("")+'</table></div>';
+ return o+'<p class="nv">“Typical” = the same market in an average game in this league. ▲/▼ = at least 8 points more or less likely than usual. Fair odds = 1 ÷ the model’s chance: only worth backing if your bookmaker pays more. Model estimates, not guarantees.</p></div>'}
 var DOFF={Aug:0,Sep:31,Sept:31,Oct:61,Nov:92,Dec:122,Jan:153,Feb:184,Mar:212,Apr:243,May:273,Jun:304,Jul:334};
 function dnum(s){var p=s.split(" ");return(DOFF[p[2]]||0)+(+p[1])}
 function lf(t){var l=last[t];if(!l)return"";return T[t]+" "+(l.r=="W"?"won":l.r=="D"?"drew":"lost")+" "+l.s+(l.home?" at home ":" away ")+(l.r=="W"&&l.home?"against ":l.home?"to ":"at ")+T[l.o]}
@@ -317,6 +323,7 @@ function lgRel(k){var M=MDP_LIVE.preds&&MDP_LIVE.preds.model&&MDP_LIVE.preds.mod
  var r=i+1,n=ks.length,tier=r<=3?"more":r>=n-2?"less":"average";
  return{rank:r,of:n,tier:tier,txt:LG[k].n+" is "+(r==n?"the least predictable":r==1?"the most predictable":tier=="less"?"one of the least predictable":tier=="more"?"one of the more predictable":"about average")+" of the "+n+" leagues in our back-test ("+ord(r)+" of "+n+")."}}
 /* Giant-killer check: results where this team won or drew when the model gave them little chance */
+function mdpScoreLine(m){var a=predScore(m),b=predScore(m,true);return(a.h==b.h&&a.a==b.a)?'Most likely score: <b>'+a.h+'–'+a.a+'</b>.':'Most likely score for the lean: <b>'+a.h+'–'+a.a+'</b>; single most likely score overall: <b>'+b.h+'–'+b.a+'</b>.'}
 function mdpAbout(x){return x<1?x.toFixed(1):String(Math.round(x))}
 function mdpShocks(t,fav){var cut=MDP_CUT||"9999",n=0,exp=0,wins=0,big=[],won=[],h2h=[],h2hw=0;
  R.forEach(function(r){if(r[2]!==t&&r[4]!==t)return;if(r[8]&&r[8]>=cut)return;var home=r[2]===t,opp=home?r[4]:r[2],gf=home?r[3]:r[5],ga=home?r[5]:r[3],q=r[6],res=gf>ga?"W":gf==ga?"D":"L",
@@ -370,6 +377,11 @@ function rk(m){
  if(vh.length>=5){var vw=cnt(vh,function(g){return g.gf>g.ga}),vr=vw/vh.length;
   if(vr<=base-.2)add(vr<=base-.3?2:1,"<b>Poor "+(home?"home":"away")+" record:</b> "+T[fav]+" have won "+vw+" of "+vh.length+" "+(home?"home":"away")+" games ("+pc(vr)+"); in this league "+(home?"home":"away")+" teams win about "+pc(base)+".");
   else if(vr>=base+.15)pro.push("they have won "+vw+" of "+vh.length+" "+(home?"at home":"away")+" ("+pc(vr)+", league norm "+pc(base)+")")}
+ // 1b. the underdog is strong at this venue (e.g. unbeaten at home)
+ var dv=hd.filter(function(g){return g.hm===!home}),dbase=!home?B.home:B.away;
+ if(dv.length>=5){var dw=cnt(dv,function(g){return g.gf>g.ga}),dl2=cnt(dv,function(g){return g.gf<g.ga}),dd=dv.length-dw-dl2,dr2=dw/dv.length,lossr=dl2/dv.length;
+  if(dl2==0)add(2,"<b>Underdog unbeaten "+(!home?"at home":"away")+":</b> "+T[dog]+" are "+dw+"W "+dd+"D 0L in "+dv.length+" "+(!home?"home":"away")+" games this season.");
+  else if(dr2>=dbase+.2||lossr<=.15)add(1,"<b>Underdog strong "+(!home?"at home":"away")+":</b> "+T[dog]+" have won "+dw+" and lost just "+dl2+" of "+dv.length+" "+(!home?"home":"away")+" games ("+pc(dr2)+" wins; league norm "+pc(dbase)+").")}
  // 2. points against clearly weaker teams (a side favoured like this normally takes 2+ a game)
  var weak=hf.filter(function(g){return rank[g.o]!==undefined&&rank[g.o]>=rank[fav]+6}),wp=weak.reduce(function(x,g){return x+pts(g)},0);
  if(weak.length>=4){var wppg=wp/weak.length;
@@ -453,7 +465,7 @@ function extra(m){
  o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
  var D=dg(m),PL=function(c,t){return'<p><span class="'+c+'">'+(c=="w"?"+":"–")+'</span> '+t+'</p>'};
  o+=dogBets(m);
- o+=mhtml(mm(m));
+ o+=mhtml(mm(m),m);
  o+=mdpNewsHtml(h,a);
  return o}
 var LOGO=window.LOGO||{};
@@ -500,7 +512,7 @@ function pre(r){
  try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px;white-space:normal;display:inline-block;border-radius:12px">Pre-match view: the numbers as they stood before kick-off</div>'+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
  finally{rank=sr;st=ss;last=sl;inPre=false;MDP_CUT=null}
  var l=leanOf(m),res=r[3]>r[5]?h:r[5]>r[3]?a:"D",nm=function(x){return x=="D"?"Draw":T[x]+" win"};
- return o+'<div class="sec"><h4>Prediction vs result</h4><p>Pre-match lean: <b>'+nm(l)+'</b>. Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). <span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span></p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). Most likely score for the lean: <b>'+predScore(m).h+'–'+predScore(m).a+'</b>; single most likely score overall: <b>'+predScore(m,true).h+'–'+predScore(m,true).a+'</b>.</p>'+(MR.c?'<p>Most likely market was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<(res==h?m[6]:m[4])?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
+ return o+'<div class="sec"><h4>Prediction vs result</h4><p>Pre-match lean: <b>'+nm(l)+'</b>. Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). <span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span></p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). '+mdpScoreLine(m)+'</p>'+(MR.c?'<p>Biggest market angle was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<(res==h?m[6]:m[4])?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
 function record0(){var n=0,t=0;R.forEach(function(r){var l=leanOf(est(r)),res=r[3]>r[5]?r[2]:r[5]>r[3]?r[4]:"D";t++;if(l==res)n++});
  return '<div class="sec" style="margin-top:0"><h4>Model track record (rebuilt)</h4><p>Called <b>'+n+' of '+t+'</b> of the results below correctly'+(MDP_LIVE.loaded?', using only games played before each match (a back-test; the verified record is below). Tap any match for its pre-match analysis.':'. Tap any match for its pre-match analysis. Today’s upcoming predictions are saved in this page so they can be checked against real results after the games.')+'</p></div>'}
 function hit(a,b){var q=qs.toLowerCase();return !q||T[a].toLowerCase().indexOf(q)>-1||T[b].toLowerCase().indexOf(q)>-1||a.toLowerCase()==q}
@@ -550,7 +562,7 @@ function mdpDays(){
  var cur=lg,days={};
  Object.keys(LG).forEach(function(k){var L=LG[k];if(!L.CAL)return;setL(k);
   L.CAL.forEach(function(c){var d=c.dk||(c.dk=mdpDK(c.utc)),x=days[d]||(days[d]={}),y=x[k]||(x[k]={n:0,fin:0,hit:0,up:0});y.n++;
-   if(c.k=="r"){y.fin++;try{var em=est(R[c.i]),rr=R[c.i];c.hit=leanOf(em)==mdpResOf(rr);c.fp=Math.max(em[4],em[6]);c.fw=mdpResOf(rr)==(em[4]>=em[6]?em[2]:em[3]);c.lock=!!(rr[6]&&rr[6].frozen)}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
+   if(c.k=="r"){y.fin++;try{var em=est(R[c.i]),rr=R[c.i];c.hit=leanOf(em)==mdpResOf(rr);c.fp=Math.max(em[4],em[6]);c.fw=mdpResOf(rr)==(em[4]>=em[6]?em[2]:em[3]);c.pd=em[5];c.dr=rr[3]==rr[5];c.o25=rr[6]&&rr[6].o25!==undefined?rr[6].o25:null;c.go=rr[3]+rr[5]>=3;c.lock=!!(rr[6]&&rr[6].frozen)}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
  setL(cur);MDP_DAYS={stamp:MDP_LIVE.stampKey,days:days};return MDP_DAYS}
 function mdpDaySum(x){var t={n:0,fin:0,hit:0,up:0};Object.keys(x).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var y=x[k];t.n+=y.n;t.fin+=y.fin;t.hit+=y.hit;t.up+=y.up});return t}
 function mdpCal(){
@@ -597,6 +609,11 @@ function mdpRecordTab(){
  o+='<div class="sec"><h4>Honesty check: are the percentages right?</h4><p>If the model is honest, favourites given 60% should win about 60 games in 100. This compares what the model said with what happened, across every finished game this season ('+locked+' of them predicted and locked before kick-off).</p></div>';
  o+='<div class="sc2" style="margin-top:12px"><table><tr><th>Favourite given</th><th>Games</th><th>Model said</th><th>Won</th><th>Verdict</th></tr>'+bands.map(function(b,i){var c=cal[i];if(!c.n)return"";var ps=c.p/c.n,ws=100*c.w/c.n,d=ws-ps;
   return'<tr><td>'+b[2]+'</td><td>'+c.n+'</td><td>'+Math.round(ps)+'%</td><td><b>'+Math.round(ws)+'%</b></td><td>'+(c.n<30?'<span class="d">Too few games</span>':Math.abs(d)<=5?'<span class="w">✓ About right</span>':d<0?'<span class="lo">⚠ Too confident</span>':'<span class="am" style="color:var(--am)">Too cautious</span>')+'</td></tr>'}).join("")+'</table></div>';
+ var dn=0,dp=0,da=0,ob=[[0,40,"Under 40%"],[40,55,"40–55%"],[55,70,"55–70%"],[70,101,"70%+"]],oc=ob.map(function(){return{n:0,p:0,w:0}});
+ Object.keys(LG).forEach(function(k){(LG[k].CAL||[]).forEach(function(c){if(c.k!="r"||c.pd===undefined)return;dn++;dp+=c.pd;da+=c.dr?1:0;if(c.o25!=null)ob.forEach(function(b,i){if(c.o25>=b[0]&&c.o25<b[1]){oc[i].n++;oc[i].p+=c.o25;oc[i].w+=c.go?1:0}})})});
+ var verdict=function(n,said,got){var d=got-said;return n<30?'<span class="d">Too few games</span>':Math.abs(d)<=5?'<span class="w">✓ About right</span>':d<0?'<span class="lo">⚠ Too high</span>':'<span style="color:var(--am);font-weight:700">⚠ Too low</span>'};
+ if(dn)o+='<div class="sec"><h4>Draws</h4><p>The model gave the draw <b>'+Math.round(dp/dn)+'%</b> on average; <b>'+Math.round(100*da/dn)+'%</b> of the '+dn+' games actually ended level. '+verdict(dn,dp/dn,100*da/dn)+'</p></div>';
+ if(oc.some(function(c){return c.n}))o+='<div class="sc2" style="margin-top:12px"><table><tr><th>Over 2.5 given</th><th>Games</th><th>Model said</th><th>Happened</th><th>Verdict</th></tr>'+ob.map(function(b,i){var c=oc[i];if(!c.n)return"";var ps=c.p/c.n,ws=100*c.w/c.n;return'<tr><td>'+b[2]+'</td><td>'+c.n+'</td><td>'+Math.round(ps)+'%</td><td><b>'+Math.round(ws)+'%</b></td><td>'+verdict(c.n,ps,ws)+'</td></tr>'}).join("")+'</table></div>';
  o+='<div class="foot">For any finished game, open the <b>Matchday</b> tab and pick its date to see the score, the pre-match prediction and the full analysis.</div>';
  return o}
 function render(){
