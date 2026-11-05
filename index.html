@@ -226,10 +226,15 @@ function lastTxt(t){var l=last[t];return l?l.r+" "+l.s+" "+(l.home?"vs":"at")+" 
 function lastCls(t){var l=last[t];return l?(l.r=="W"?"w":l.r=="L"?"lo":"d"):""}
 function lgl(t){var l=last[t];return l?l.gf+l.ga:null}
 function insights(m){
- var h=m[2],a=m[3],ph=m[4],pa=m[6],o=[],fav=ph>=pa?h:a,fp=Math.max(ph,pa),gap=Math.abs(ph-pa);
- if(gap<6)o.push("<b>No clear favourite:</b> the model has "+T[h]+" and "+T[a]+" almost level.");
- else o.push("<b>"+T[fav]+"</b> are favoured at "+fp+"%"+(fp>=55?", a clear edge.":", but not by a huge margin."));
- if((fav==h&&rank[h]>rank[a]+3)||(fav==a&&rank[a]>rank[h]+3))o.push("<b>Model vs table:</b> the favourite sits lower in the table, so the model leans on more than points (e.g. home advantage).");
+ var h=m[2],a=m[3],ph=m[4],pa=m[6],o=[],fav=ph>=pa?h:a,dog=fav==h?a:h,fp=Math.max(ph,pa),gap=Math.abs(ph-pa),A=tst(h,m),Bt=tst(a,m),B=lgBase(),X=m[7];
+ o.push(gap<6?"<b>No clear favourite:</b> the model has "+T[h]+" and "+T[a]+" almost level.":"<b>"+T[fav]+"</b> are favoured at "+fp+"%. The evidence:");
+ if(A.n>=3&&Bt.n>=3){
+  o.push("<b>Attack:</b> "+T[h]+" score "+pg1(A.gf,A.n)+" a game, "+T[a]+" "+pg1(Bt.gf,Bt.n)+" (league average "+B.gpt.toFixed(1)+").");
+  o.push("<b>Defence:</b> "+T[h]+" concede "+pg1(A.ga,A.n)+" a game, "+T[a]+" "+pg1(Bt.ga,Bt.n)+".");
+  var hv=A.h,av=Bt.a;if(hv.n>=3&&av.n>=3)o.push("<b>At this venue:</b> "+T[h]+" at home "+hv.w+"W "+hv.d+"D "+hv.l+"L ("+hv.gf+"–"+hv.ga+"); "+T[a]+" away "+av.w+"W "+av.d+"D "+av.l+"L ("+av.gf+"–"+av.ga+"). Home teams in this league win "+Math.round(B.home*100)+"%.");
+  if(A.l5.length>=3&&Bt.l5.length>=3)o.push("<b>Last 5:</b> "+T[h]+" "+fstr(A.l5)+" ("+fpts(A.l5)+" pts); "+T[a]+" "+fstr(Bt.l5)+" ("+fpts(Bt.l5)+" pts).")}
+ if(X&&X.lh!==undefined)o.push("<b>Model view:</b> after allowing for how strong each side’s opponents were, it expects about "+X.lh.toFixed(1)+"–"+X.la.toFixed(1)+".");
+ if(gap>=6&&rank[fav]>rank[dog]+3)o.push("<b>The table disagrees:</b> "+T[fav]+" sit "+ord(rank[fav])+", below "+T[dog]+" ("+ord(rank[dog])+"), so the lean comes from goal numbers and venue rather than points.");
  return o}
 function gx(m){
  var X=m[7];
@@ -237,11 +242,10 @@ function gx(m){
   var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),av=LG[lg]&&LG[lg].avg,avgT=av?av.home+av.away:(MU[lg]||2.7),tot=X.lh+X.la,n=[],gh=lgl(h),ga=lgl(a),
    lab=tot>=avgT+.35?"Goals likely":tot<=avgT-.35?"Low-scoring risk":"Balanced";
   n.push("<b>Model:</b> about "+tot.toFixed(1)+" goals expected ("+T[h]+" "+X.lh.toFixed(1)+", "+T[a]+" "+X.la.toFixed(1)+"), against a league average of "+avgT.toFixed(1)+".");
-  n.push(lab=="Goals likely"?"That is more goals than a typical game in this league, based on both teams’ recent scoring and conceding.":lab=="Low-scoring risk"?"That is fewer goals than a typical game in this league, based on both teams’ recent scoring and conceding.":"That is close to a typical game in this league.");
+  var GA=tst(h,m),GB=tst(a,m);if(GA.h.n>=4&&GB.a.n>=4)n.push("<b>Their games:</b> "+T[h]+"’s home games average "+pg1(GA.h.gf+GA.h.ga,GA.h.n)+" goals (over 2.5 in "+pctOf(GA.h.o25,GA.h.n)+", both teams score in "+pctOf(GA.h.bt,GA.h.n)+"); "+T[a]+"’s away games "+pg1(GB.a.gf+GB.a.ga,GB.a.n)+" (over 2.5 in "+pctOf(GB.a.o25,GB.a.n)+", both score in "+pctOf(GB.a.bt,GB.a.n)+").");
   
   var wn=fav==h?(1-Math.exp(-X.lh))*Math.exp(-X.la):(1-Math.exp(-X.la))*Math.exp(-X.lh);n.push("<b>Win to nil:</b> the model gives "+T[fav]+" about "+Math.round(wn*100)+"% ("+(wn>=.35?"a realistic outcome":wn>=.2?"possible, but not the main route":"unlikely")+").");
   
-  if(gh!==null||ga!==null)n.push("Last round: "+(gh!==null?T[h]+" game had "+gh+" goal"+(gh==1?"":"s")+". ":"")+(ga!==null?T[a]+" game had "+ga+".":""));
   return [lab,n]}
  var h=m[2],a=m[3],pd=m[5],gap=Math.abs(m[4]-m[6]),fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),lo=0,hi=0,n=[],gh=lgl(h),ga=lgl(a),d2=dr(h)+dr(a);
  if(pd>=27)lo++;if(gap<8)lo++;if(d2>=0.7)lo++;if(gh!==null&&ga!==null&&gh<=2&&ga<=2)lo++;
@@ -300,7 +304,7 @@ function histOf(t,m){
  var L=LG[lg],out=[];
  if(L.H&&L.H[t]){var cut=MDP_CUT||"9999";return L.H[t].filter(function(g){return T[g.o]&&(!g.u||g.u<cut)})}
  R.forEach(function(r){if(r[2]===t)out.push({o:r[4],hm:true,gf:r[3],ga:r[5],d:r[0]});else if(r[4]===t)out.push({o:r[2],hm:false,gf:r[5],ga:r[3],d:r[0]})});
- var c2=dnum(m[0]);
+ var c2=m&&m[0]?dnum(m[0]):99999;
  return out.filter(function(g){return T[g.o]&&dnum(g.d)<c2}).sort(function(x,y){return dnum(x.d)-dnum(y.d)})}
 /* League baselines, so every warning is measured against what is normal in this competition */
 var MDP_BASE={};
@@ -343,6 +347,13 @@ function upsetBox(m,r){var U2=upsetData(m);if(Math.abs(m[4]-m[6])<6)return'';
  if(r&&r[3]&&r[3].length)o+=r[3].map(function(x){return'<p>'+x+'</p>'}).join("");
  return o+'</div>'}
 
+function tst(t,m){var g=histOf(t,m),o={n:g.length,gf:0,ga:0,l5:g.slice(-5),h:{n:0,w:0,d:0,l:0,gf:0,ga:0,o25:0,bt:0},a:{n:0,w:0,d:0,l:0,gf:0,ga:0,o25:0,bt:0}};
+ g.forEach(function(x){o.gf+=x.gf;o.ga+=x.ga;var v=x.hm?o.h:o.a;v.n++;v.gf+=x.gf;v.ga+=x.ga;if(x.gf>x.ga)v.w++;else if(x.gf==x.ga)v.d++;else v.l++;if(x.gf+x.ga>=3)v.o25++;if(x.gf>0&&x.ga>0)v.bt++});return o}
+function fstr(l5){return l5.map(function(x){var r=x.gf>x.ga?"W":x.gf==x.ga?"D":"L";return'<span class="'+(r=="W"?"w":r=="L"?"lo":"d")+'">'+r+'</span>'}).join(" ")}
+function fpts(l5){return l5.reduce(function(s,x){return s+(x.gf>x.ga?3:x.gf==x.ga?1:0)},0)}
+function pg1(x,n){return n?(x/n).toFixed(1):"–"}
+function pctOf(x,n){return n?Math.round(100*x/n)+"%":"–"}
+var MDP_RELEG={epl:3,champ:3,l1:4,laliga:3,seriea:3,bundesliga:2,bl2:2,ligue1:2,nl:2,ppl:2,bsa:4},MDP_CUPS={ucl:1,wc:1,euro:1,cli:1};
 function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5]});
  return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2}:{home:.45,away:.29,gpt:1.35}}
 function rk(m){
@@ -418,15 +429,24 @@ function rk(m){
  var fw0=f.filter(function(x){return!/Giant-killers|Already done it/.test(x.t)})[0];if(fw0)up.push("<b>Main weakness to watch:</b> "+fw0.t.replace(/^<b>[^<]*<\/b>\s*/,""));
  var topf=f.length?{w:f[0].w,s:f[0].s}:{w:0,s:"Fails to win ~"+fails+" in 10"};
  return [lv,o,topf,up]}
+function mdpSituation(h,a){if(MDP_CUPS[lg])return[];var ids=Object.keys(st).sort(function(x,y){return rank[x]-rank[y]}),N=ids.length,rel=MDP_RELEG[lg]||3,out=[];if(N<8)return[];
+ var pts=function(i){return st[ids[i]][4]},safe=pts(N-rel-1),firstDown=pts(N-rel);
+ [h,a].forEach(function(t){var r=rank[t],p=st[t][4],s2=ord(r)+", "+p+" pts",line;
+  if(r>N-rel)line="in the relegation places, "+(safe-p==0?"level on points with safety":(safe-p)+" pt"+(safe-p==1?"":"s")+" from safety");
+  else if(r>N-rel-3&&p-firstDown<=3)line="just above the relegation places, "+(p-firstDown)+" pt"+(p-firstDown==1?"":"s")+" clear";
+  else if(r==1)line="top of the table, "+(p-pts(1))+" pt"+(p-pts(1)==1?"":"s")+" clear";
+  else if(r<=4)line="in the top four, "+(pts(0)-p==0?"level on points with the leaders":(pts(0)-p)+" pt"+(pts(0)-p==1?"":"s")+" behind the leaders");
+  else if(r<=Math.ceil(N/2))line="top half, "+(pts(3)-p==0?"level on points with 4th":(pts(3)-p)+" pt"+(pts(3)-p==1?"":"s")+" behind 4th");
+  else line="bottom half, "+(p-firstDown)+" pts above the relegation places";
+  out.push("<b>"+T[t]+"</b> ("+s2+"): "+line+".")});
+ if(Math.abs(st[h][4]-st[a][4])<=3&&(rank[h]>N-rel-3&&rank[a]>N-rel-3))out.push("Both sides are near the bottom, so this is a direct rival game.");
+ return out}
 function extra(m){
  var h=m[2],a=m[3],n=NEWS[lg+":"+h+"-"+a],o="",why=[],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,pu=fav==h?m[6]:m[4],g=gx(m),r=rk(m);
- if(rank[h]<=4&&rank[a]<=4)why.push("Top-four clash: points here shape the title and Champions League race.");
- [h,a].forEach(function(t){if(rank[t]>S.length-3)why.push(T[t]+" are in the bottom three on "+st[t][4]+" pts, so expect urgency.")});
- if(!why.length&&Math.abs(st[h][4]-st[a][4])<=2)why.push("Table neighbours ("+st[h][4]+" v "+st[a][4]+" pts): close to a six-pointer.");
+ why=mdpSituation(h,a);
  
- if(!why.length)why.push(T[h]+" (#"+rank[h]+", "+st[h][4]+" pts) host "+T[a]+" (#"+rank[a]+", "+st[a][4]+" pts).");
  var P=function(x){return"<p>"+x+"</p>"};
- o+='<div class="sec"><h4>Why it matters</h4>'+why.map(P).join("")+'</div>';
+ if(why.length)o+='<div class="sec"><h4>League situation</h4>'+why.map(P).join("")+'</div>';
  o+='<div class="sec"><h4>Goals outlook: '+g[0]+'</h4>'+g[1].map(P).join("")+'<p class="nv">'+(m[7]&&m[7].lh!==undefined?'Built from the shared model ('+mdpModelName()+'), the same numbers used for the tracked picks.':'Indicative only: built from win chances, draw rates and last round’s scores.'+(LG[lg].G?' Season goals scored and conceded are included.':' Season goal totals weren’t available.'))+'</p></div>';
  if(inPre)o+=upsetBox(m,r);
  o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
@@ -441,7 +461,9 @@ var MDP_LOGOS_REQ=false;
 function mdpNeedLogos(){if(MDP_LOGOS_REQ)return;MDP_LOGOS_REQ=true;window.mdpLogosLoaded=function(){LOGO=window.LOGO||{};try{render()}catch(e){}};var sc=document.createElement('script');sc.src='logos.js';sc.async=true;document.head.appendChild(sc)}
 function bd(c){var C=LG[lg]&&LG[lg].C,u=(C&&C[c])||(LOGO[lg]&&LOGO[lg][c]);if(!u&&lg=="nl"&&NLC[c])return '<span class="bd" style="background:'+NLC[c][0]+';color:'+NLC[c][1]+';box-shadow:inset 0 0 0 3px '+NLC[c][2]+'">'+c+'</span>';var x=0;for(var i=0;i<c.length;i++)x=(x*31+c.charCodeAt(i))%360;if(u)return '<span class="bd lg" style="--h:'+x+'"><img src="'+mdpEscape(u)+'" alt="'+mdpEscape(c.slice(0,3))+'" loading="lazy" decoding="async" onerror="var s=this.parentNode;s.className=\'bd\';s.textContent=this.alt"></span>';return '<span class="bd" style="--h:'+x+'">'+c.slice(0,3)+'</span>'}
 function bar(m){return '<div class="bar"><i style="width:'+m[4]+'%;background:var(--home)"></i><i style="width:'+m[5]+'%;background:var(--draw)"></i><i style="width:'+m[6]+'%;background:var(--away)"></i></div><div class="pl"><span><b>'+m[4]+'%</b> Home</span><span><b>'+m[5]+'%</b> Draw</span><span><b>'+m[6]+'%</b> Away</span></div>'}
-function cmp(h,a,withLast){return '<div class="cmp"><span class="t">'+T[h]+'</span><b>&nbsp;</b><span class="t">'+T[a]+'</span><span>#'+rank[h]+'</span><b>Position</b><span>#'+rank[a]+'</span><span>'+st[h][4]+'</span><b>Points</b><span>'+st[a][4]+'</span><span>'+st[h][1]+'-'+st[h][2]+'-'+st[h][3]+'</span><b>W-D-L</b><span>'+st[a][1]+'-'+st[a][2]+'-'+st[a][3]+'</span>'+(withLast?'<span class="'+lastCls(h)+'">'+lastTxt(h)+'</span><b>Last match</b><span class="'+lastCls(a)+'">'+lastTxt(a)+'</span>':'')+'</div>'}
+function cmpMore(h,a){var m=[null,null,h,a],A=tst(h,m),B=tst(a,m);if(!A.n||!B.n)return'';
+ return'<span>'+A.gf+'–'+A.ga+'</span><b>Goals</b><span>'+B.gf+'–'+B.ga+'</span><span>'+fstr(A.l5)+'</span><b>Last 5</b><span>'+fstr(B.l5)+'</span>'}
+function cmp(h,a,withLast){return '<div class="cmp"><span class="t">'+T[h]+'</span><b>&nbsp;</b><span class="t">'+T[a]+'</span><span>#'+rank[h]+'</span><b>Position</b><span>#'+rank[a]+'</span><span>'+st[h][4]+'</span><b>Points</b><span>'+st[a][4]+'</span><span>'+st[h][1]+'-'+st[h][2]+'-'+st[h][3]+'</span><b>W-D-L</b><span>'+st[a][1]+'-'+st[a][2]+'-'+st[a][3]+'</span>'+cmpMore(h,a)+(withLast?'<span class="'+lastCls(h)+'">'+lastTxt(h)+'</span><b>Last match</b><span class="'+lastCls(a)+'">'+lastTxt(a)+'</span>':'')+'</div>'}
 function leanOf(m){return m[4]>=m[6]&&m[4]>m[5]?m[2]:m[6]>m[4]&&m[6]>m[5]?m[3]:"D"}
 function predScore(m,any){var L=mm(m).L,lh=L[0],la=L[1],lean=leanOf(m),best=-1,bs=[0,0],A=pois(lh,6),B=pois(la,6);for(var i=0;i<=6;i++)for(var j=0;j<=6;j++){if(!any){if(lean==="D"?i!==j:(lean===m[2]?i<=j:j<=i))continue}var v=A[i]*B[j];if(v>best){best=v;bs=[i,j]}}return {h:bs[0],a:bs[1],p:best}}
 function confLabel(m){var gap=Math.abs(m[4]-m[6]),fp=Math.max(m[4],m[6]);return fp>=70&&gap>=35?'High':fp>=55&&gap>=18?'Medium':'Low'}
@@ -450,7 +472,7 @@ function match(m){
  var h=m[2],a=m[3],l=leanOf(m),pick=l=="D"?"Draw":T[l]+" win",g=gx(m),r=rk(m),D=dg(m),MR=mm(m),ps=predScore(m),pa=predScore(m,true),cf=confLabel(m);if(r[0]=="High"&&cf=="High")cf="Medium";
  return '<div class="m" data-i="u"><div class="row"><span class="t">'+bd(h)+'<span class="nm">'+T[h]+'</span></span><span class="time">'+m[1]+'</span><span class="t"><span class="nm">'+T[a]+'</span>'+bd(a)+'</span></div>'+bar(m)+
  mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+(D.pn>=4&&D.pu>=20?'<span class="tag am">⚡ Upset watch: '+T[D.dog]+'</span>':'')+mdpNewsTags(h,a)+'<span class="tag '+(g[0]=="Low-scoring risk"?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
- '<div class="det">'+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor">'+x+'</div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
+ '<div class="det">'+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor"><span>'+x+'</span></div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
 function buildPre(r){PST={};var i=Math.max(0,R.indexOf(r));S.forEach(function(x){PST[x[0]]=x.slice()});for(var j=i;j<R.length;j++){var q=R[j];[[q[2],q[3],q[5]],[q[4],q[5],q[3]]].forEach(function(z){var x=PST[z[0]];if(!x)return;if(z[1]>z[2]){x[1]--;x[4]-=3}else if(z[1]==z[2]){x[2]--;x[4]-=1}else x[3]--})}var arr=Object.keys(PST).map(function(k){return PST[k]});arr.sort(function(a,b){return b[4]-a[4]});PRK={};arr.forEach(function(x,i){PRK[x[0]]=i+1})}
 function est(r){buildPre(r);var h=r[2],a=r[4];if(r[6]&&r[6].lh!==undefined)return [r[0],r[1],h,a,r[6].h,r[6].d,r[6].a,r[6]];var g=function(t){var s=PST[t];return s[4]/Math.max(1,s[1]+s[2]+s[3])},d=g(h)-g(a)+0.3,raw=1/(1+Math.exp(-1.4*d)),dd=0.28-0.05*Math.min(Math.abs(d),2),ph=(1-dd)*raw*100,pa=(1-dd)*(1-raw)*100;return [r[0],r[1],h,a,+ph.toFixed(1),+(dd*100).toFixed(1),+pa.toFixed(1)]}
 var NLC={FEY:["#e4002b","#fff","#111"],AJA:["#fff","#d2122e","#d2122e"],PSV:["#e2001a","#fff","#fff"],TWE:["#d71920","#fff","#111"],AZA:["#c8102e","#fff","#fff"],FOR:["#ffd400","#0a7a2f","#0a7a2f"],HEE:["#0057b8","#fff","#fff"],GRO:["#00a651","#fff","#fff"],GAE:["#e30613","#ffd400","#ffd400"],CAM:["#ffd400","#0033a0","#0033a0"],UTR:["#d4002a","#fff","#0b2a6b"],NEC:["#e30613","#fff","#111"],EXC:["#111","#e30613","#e30613"],SPA:["#d4002a","#fff","#111"],ZWO:["#1f5fa8","#fff","#fff"],TEL:["#fff","#111","#111"],ADO:["#0a8f3c","#ffd400","#ffd400"],WIL:["#1b3a8a","#fff","#d71920"]};
