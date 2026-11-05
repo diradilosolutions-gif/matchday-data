@@ -5,7 +5,54 @@
  "window_days": 400,
  "version": 2,
  "chosen": "v2: ratings, half-life 180 days",
- "tested": "2026-11-05T08:34:57Z",
+ "tested": "2026-11-05T11:26:50Z",
  "matches": 17014,
- "reason": "beat v1 on past seasons"
+ "reason": "beat v1 on past seasons",
+ "league_reliability": {
+  "bsa": {
+   "logloss": 1.0211,
+   "matches": 5339,
+   "rank": 8
+  },
+  "bundesliga": {
+   "logloss": 1.0088,
+   "matches": 1207,
+   "rank": 7
+  },
+  "epl": {
+   "logloss": 0.9909,
+   "matches": 1503,
+   "rank": 4
+  },
+  "champ": {
+   "logloss": 1.0548,
+   "matches": 2206,
+   "rank": 9
+  },
+  "ligue1": {
+   "logloss": 1.0024,
+   "matches": 1279,
+   "rank": 6
+  },
+  "seriea": {
+   "logloss": 0.9859,
+   "matches": 1512,
+   "rank": 3
+  },
+  "nl": {
+   "logloss": 0.9668,
+   "matches": 1221,
+   "rank": 2
+  },
+  "ppl": {
+   "logloss": 0.9286,
+   "matches": 1223,
+   "rank": 1
+  },
+  "laliga": {
+   "logloss": 0.9938,
+   "matches": 1524,
+   "rank": 5
+  }
+ }
 }
