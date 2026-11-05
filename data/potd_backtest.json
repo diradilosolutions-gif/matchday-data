@@ -1,0 +1,796 @@
+{
+ "updated": "2026-11-05T19:16:46Z",
+ "market": "dog_dc",
+ "summary": {
+  "picks": 29,
+  "won": 18,
+  "hit_rate": 0.621,
+  "avg_model_prob": 0.542,
+  "avg_adj_prob": 0.565
+ },
+ "picks": [
+  {
+   "home": "Chapecoense",
+   "away": "Vitória",
+   "utc": "2026-04-05T19:00:00Z",
+   "match_id": 554832,
+   "market": "dog_dc",
+   "label": "Vitória win or draw",
+   "dog": "Vitória",
+   "fav": "Chapecoense",
+   "side": "away",
+   "model_prob": 0.5297,
+   "bias": -0.0192,
+   "adj_prob": 0.5526,
+   "fair_odds": 1.81,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-04-05",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Cruzeiro",
+   "away": "Bragantino",
+   "utc": "2026-04-12T21:30:00Z",
+   "match_id": 554843,
+   "market": "dog_dc",
+   "label": "Bragantino win or draw",
+   "dog": "Bragantino",
+   "fav": "Cruzeiro",
+   "side": "away",
+   "model_prob": 0.6069,
+   "bias": -0.0192,
+   "adj_prob": 0.6298,
+   "fair_odds": 1.59,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-04-12",
+   "score": "2-1",
+   "won": false
+  },
+  {
+   "home": "Clube do Remo",
+   "away": "Cruzeiro",
+   "utc": "2026-04-25T21:30:00Z",
+   "match_id": 554868,
+   "market": "dog_dc",
+   "label": "Cruzeiro win or draw",
+   "dog": "Cruzeiro",
+   "fav": "Clube do Remo",
+   "side": "away",
+   "model_prob": 0.5223,
+   "bias": -0.0192,
+   "adj_prob": 0.5452,
+   "fair_odds": 1.83,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-04-25",
+   "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Chapecoense",
+   "away": "Clube do Remo",
+   "utc": "2026-05-17T21:30:00Z",
+   "match_id": 554895,
+   "market": "dog_dc",
+   "label": "Clube do Remo win or draw",
+   "dog": "Clube do Remo",
+   "fav": "Chapecoense",
+   "side": "away",
+   "model_prob": 0.5961,
+   "bias": -0.0192,
+   "adj_prob": 0.619,
+   "fair_odds": 1.62,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-05-17",
+   "score": "2-3",
+   "won": true
+  },
+  {
+   "home": "São Paulo",
+   "away": "Botafogo",
+   "utc": "2026-05-23T20:00:00Z",
+   "match_id": 554907,
+   "market": "dog_dc",
+   "label": "Botafogo win or draw",
+   "dog": "Botafogo",
+   "fav": "São Paulo",
+   "side": "away",
+   "model_prob": 0.4696,
+   "bias": -0.0192,
+   "adj_prob": 0.4925,
+   "fair_odds": 2.03,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-05-23",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Bahia",
+   "away": "Botafogo",
+   "utc": "2026-05-30T20:30:00Z",
+   "match_id": 554911,
+   "market": "dog_dc",
+   "label": "Botafogo win or draw",
+   "dog": "Botafogo",
+   "fav": "Bahia",
+   "side": "away",
+   "model_prob": 0.5036,
+   "bias": -0.0192,
+   "adj_prob": 0.5265,
+   "fair_odds": 1.9,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-05-30",
+   "score": "2-1",
+   "won": false
+  },
+  {
+   "home": "Vasco da Gama",
+   "away": "Mineiro",
+   "utc": "2026-05-31T19:00:00Z",
+   "match_id": 554919,
+   "market": "dog_dc",
+   "label": "Mineiro win or draw",
+   "dog": "Mineiro",
+   "fav": "Vasco da Gama",
+   "side": "away",
+   "model_prob": 0.5688,
+   "bias": -0.0192,
+   "adj_prob": 0.5917,
+   "fair_odds": 1.69,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-05-31",
+   "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Vitória",
+   "away": "Vasco da Gama",
+   "utc": "2026-07-16T22:30:00Z",
+   "match_id": 554929,
+   "market": "dog_dc",
+   "label": "Vasco da Gama win or draw",
+   "dog": "Vasco da Gama",
+   "fav": "Vitória",
+   "side": "away",
+   "model_prob": 0.483,
+   "bias": -0.0192,
+   "adj_prob": 0.5059,
+   "fair_odds": 1.98,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-07-17",
+   "score": "1-0",
+   "won": false
+  },
+  {
+   "home": "Bahia",
+   "away": "Chapecoense",
+   "utc": "2026-07-17T22:30:00Z",
+   "match_id": 554770,
+   "market": "dog_dc",
+   "label": "Chapecoense win or draw",
+   "dog": "Chapecoense",
+   "fav": "Bahia",
+   "side": "away",
+   "model_prob": 0.3552,
+   "bias": -0.0192,
+   "adj_prob": 0.3781,
+   "fair_odds": 2.64,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-07-18",
+   "score": "2-0",
+   "won": false
+  },
+  {
+   "home": "Vasco da Gama",
+   "away": "Mirassol",
+   "utc": "2026-07-25T23:30:00Z",
+   "match_id": 554939,
+   "market": "dog_dc",
+   "label": "Mirassol win or draw",
+   "dog": "Mirassol",
+   "fav": "Vasco da Gama",
+   "side": "away",
+   "model_prob": 0.5563,
+   "bias": -0.0192,
+   "adj_prob": 0.5792,
+   "fair_odds": 1.73,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-07-26",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Grêmio",
+   "away": "Chapecoense",
+   "utc": "2026-08-30T21:30:00Z",
+   "match_id": 554985,
+   "market": "dog_dc",
+   "label": "Chapecoense win or draw",
+   "dog": "Chapecoense",
+   "fav": "Grêmio",
+   "side": "away",
+   "model_prob": 0.462,
+   "bias": -0.0192,
+   "adj_prob": 0.4849,
+   "fair_odds": 2.06,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-08-30",
+   "score": "3-1",
+   "won": false
+  },
+  {
+   "home": "Vitória",
+   "away": "Grêmio",
+   "utc": "2026-09-07T23:00:00Z",
+   "match_id": 554999,
+   "market": "dog_dc",
+   "label": "Grêmio win or draw",
+   "dog": "Grêmio",
+   "fav": "Vitória",
+   "side": "away",
+   "model_prob": 0.6185,
+   "bias": -0.0192,
+   "adj_prob": 0.6414,
+   "fair_odds": 1.56,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-09-08",
+   "score": "1-0",
+   "won": false
+  },
+  {
+   "home": "Mirassol",
+   "away": "Vitória",
+   "utc": "2026-09-13T19:00:00Z",
+   "match_id": 555007,
+   "market": "dog_dc",
+   "label": "Vitória win or draw",
+   "dog": "Vitória",
+   "fav": "Mirassol",
+   "side": "away",
+   "model_prob": 0.5549,
+   "bias": -0.0192,
+   "adj_prob": 0.5778,
+   "fair_odds": 1.73,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-09-13",
+   "score": "2-2",
+   "won": true
+  },
+  {
+   "home": "Paranaense",
+   "away": "Bahia",
+   "utc": "2026-09-20T22:30:00Z",
+   "match_id": 555010,
+   "market": "dog_dc",
+   "label": "Bahia win or draw",
+   "dog": "Bahia",
+   "fav": "Paranaense",
+   "side": "away",
+   "model_prob": 0.5269,
+   "bias": -0.0192,
+   "adj_prob": 0.5498,
+   "fair_odds": 1.82,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-09-21",
+   "score": "2-1",
+   "won": false
+  },
+  {
+   "home": "Clube do Remo",
+   "away": "Grêmio",
+   "utc": "2026-10-07T22:30:00Z",
+   "match_id": 555027,
+   "market": "dog_dc",
+   "label": "Grêmio win or draw",
+   "dog": "Grêmio",
+   "fav": "Clube do Remo",
+   "side": "away",
+   "model_prob": 0.5838,
+   "bias": -0.0192,
+   "adj_prob": 0.6067,
+   "fair_odds": 1.65,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-08",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Paranaense",
+   "away": "Mineiro",
+   "utc": "2026-10-08T23:00:00Z",
+   "match_id": 555020,
+   "market": "dog_dc",
+   "label": "Mineiro win or draw",
+   "dog": "Mineiro",
+   "fav": "Paranaense",
+   "side": "away",
+   "model_prob": 0.5218,
+   "bias": -0.0192,
+   "adj_prob": 0.5447,
+   "fair_odds": 1.84,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-09",
+   "score": "2-2",
+   "won": true
+  },
+  {
+   "home": "Coritiba",
+   "away": "Botafogo",
+   "utc": "2026-10-12T19:00:00Z",
+   "match_id": 555034,
+   "market": "dog_dc",
+   "label": "Botafogo win or draw",
+   "dog": "Botafogo",
+   "fav": "Coritiba",
+   "side": "away",
+   "model_prob": 0.5616,
+   "bias": -0.0192,
+   "adj_prob": 0.5845,
+   "fair_odds": 1.71,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-12",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Chapecoense",
+   "away": "Paranaense",
+   "utc": "2026-10-12T22:30:00Z",
+   "match_id": 555033,
+   "market": "dog_dc",
+   "label": "Chapecoense win or draw",
+   "dog": "Chapecoense",
+   "fav": "Paranaense",
+   "side": "home",
+   "model_prob": 0.5074,
+   "bias": -0.0192,
+   "adj_prob": 0.5303,
+   "fair_odds": 1.89,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-13",
+   "score": "1-4",
+   "won": false
+  },
+  {
+   "home": "Norwich",
+   "away": "Portsmouth",
+   "utc": "2026-10-17T14:00:00Z",
+   "match_id": 561881,
+   "market": "dog_dc",
+   "label": "Portsmouth win or draw",
+   "dog": "Portsmouth",
+   "fav": "Norwich",
+   "side": "away",
+   "model_prob": 0.5466,
+   "bias": -0.0192,
+   "adj_prob": 0.5695,
+   "fair_odds": 1.76,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "champ",
+   "date": "2026-10-17",
+   "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Osasuna",
+   "away": "Santander",
+   "utc": "2026-10-18T12:00:00Z",
+   "match_id": 564715,
+   "market": "dog_dc",
+   "label": "Santander win or draw",
+   "dog": "Santander",
+   "fav": "Osasuna",
+   "side": "away",
+   "model_prob": 0.5545,
+   "bias": -0.0192,
+   "adj_prob": 0.5774,
+   "fair_odds": 1.73,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "laliga",
+   "date": "2026-10-18",
+   "score": "2-0",
+   "won": false
+  },
+  {
+   "home": "Corinthians",
+   "away": "Vitória",
+   "utc": "2026-10-19T23:00:00Z",
+   "match_id": 555044,
+   "market": "dog_dc",
+   "label": "Vitória win or draw",
+   "dog": "Vitória",
+   "fav": "Corinthians",
+   "side": "away",
+   "model_prob": 0.5478,
+   "bias": -0.0192,
+   "adj_prob": 0.5707,
+   "fair_odds": 1.75,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-20",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Vitória SC",
+   "away": "Marítimo",
+   "utc": "2026-10-23T19:45:00Z",
+   "match_id": 567329,
+   "market": "dog_dc",
+   "label": "Vitória SC win or draw",
+   "dog": "Vitória SC",
+   "fav": "Marítimo",
+   "side": "home",
+   "model_prob": 0.591,
+   "bias": -0.0192,
+   "adj_prob": 0.6139,
+   "fair_odds": 1.63,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "ppl",
+   "date": "2026-10-23",
+   "score": "5-0",
+   "won": true
+  },
+  {
+   "home": "Vitória",
+   "away": "Paranaense",
+   "utc": "2026-10-24T19:30:00Z",
+   "match_id": 555059,
+   "market": "dog_dc",
+   "label": "Vitória win or draw",
+   "dog": "Vitória",
+   "fav": "Paranaense",
+   "side": "home",
+   "model_prob": 0.6062,
+   "bias": -0.0192,
+   "adj_prob": 0.6291,
+   "fair_odds": 1.59,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-24",
+   "score": "1-1",
+   "won": true
+  },
+  {
+   "home": "Coritiba",
+   "away": "Grêmio",
+   "utc": "2026-10-26T22:30:00Z",
+   "match_id": 555051,
+   "market": "dog_dc",
+   "label": "Grêmio win or draw",
+   "dog": "Grêmio",
+   "fav": "Coritiba",
+   "side": "away",
+   "model_prob": 0.5467,
+   "bias": -0.0192,
+   "adj_prob": 0.5696,
+   "fair_odds": 1.76,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-27",
+   "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Fiorentina",
+   "away": "Atalanta",
+   "utc": "2026-10-29T19:45:00Z",
+   "match_id": 558551,
+   "market": "dog_dc",
+   "label": "Fiorentina win or draw",
+   "dog": "Fiorentina",
+   "fav": "Atalanta",
+   "side": "home",
+   "model_prob": 0.5325,
+   "bias": -0.0192,
+   "adj_prob": 0.5554,
+   "fair_odds": 1.8,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "seriea",
+   "date": "2026-10-29",
+   "score": "2-2",
+   "won": true
+  },
+  {
+   "home": "Coritiba",
+   "away": "Vitória",
+   "utc": "2026-10-31T19:00:00Z",
+   "match_id": 555064,
+   "market": "dog_dc",
+   "label": "Vitória win or draw",
+   "dog": "Vitória",
+   "fav": "Coritiba",
+   "side": "away",
+   "model_prob": 0.5693,
+   "bias": -0.0192,
+   "adj_prob": 0.5922,
+   "fair_odds": 1.69,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-10-31",
+   "score": "2-0",
+   "won": false
+  },
+  {
+   "home": "Strasbourg",
+   "away": "Auxerre",
+   "utc": "2026-11-01T14:00:00Z",
+   "match_id": 559647,
+   "market": "dog_dc",
+   "label": "Auxerre win or draw",
+   "dog": "Auxerre",
+   "fav": "Strasbourg",
+   "side": "away",
+   "model_prob": 0.5097,
+   "bias": -0.0192,
+   "adj_prob": 0.5326,
+   "fair_odds": 1.88,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "ligue1",
+   "date": "2026-11-01",
+   "score": "5-1",
+   "won": false
+  },
+  {
+   "home": "Newcastle",
+   "away": "Everton",
+   "utc": "2026-11-02T20:00:00Z",
+   "match_id": 560622,
+   "market": "dog_dc",
+   "label": "Everton win or draw",
+   "dog": "Everton",
+   "fav": "Newcastle",
+   "side": "away",
+   "model_prob": 0.5747,
+   "bias": -0.0192,
+   "adj_prob": 0.5976,
+   "fair_odds": 1.67,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "epl",
+   "date": "2026-11-02",
+   "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Charlton",
+   "away": "Bolton",
+   "utc": "2026-11-03T19:45:00Z",
+   "match_id": 561928,
+   "market": "dog_dc",
+   "label": "Bolton win or draw",
+   "dog": "Bolton",
+   "fav": "Charlton",
+   "side": "away",
+   "model_prob": 0.6036,
+   "bias": -0.0192,
+   "adj_prob": 0.6265,
+   "fair_odds": 1.6,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "champ",
+   "date": "2026-11-03",
+   "score": "0-1",
+   "won": true
+  }
+ ]
+}

@@ -1,1 +1,35 @@
-[]
+[
+ {
+  "date": "2026-11-05",
+  "locked_at": "2026-11-05T19:16:46Z",
+  "status": "none"
+ },
+ {
+  "home": "Sevilla FC",
+  "away": "Alavés",
+  "utc": "2026-11-06T20:00:00Z",
+  "match_id": 564740,
+  "market": "dog_dc",
+  "label": "Alavés win or draw",
+  "dog": "Alavés",
+  "fav": "Sevilla FC",
+  "side": "away",
+  "model_prob": 0.494,
+  "bias": -0.0192,
+  "adj_prob": 0.5169,
+  "fair_odds": 1.93,
+  "signals": [
+   {
+    "key": "fav_leaky",
+    "text": "Favourite conceding well above the league average lately",
+    "extra": 0.0421,
+    "n": 1604
+   }
+  ],
+  "league": "laliga",
+  "date": "2026-11-06",
+  "locked_at": "2026-11-05T19:16:46Z",
+  "status": "pending",
+  "score": null
+ }
+]
