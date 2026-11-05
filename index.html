@@ -97,6 +97,7 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
 .dbt td:nth-child(2),.dbt th:nth-child(2){text-align:center}
 .dbt{box-shadow:none;border-radius:12px;font-size:13px;margin-top:2px}.dbt th,.dbt td{padding:8px 6px}.dbt td:first-child,.dbt th:first-child{text-align:left;font-weight:500}
+.kick{display:inline-block;margin:0 0 10px;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--mu);font:600 12px var(--fd)}
 .upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
 .upbox h4{margin:0 0 10px;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.07em;color:var(--l)}
 .upbox p{margin:6px 0}
@@ -128,7 +129,7 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .cr:first-child{border-top:0}.cr:hover{background:color-mix(in srgb,var(--ac) 5%,var(--card))}
 .crm{display:grid;grid-template-columns:62px minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}
 .crt{font:600 12px var(--fd);color:var(--mu);line-height:1.2;white-space:nowrap}
-.crt.ft{color:var(--tx)}.crt.lv{color:var(--am)}
+.crt.ft{color:var(--tx)}.crt small{display:block;font-size:10.5px;color:var(--mu);font-weight:500;margin-top:2px}.crt.lv{color:var(--am)}
 .crh,.cra{display:flex;align-items:center;gap:8px;min-width:0;font-weight:600;font-size:14px}
 .crh{justify-content:flex-end;text-align:right}
 .crh .nm,.cra .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -496,7 +497,7 @@ function post(r){
  return '<span class="tag pk">'+(lean==res?'Model lean hit':'Model lean missed')+'</span><ul class="ins review">'+o.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'}
 function pre(r){
  MDP_CUT=r[8]||null;var m=est(r),sr=rank,ss=st,sl=last,h=m[2],a=m[3],o;rank=PRK;st=PST;last={};inPre=true;
- try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px">Pre-match view, rebuilt from the table as it stood before kick-off</div>'+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
+ try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px;white-space:normal;display:inline-block;border-radius:12px">Pre-match view: the numbers as they stood before kick-off</div>'+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
  finally{rank=sr;st=ss;last=sl;inPre=false;MDP_CUT=null}
  var l=leanOf(m),res=r[3]>r[5]?h:r[5]>r[3]?a:"D",nm=function(x){return x=="D"?"Draw":T[x]+" win"};
  return o+'<div class="sec"><h4>Prediction vs result</h4><p>Pre-match lean: <b>'+nm(l)+'</b>. Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). <span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span></p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). Most likely score for the lean: <b>'+predScore(m).h+'–'+predScore(m).a+'</b>; single most likely score overall: <b>'+predScore(m,true).h+'–'+predScore(m,true).a+'</b>.</p>'+(MR.c?'<p>Most likely market was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<(res==h?m[6]:m[4])?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
@@ -576,13 +577,14 @@ function mdpRowU(k,c){var m=U[c.i];if(!m)return'';var h=m[2],a=m[3];if(!hit(h,a)
  return'<div class="cr" data-k="'+k+'" data-t="u" data-x="'+c.i+'"><div class="crm"><span class="crt'+(st?' lv':'')+'">'+(st?(st=="SUSPENDED"?"Susp.":"Live/<br>pending"):m[1])+'</span><span class="crh"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs vs">vs</span><span class="cra">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
  '<div class="crb">'+mdpMini(m)+'<span>Lean: <b style="color:var(--tx)">'+(l=="D"?"Draw":mdpEscape(T[l]))+'</b> '+Math.round(p)+'%'+(l!="D"&&Math.abs(m[4]-m[6])>=6?' · <span style="color:'+(100-p>=40?'var(--l)':'var(--am)')+'">fails to win '+Math.round(100-p)+'%</span>':'')+'</span></div><div class="crd"></div></div>'}
 function mdpRowR(k,c){var r=R[c.i];if(!r)return'';var h=r[2],a=r[4];if(!hit(h,a))return'';var res=mdpResOf(r),q=r[6];
- return'<div class="cr" data-k="'+k+'" data-t="r" data-x="'+c.i+'"><div class="crm"><span class="crt ft">FT</span><span class="crh'+(res==a?' lose':'')+'"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs">'+r[3]+' – '+r[5]+'</span><span class="cra'+(res==h?' lose':'')+'">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
+ return'<div class="cr" data-k="'+k+'" data-t="r" data-x="'+c.i+'"><div class="crm"><span class="crt ft">FT<small>'+mdpEscape(r[1]&&r[1]!="–"?r[1]:"")+'</small></span><span class="crh'+(res==a?' lose':'')+'"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs">'+r[3]+' – '+r[5]+'</span><span class="cra'+(res==h?' lose':'')+'">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
  '<div class="crb"><span class="pill '+(c.hit?'ok':'no')+'">'+(c.hit?'✓ Lean right':'✗ Lean missed')+'</span>'+(q&&q.frozen?'<span class="pill lk">🔒 Saved before kick-off</span>':'<span class="pill">Rebuilt</span>')+'</div><div class="crd"></div></div>'}
-function mdpCalDetail(k,t,i){var cur=lg,o="";setL(k);
+function mdpKick(k,c){try{return'<div class="kick">🕒 '+(c.k=="r"?"Played ":"Kick-off ")+mdpEscape(mdpDate(c.utc))+', '+mdpEscape(mdpTime(c.utc))+' SAST · '+mdpEscape(LG[k].n)+'</div>'}catch(e){return''}}
+function mdpCalDetail(k,t,i){var cur=lg,o="",cc=(LG[k].CAL||[]).filter(function(c){return c.k==t&&c.i==i})[0];setL(k);
  try{if(t=="u")o=match(U[i]).replace('<div class="m" data-i="u">','<div class="m open crx">');
   else{var r=R[i];o='<div class="m open crx">'+post(r)+'<div class="det">'+pre(r)+'</div></div>'}}
  catch(e){o='<p class="nv">Details could not be built for this game.</p>'}
- setL(cur);return o}
+ setL(cur);return(cc?mdpKick(k,cc):'')+o}
 function mdpRecordTab(){
  if(!mdpHasCal())return record();
  var D=mdpDays().days,tot={},all={fin:0,hit:0};
