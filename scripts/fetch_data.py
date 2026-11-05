@@ -63,13 +63,17 @@ def main():
     old = json.loads(OUT.read_text()) if OUT.exists() else {}
     leagues = dict(old.get("leagues", {}))   # keep old data for any league that fails today
     names = dict(old.get("names", {}))
+    emblems = dict(old.get("emblems", {}))
     try:
         comps = get(f"{BASE}/competitions", token)["competitions"]
         codes = [(c["code"], c["name"]) for c in comps if c.get("code")]
+        emb = {KEYS.get(c["code"], c["code"].lower()): c.get("emblem") for c in comps if c.get("code") and c.get("emblem")}
         print("token covers:", ", ".join(c for c, _ in codes))
     except Exception as e:
         print(f"could not list competitions ({e}); using the known free list")
         codes = [(c, None) for c in FREE_FALLBACK]
+        emb = {}
+    emblems.update(emb)   # competition logos, shown next to league names on the site
     time.sleep(7)
     for code, api_name in codes:
         key = KEYS.get(code, code.lower())
@@ -87,7 +91,7 @@ def main():
         time.sleep(7)  # free plan allows 10 requests/minute
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps({"updated": datetime.now(timezone.utc).isoformat(),
-                               "names": names, "leagues": leagues}, separators=(",", ":")))
+                               "names": names, "emblems": emblems, "leagues": leagues}, separators=(",", ":")))
 
 
 if __name__ == "__main__":
