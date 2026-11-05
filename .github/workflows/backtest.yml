@@ -1,0 +1,45 @@
+name: Back-test models
+on:
+  schedule:
+    - cron: "17 3 1 * *"      # 1st of every month, 05:17 SAST
+  workflow_dispatch:           # lets you press "Run workflow" manually
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update           # never runs at the same time as "Update data and picks"
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download past seasons (football-data.co.uk, free)
+        run: |
+          mkdir -p hist
+          for s in 2223 2324 2425 2526 2627; do
+            for c in E0 E1 SP1 I1 D1 F1 N1 P1; do
+              curl -sfL "https://www.football-data.co.uk/mmz4281/$s/$c.csv" -o "hist/${c}_$s.csv" || rm -f "hist/${c}_$s.csv"
+            done
+          done
+          curl -sfL "https://www.football-data.co.uk/new/BRA.csv" -o hist/BRA_all.csv || rm -f hist/BRA_all.csv
+          ls -la hist
+      - name: Compare old and new model, pick the better one
+        run: python scripts/compare_models.py hist
+      - name: Re-calculate predictions with the chosen model
+        run: |
+          if [ -f data/matches.json ]; then python scripts/make_predictions.py; fi
+      - name: Save results
+        run: |
+          git config user.name "matchday-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/model_choice.json data/backtest_report.md data/predictions.json data/predictions_archive.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Back-test models $(date -u +'%Y-%m-%d')"
+          git pull --rebase
+          git push

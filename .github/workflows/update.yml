@@ -7,6 +7,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: data-update           # never runs at the same time as "Back-test models"
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -19,7 +23,7 @@ jobs:
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: python scripts/fetch_data.py
-      - name: Calculate predictions (one model for the site and the pick log)
+      - name: Calculate predictions (one model for the site and the pick log; locks pre-match numbers)
         run: python scripts/make_predictions.py
       - name: Log picks and settle results
         run: python scripts/run_picks.py
@@ -29,4 +33,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add data
           git diff --cached --quiet || git commit -m "Update data $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase
           git push
