@@ -88,6 +88,13 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .bd.lg{background:#fff;padding:5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.18)}.bd img{width:100%;height:100%;object-fit:contain;display:block}
 @media (max-width:480px){.bd.lg{padding:4px}}
 /* Matchday calendar (home) */
+.lgl{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;margin-right:8px}
+.lgf{width:24px;height:16px;object-fit:cover;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12);display:block}
+.lgi{width:24px;height:24px;object-fit:contain;background:#fff;border-radius:7px;padding:2px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.chips button .lgl{margin:-3px 7px -3px -5px;gap:4px}.chips button .lgf{width:20px;height:13px}.chips button .lgi{width:20px;height:20px;border-radius:6px}
+.lgh{text-transform:none!important;letter-spacing:0!important;font-size:14px!important;color:var(--tx)!important;gap:0!important}
+.lgh .lgc{color:var(--mu);font-weight:500;margin-left:8px;font-size:13px}
+.lgh .lgl{gap:7px}.lgh .lgf{width:27px;height:18px}.lgh .lgi{width:28px;height:28px}
 .calhead{display:flex;align-items:center;justify-content:space-between;margin:14px 2px 8px}
 .calhead h2{margin:0;font:700 18px var(--fd);letter-spacing:-.01em}
 .tdy{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 12px;font:600 12px var(--fd);cursor:pointer}
@@ -440,6 +447,14 @@ function cal(){
  return {n:show.length,h:o}}
 /* ---------- Matchday calendar: every finished and upcoming game, all leagues, by date ---------- */
 var calSel=null,calLg="all",MDP_DAYS=null;
+var MDP_LGCODE={epl:"PL",laliga:"PD",seriea:"SA",bundesliga:"BL1",ligue1:"FL1",champ:"ELC",nl:"DED",ppl:"PPL",bsa:"BSA",ucl:"CL",euro:"EC",wc:"WC",cli:"CLI",bl2:"BL2",l1:"EL1"};
+/* country of each competition: [country shown in grey, flag code on flagcdn.com ('' = no flag, e.g. UEFA/FIFA)] */
+var MDP_LGAREA={epl:["England","gb-eng"],champ:["England","gb-eng"],l1:["England","gb-eng"],laliga:["Spain","es"],seriea:["Italy","it"],bundesliga:["Germany","de"],bl2:["Germany","de"],ligue1:["France","fr"],nl:["Netherlands","nl"],ppl:["Portugal","pt"],bsa:["Brazil","br"],ucl:["Europe",""],euro:["Europe",""],wc:["World",""],cli:["South America",""]};
+function lgCountry(k){var a=MDP_LGAREA[k];return a?a[0]:""}
+function lgLogo(k,badgeOnly){var E=MDP_LIVE.matches&&MDP_LIVE.matches.emblems,u=(E&&E[k])||(MDP_LGCODE[k]?"https://crests.football-data.org/"+MDP_LGCODE[k]+".png":""),a=MDP_LGAREA[k],o="";
+ if(a&&a[1]&&!badgeOnly)o+='<img class="lgf" src="https://flagcdn.com/w80/'+a[1]+'.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">';
+ if(u)o+='<img class="lgi" src="'+mdpEscape(u)+'" alt="" loading="lazy" decoding="async" onerror="this.remove()">';
+ return o?'<span class="lgl">'+o+'</span>':''}
 function mdpHasCal(){return Object.keys(LG).some(function(k){return LG[k].CAL&&LG[k].CAL.length})}
 function mdpDK(utc){var p=mdpParts(utc,{year:"numeric",month:"2-digit",day:"2-digit"});return p.year+"-"+p.month+"-"+p.day}
 function mdpDayInfo(dk){var d=new Date(dk+"T12:00:00Z");return{wd:d.toLocaleDateString("en-GB",{weekday:"short",timeZone:"UTC"}),day:d.getUTCDate(),mon:d.toLocaleDateString("en-GB",{month:"short",timeZone:"UTC"}),long:d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}}
@@ -467,7 +482,7 @@ function mdpCal(){
  Object.keys(LG).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var L=LG[k];if(!L.CAL)return;setL(k);
   var cs=L.CAL.filter(function(c){return c.dk==calSel}).sort(function(a,b){return a.utc.localeCompare(b.utc)}),rows="",y=D[calSel][k];
   cs.forEach(function(c){var row=c.k=="r"?mdpRowR(k,c):mdpRowU(k,c);if(row){rows+=row;shown++}});
-  if(rows)o+='<div class="lgh">'+mdpEscape(L.n)+'<span>'+(y&&y.fin?y.hit+'/'+y.fin+' leans right':'')+'</span></div><div class="lgb">'+rows+'</div>'});
+  if(rows)o+='<div class="lgh">'+lgLogo(k)+'<b>'+mdpEscape(L.n)+'</b><i class="lgc" style="font-style:normal">'+mdpEscape(lgCountry(k))+'</i><span>'+(y&&y.fin?y.hit+'/'+y.fin+' leans right':'')+'</span></div><div class="lgb">'+rows+'</div>'});
  setL(cur);
  if(!shown)o+='<div class="empty">No matches found for “'+mdpEscape(qs)+'” on this day.</div>';
  return{n:1,h:o}}
@@ -489,13 +504,13 @@ function mdpRecordTab(){
  Object.keys(D).forEach(function(d){Object.keys(D[d]).forEach(function(k){var y=D[d][k],t=tot[k]||(tot[k]={fin:0,hit:0});t.fin+=y.fin;t.hit+=y.hit;all.fin+=y.fin;all.hit+=y.hit})});
  var o=mdpRecordHtml();
  o+='<div class="sec"><h4>Model lean by league (this season)</h4><p>How often the model’s lean (home win, draw or away win) matched the result'+(all.fin?': <b>'+all.hit+' of '+all.fin+'</b> overall ('+Math.round(100*all.hit/all.fin)+'%)':'')+'. Games with a 🔒 were predicted before kick-off; the rest were rebuilt afterwards using only earlier results.</p></div>';
- o+='<div class="sc2" style="margin-top:12px"><table><tr><th>League</th><th>Games</th><th>Lean right</th><th>%</th></tr>'+Object.keys(LG).filter(function(k){return tot[k]&&tot[k].fin}).map(function(k){var t=tot[k];return'<tr><td>'+mdpEscape(LG[k].n)+'</td><td>'+t.fin+'</td><td>'+t.hit+'</td><td><b>'+Math.round(100*t.hit/t.fin)+'%</b></td></tr>'}).join("")+'</table></div>';
+ o+='<div class="sc2" style="margin-top:12px"><table><tr><th>League</th><th>Games</th><th>Lean right</th><th>%</th></tr>'+Object.keys(LG).filter(function(k){return tot[k]&&tot[k].fin}).map(function(k){var t=tot[k];return'<tr><td>'+lgLogo(k)+mdpEscape(LG[k].n)+' <span style="color:var(--mu);font-weight:500;font-size:12px">'+mdpEscape(lgCountry(k))+'</span></td><td>'+t.fin+'</td><td>'+t.hit+'</td><td><b>'+Math.round(100*t.hit/t.fin)+'%</b></td></tr>'}).join("")+'</table></div>';
  o+='<div class="foot">For any finished game, open the <b>Matchday</b> tab and pick its date to see the score, the pre-match prediction and the full analysis.</div>';
  return o}
 function render(){
  var o="",n=0;
  var calMode=tab=="cal"&&mdpHasCal();if(tab=="res")tab="rec";
- document.getElementById("chips").innerHTML=calMode?'<button data-cl="all" class="'+(calLg=="all"?"on":"")+'">All leagues</button>'+Object.keys(LG).map(function(k){return'<button data-cl="'+k+'" class="'+(calLg==k?"on":"")+'">'+LG[k].n+'</button>'}).join(""):Object.keys(LG).map(function(k){return'<button data-l="'+k+'" class="'+(lg==k?"on":"")+'">'+LG[k].n+'</button>'}).join("");
+ document.getElementById("chips").innerHTML=calMode?'<button data-cl="all" class="'+(calLg=="all"?"on":"")+'">All leagues</button>'+Object.keys(LG).map(function(k){return'<button data-cl="'+k+'" class="'+(calLg==k?"on":"")+'">'+lgLogo(k,true)+LG[k].n+'</button>'}).join(""):Object.keys(LG).map(function(k){return'<button data-l="'+k+'" class="'+(lg==k?"on":"")+'">'+lgLogo(k,true)+LG[k].n+'</button>'}).join("");
  if(tab=="rec"&&mdpHasCal())document.getElementById("chips").innerHTML="";var sbx=document.querySelector(".sbox");if(sbx)sbx.style.display=tab=="rec"?"none":"";
  document.getElementById("tabs").innerHTML=[["cal","Matchday"],["up","Upcoming"],["rec","Record"],["tbl","Table"]].map(function(t){return'<button data-t="'+t[0]+'" class="'+(tab==t[0]?"on":"")+'">'+t[1]+'</button>'}).join("");
  if(tab=="cal"){var cc=calMode?mdpCal():cal();n=cc.n;o=cc.h}
@@ -511,7 +526,7 @@ function render(){
  if(calMode){var ds=document.querySelector(".ds"),on=ds&&ds.querySelector(".dp.on");if(on){ds.style.scrollBehavior="auto";ds.scrollLeft=on.offsetLeft-ds.clientWidth/2+on.clientWidth/2;ds.style.scrollBehavior=""}}}
 document.getElementById("q").addEventListener("input",function(e){qs=e.target.value.trim();render()});
 document.getElementById("tabs").addEventListener("click",function(e){var t=e.target.getAttribute("data-t");if(t){tab=t;render()}});
-document.getElementById("chips").addEventListener("click",function(e){var cl=e.target.getAttribute("data-cl");if(cl){calLg=cl;render();return}var k=e.target.getAttribute("data-l");if(k){setL(k);render()}});
+document.getElementById("chips").addEventListener("click",function(e){var bt=e.target.closest("button");if(!bt)return;e={target:bt};var cl=bt.getAttribute("data-cl");if(cl){calLg=cl;render();return}var k=e.target.getAttribute("data-l");if(k){setL(k);render()}});
 document.getElementById("out").addEventListener("click",function(e){var dy=e.target.closest&&e.target.closest("[data-day]");if(dy){calSel=dy.getAttribute("data-day");render();return}
  var cr=e.target.closest&&e.target.closest(".cr");if(cr){if(e.target.closest(".crd"))return;var cd=cr.querySelector(".crd");if(!cd.innerHTML)cd.innerHTML=mdpCalDetail(cr.getAttribute("data-k"),cr.getAttribute("data-t"),+cr.getAttribute("data-x"));cr.classList.toggle("open");return}var dd=e.target.getAttribute&&e.target.getAttribute("data-d");if(dd){calDay=dd;render();return}var c=e.target.closest(".m");if(c&&c.hasAttribute("data-i")){var dt=c.querySelector(".det[data-pre]");if(dt&&!dt.innerHTML){try{dt.innerHTML=pre(R[+dt.getAttribute("data-pre")])}catch(er){dt.innerHTML='<p class="nv">Analysis could not be rebuilt for this game.</p>'}}c.classList.toggle("open")}});
 document.getElementById("dataStatus").addEventListener("click",function(){var e=this,o=e.style.whiteSpace!=="normal";e.style.whiteSpace=o?"normal":"nowrap";e.style.borderRadius=o?"14px":"99px"});
