@@ -2393,8 +2393,8 @@
   "fair_odds": 1.19,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-2"
  },
  {
   "id": "bsa:555079:dog15",
