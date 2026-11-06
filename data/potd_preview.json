@@ -1,10 +1,9 @@
 {
- "updated": "2026-11-05T19:27:49Z",
+ "updated": "2026-11-06T00:47:38Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-05": null,
   "2026-11-06": {
    "home": "Sevilla FC",
    "away": "Alavés",
@@ -28,6 +27,30 @@
     }
    ],
    "league": "laliga"
+  },
+  "2026-11-07": {
+   "home": "Den Haag",
+   "away": "Sparta",
+   "utc": "2026-11-07T17:45:00Z",
+   "match_id": 558841,
+   "market": "dog_dc",
+   "label": "Den Haag win or draw",
+   "dog": "Den Haag",
+   "fav": "Sparta",
+   "side": "home",
+   "model_prob": 0.5457,
+   "bias": -0.0192,
+   "adj_prob": 0.5686,
+   "fair_odds": 1.76,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "nl"
   }
  }
 }

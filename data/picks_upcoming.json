@@ -1,22 +1,5 @@
 [
  {
-  "id": "bsa:555074:over15",
-  "league": "bsa",
-  "match_id": 555074,
-  "utc": "2026-11-06T00:30:00Z",
-  "home": "Cruzeiro",
-  "away": "Bahia",
-  "market": "over15",
-  "label": "Over 1.5 goals",
-  "side": null,
-  "model_prob": 0.837,
-  "fair_odds": 1.19,
-  "odds": null,
-  "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
- },
- {
   "id": "nl:558845:over15",
   "league": "nl",
   "match_id": 558845,
