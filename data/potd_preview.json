@@ -1,10 +1,9 @@
 {
- "updated": "2026-11-06T18:44:55Z",
+ "updated": "2026-11-07T00:44:41Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-06": null,
   "2026-11-07": {
    "home": "Den Haag",
    "away": "Sparta",
@@ -15,9 +14,9 @@
    "dog": "Den Haag",
    "fav": "Sparta",
    "side": "home",
-   "model_prob": 0.5457,
+   "model_prob": 0.5453,
    "bias": -0.0192,
-   "adj_prob": 0.5686,
+   "adj_prob": 0.5682,
    "fair_odds": 1.76,
    "signals": [
     {
@@ -28,6 +27,30 @@
     }
    ],
    "league": "nl"
+  },
+  "2026-11-08": {
+   "home": "Estoril Praia",
+   "away": "Marítimo",
+   "utc": "2026-11-08T15:30:00Z",
+   "match_id": 567348,
+   "market": "dog_dc",
+   "label": "Estoril Praia win or draw",
+   "dog": "Estoril Praia",
+   "fav": "Marítimo",
+   "side": "home",
+   "model_prob": 0.5567,
+   "bias": -0.0192,
+   "adj_prob": 0.5796,
+   "fair_odds": 1.73,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "ppl"
   }
  }
 }

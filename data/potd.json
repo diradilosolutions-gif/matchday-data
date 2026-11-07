@@ -29,8 +29,9 @@
   "league": "laliga",
   "date": "2026-11-06",
   "locked_at": "2026-11-05T19:16:46Z",
-  "status": "pending",
-  "score": null
+  "status": "won",
+  "score": "0-0",
+  "settled_at": "2026-11-07T00:44:41Z"
  },
  {
   "home": "Den Haag",
