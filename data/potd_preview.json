@@ -1,33 +1,10 @@
 {
- "updated": "2026-11-07T12:38:43Z",
+ "updated": "2026-11-07T18:31:55Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-07": {
-   "home": "Den Haag",
-   "away": "Sparta",
-   "utc": "2026-11-07T17:45:00Z",
-   "match_id": 558841,
-   "market": "dog_dc",
-   "label": "Den Haag win or draw",
-   "dog": "Den Haag",
-   "fav": "Sparta",
-   "side": "home",
-   "model_prob": 0.5453,
-   "bias": -0.0192,
-   "adj_prob": 0.5682,
-   "fair_odds": 1.76,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "nl"
-  },
+  "2026-11-07": null,
   "2026-11-08": {
    "home": "Estoril Praia",
    "away": "Marítimo",

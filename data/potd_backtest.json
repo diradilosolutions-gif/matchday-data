@@ -1,41 +1,14 @@
 {
- "updated": "2026-11-06T18:44:55Z",
+ "updated": "2026-11-07T18:31:55Z",
  "market": "dog_dc",
  "summary": {
-  "picks": 29,
-  "won": 18,
-  "hit_rate": 0.621,
-  "avg_model_prob": 0.542,
-  "avg_adj_prob": 0.565
+  "picks": 31,
+  "won": 20,
+  "hit_rate": 0.645,
+  "avg_model_prob": 0.54,
+  "avg_adj_prob": 0.563
  },
  "picks": [
-  {
-   "home": "Chapecoense",
-   "away": "Vitória",
-   "utc": "2026-04-05T19:00:00Z",
-   "match_id": 554832,
-   "market": "dog_dc",
-   "label": "Vitória win or draw",
-   "dog": "Vitória",
-   "fav": "Chapecoense",
-   "side": "away",
-   "model_prob": 0.5297,
-   "bias": -0.0192,
-   "adj_prob": 0.5526,
-   "fair_odds": 1.81,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "bsa",
-   "date": "2026-04-05",
-   "score": "1-1",
-   "won": true
-  },
   {
    "home": "Cruzeiro",
    "away": "Bragantino",
@@ -790,6 +763,60 @@
    "league": "champ",
    "date": "2026-11-03",
    "score": "0-1",
+   "won": true
+  },
+  {
+   "home": "Sevilla FC",
+   "away": "Alavés",
+   "utc": "2026-11-06T20:00:00Z",
+   "match_id": 564740,
+   "market": "dog_dc",
+   "label": "Alavés win or draw",
+   "dog": "Alavés",
+   "fav": "Sevilla FC",
+   "side": "away",
+   "model_prob": 0.494,
+   "bias": -0.0192,
+   "adj_prob": 0.5169,
+   "fair_odds": 1.93,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "laliga",
+   "date": "2026-11-06",
+   "score": "0-0",
+   "won": true
+  },
+  {
+   "home": "Málaga",
+   "away": "Santander",
+   "utc": "2026-11-07T13:00:00Z",
+   "match_id": 564744,
+   "market": "dog_dc",
+   "label": "Santander win or draw",
+   "dog": "Santander",
+   "fav": "Málaga",
+   "side": "away",
+   "model_prob": 0.5367,
+   "bias": -0.0192,
+   "adj_prob": 0.5596,
+   "fair_odds": 1.79,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "laliga",
+   "date": "2026-11-07",
+   "score": "1-2",
    "won": true
   }
  ]
