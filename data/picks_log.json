@@ -2410,8 +2410,8 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-3"
  },
  {
   "id": "ppl:567352:over15",
