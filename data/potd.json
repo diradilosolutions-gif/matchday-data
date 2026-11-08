@@ -58,8 +58,9 @@
   "league": "nl",
   "date": "2026-11-07",
   "locked_at": "2026-11-06T18:44:55Z",
-  "status": "pending",
-  "score": null
+  "status": "won",
+  "score": "3-1",
+  "settled_at": "2026-11-08T00:44:16Z"
  },
  {
   "home": "Estoril Praia",
@@ -86,7 +87,7 @@
   "league": "ppl",
   "date": "2026-11-08",
   "locked_at": "2026-11-07T18:31:55Z",
-  "status": "pending",
+  "status": "void",
   "score": null
  }
 ]

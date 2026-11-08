@@ -1,24 +1,23 @@
 {
- "updated": "2026-11-07T18:31:55Z",
+ "updated": "2026-11-08T00:44:16Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-07": null,
   "2026-11-08": {
-   "home": "Estoril Praia",
-   "away": "Marítimo",
-   "utc": "2026-11-08T15:30:00Z",
-   "match_id": 567348,
+   "home": "Real Sociedad",
+   "away": "Rayo Vallecano",
+   "utc": "2026-11-08T15:15:00Z",
+   "match_id": 564743,
    "market": "dog_dc",
-   "label": "Estoril Praia win or draw",
-   "dog": "Estoril Praia",
-   "fav": "Marítimo",
-   "side": "home",
-   "model_prob": 0.5567,
+   "label": "Rayo Vallecano win or draw",
+   "dog": "Rayo Vallecano",
+   "fav": "Real Sociedad",
+   "side": "away",
+   "model_prob": 0.4517,
    "bias": -0.0192,
-   "adj_prob": 0.5796,
-   "fair_odds": 1.73,
+   "adj_prob": 0.4746,
+   "fair_odds": 2.11,
    "signals": [
     {
      "key": "fav_leaky",
@@ -27,7 +26,8 @@
      "n": 1604
     }
    ],
-   "league": "ppl"
-  }
+   "league": "laliga"
+  },
+  "2026-11-09": null
  }
 }
