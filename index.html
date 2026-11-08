@@ -409,8 +409,8 @@ function fpts(l5){return l5.reduce(function(s,x){return s+(x.gf>x.ga?3:x.gf==x.g
 function pg1(x,n){return n?(x/n).toFixed(1):"–"}
 function pctOf(x,n){return n?Math.round(100*x/n)+"%":"–"}
 var MDP_RELEG={epl:3,champ:3,l1:4,laliga:3,seriea:3,bundesliga:2,bl2:2,ligue1:2,nl:2,ppl:2,bsa:4},MDP_CUPS={ucl:1,wc:1,euro:1,cli:1};
-function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0,o25=0,bt=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5];if(r[3]+r[5]>=3)o25++;if(r[3]>0&&r[5]>0)bt++});
- return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2,o25:o25/n,bt:bt/n}:{home:.45,away:.29,gpt:1.35,o25:.5,bt:.5}}
+function lgBase(){var k=lg+":"+R.length;if(MDP_BASE[k])return MDP_BASE[k];var n=0,hw=0,aw=0,g=0,o25=0,bt=0,sc=0;R.forEach(function(r){n++;if(r[3]>r[5])hw++;else if(r[5]>r[3])aw++;g+=r[3]+r[5];if(r[3]+r[5]>=3)o25++;if(r[3]>0&&r[5]>0)bt++;sc+=(r[3]>0?1:0)+(r[5]>0?1:0)});
+ return MDP_BASE[k]=n>=20?{home:hw/n,away:aw/n,gpt:g/n/2,o25:o25/n,bt:bt/n,sc:sc/n/2}:{home:.45,away:.29,gpt:1.35,o25:.5,bt:.5,sc:.72}}
 function rk(m){
  var h=m[2],a=m[3],pd=m[5],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pu=fav==h?m[6]:m[4],B=lgBase(),
   hf=histOf(fav,m),hd=histOf(dog,m),f=[],pro=[],n=NEWS[lg+":"+h+"-"+a],
@@ -468,11 +468,26 @@ function rk(m){
  f.sort(function(x,y){return y.w-x.w});f=f.slice(0,4);
  var REL=lgRel(lg),sc=(fp<55?4:fp<70?2:fp<80?1:0)+(REL.tier=="less"||REL.tier=="unknown"?1:0)+f.slice(0,3).reduce(function(x,y){return x+y.w},0),lv=sc>=4?"High":sc>=2?"Medium":"Low";
  var fails=Math.round((100-fp)/10),o=[];
- o.push("<b>Reality check:</b> the model makes "+T[fav]+" favourites at "+fp+"% (draw "+pd+"%, "+T[dog]+" "+pu+"%). "+(fp<55?"That is close to a coin flip: they fail to win about "+fails+" times in 10.":"Even so, a favourite at this level fails to win about "+fails+" times in 10."));
- o.push("<b>League:</b> "+REL.txt);
+ if(!mdpClear(m))o.push("<b>Reality check:</b> no clear favourite. "+T[h]+" "+m[4]+"%, draw "+pd+"%, "+T[a]+" "+m[6]+"%, so any result here is normal.");
+ else o.push("<b>Reality check:</b> the model makes "+T[fav]+" favourites at "+fp+"% (draw "+pd+"%, "+T[dog]+" "+pu+"%). "+(fp<55?"That is close to a coin flip: they fail to win about "+fails+" times in 10.":"Even so, a favourite at this level fails to win about "+fails+" times in 10."));
+ if(REL.tier=="less"||REL.tier=="unknown")o.push("⚠ <b>Harder to predict:</b> "+REL.txt);
  if(pro.length)o.push("<b>What backs the pick:</b> "+pro.slice(0,3).join("; ")+".");
+ /* Highlights: the underdog keeps scoring / the favourite keeps conceding. Shown for information; they do not change the risk level (not back-tested yet). */
+ var hl=[],nrm=B.sc||.72,dS=cnt(hd,function(g){return g.gf>0}),dL=hd.filter(function(g){return g.gf<g.ga}),dLS=cnt(dL,function(g){return g.gf>0}),
+  fC=cnt(hf,function(g){return g.ga>0}),fW=hf.filter(function(g){return g.gf>g.ga}),fWC=cnt(fW,function(g){return g.ga>0}),dogScores=false;
+ if(hd.length>=6&&dS/hd.length>=Math.min(.9,nrm+.08)){dogScores=true;hl.push("📌 <b>Underdog keeps scoring:</b> "+T[dog]+" have scored in "+dS+" of "+hd.length+" games this season"+(dL.length>=2&&dLS*2>=dL.length?", including "+dLS+" of their "+dL.length+" defeats":"")+". A usual team in this league scores in about "+pc(nrm)+".")}
+ if(hf.length>=6&&fC/hf.length>=Math.min(.9,nrm+.08))hl.push("📌 <b>Favourite keeps conceding:</b> "+T[fav]+" have conceded in "+fC+" of "+hf.length+" games ("+(hf.length-fC)+" clean sheet"+(hf.length-fC==1?"":"s")+")"+(fW.length>=2&&fWC*2>=fW.length?", even in "+fWC+" of their "+fW.length+" wins":"")+". A usual team in this league concedes in about "+pc(nrm)+"; this matters for handicap and win-to-nil bets.");
  if(f.length)f.forEach(function(x,i){o.push((i==0?"🚩 <b>Main concern</b> · ":"⚠ ")+x.t)});
- else o.push("<b>No unusual warning signs:</b> nothing in "+T[fav]+"’s record stands out as worse than normal for this league; the risk is ordinary football randomness.");
+ else{ /* no red flags: name the concrete way this pick most likely goes wrong */
+  var ML=mm(m).L,PA=pois(home?ML[0]:ML[1],8),PB=pois(home?ML[1]:ML[0],8),bs=null; // PA = favourite goals, PB = underdog goals
+  var drw=pd>=pu;for(var i=0;i<=5;i++)for(var j=0;j<=5;j++){if(drw?i!=j:i>=j)continue;var v=PA[i]*PB[j];if(!bs||v>bs.v)bs={v:v,f:i,d:j}}
+  var sc2=bs?(home?bs.f+"–"+bs.d:bs.d+"–"+bs.f):"",route=drw?"a draw ("+pd+"%)":T[dog]+" winning ("+pu+"%)";
+  var th="🚩 <b>Biggest threat</b> · "+route+(bs?", most likely "+sc2:"")+".";
+  var dsc=cnt(d6,function(g){return g.gf>0}),f0=PA[0];
+  if(!dogScores&&d6.length>=5&&dsc>=d6.length-1)th+=" "+T[dog]+" have scored in "+dsc+" of their last "+d6.length+", so "+T[fav]+" will probably need two goals.";
+  else if(f0>=.2)th+=" "+T[fav]+" fail to score in about "+Math.round(f0*100)+"% of games like this, and then they cannot win.";
+  o.push(th)}
+ hl.forEach(function(x){o.push(x)});
  if(!SH.hot&&SH.big.length)o.push("ℹ <b>Shock on record:</b> "+T[dog]+" "+SH.big.slice(0,2).map(function(e){return e.t}).join("; ")+" this season. Worth knowing, though one-off upsets happen to most teams.");
  var dpu=pu,d6w=hd.slice(-6),dn=d6w.length,wc=[];
  if(dn>=4){var dlo=cnt(d6w,function(g){return g.gf<g.ga}),dga=d6w.reduce(function(x,g){return x+g.ga},0);
@@ -575,7 +590,7 @@ function post(r){
  else if(res=="D")o.push("The game ended level, while the model leaned toward "+(lean=="D"?"a draw":T[lean])+".");
  else o.push((wp<=30?"<b>Upset:</b> "+T[res]+" won with only "+wp+"% pre-match win chance. ":"")+"The result went against the model lean: it expected "+(lean=="D"?"a draw":T[lean]+" to win")+" but "+T[res]+" won.");
  if(hg==ps.h&&ag==ps.a)o.push("The exact scoreline matched the model's most likely score: "+ps.h+"–"+ps.a+".");
- else if(Math.abs((hg+ag)-(ps.h+ps.a))>=2)o.push("The match produced "+(hg+ag)+" total goals versus "+(ps.h+ps.a)+" in the model's most likely scoreline, so the game was materially more open or more closed than the headline prediction suggested.");
+ else{var xg=(MR.L[0]+MR.L[1]),tg=hg+ag;if(Math.abs(tg-xg)>=2)o.push("The match produced "+tg+" goals against about "+xg.toFixed(1)+" expected, so it was "+(tg>xg?"much more open":"much tighter")+" than the model thought.")}
  if(hg==0||ag==0)o.push((hg==0&&ag==0)?"Neither side scored.":(hg==0?T[a]:T[h])+" kept a clean sheet.");
  if(hg+ag>=5)o.push("High-scoring outcome: "+(hg+ag)+" goals were scored.");
  if(Math.abs(hg-ag)>=3)o.push("The final margin was "+Math.abs(hg-ag)+" goals. The score was decisive, but the margin alone does not prove there was a large pre-match strength gap; the pre-match probabilities are the better reference for that.");
