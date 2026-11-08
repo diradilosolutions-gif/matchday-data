@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow"><!-- testing phase: keep out of search engines; remove when you go public -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Matchday Predictor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
@@ -65,7 +66,8 @@ h1 span{display:block;background:linear-gradient(90deg,var(--ac),#7be0b5 60%,var
 .cmp .bt{color:var(--w);font-weight:800;background:color-mix(in srgb,var(--w) 13%,transparent);border-radius:9px;padding:4px 6px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--w) 30%,transparent)}
 .cmp .bt small{color:var(--w)}
 .cmp .sm{font-size:12px;line-height:1.3}.gxh{display:flex;align-items:center;gap:12px;margin-bottom:10px}.gxh b{font:700 34px var(--fd);letter-spacing:-.02em}.gxh span{font-size:12.5px;color:var(--mu);line-height:1.35}
-.gxg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.gxg div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 4px;text-align:center}.gxg b{display:block;font:700 17px var(--fd)}.gxg span{display:block;font-size:11px;color:var(--mu);line-height:1.2;margin-top:2px}
+.gxg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.gxg div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 4px;text-align:center}.gxg b{display:block;font:700 17px var(--fd)}.gxg span{display:block;font-size:11px;color:var(--mu);line-height:1.2;margin-top:2px}.gxg i{display:block;font-style:normal;font-size:10.5px;color:var(--mu);margin-top:3px;opacity:.85}
+.warn{background:color-mix(in srgb,var(--am) 14%,transparent);color:var(--tx);border-radius:10px;padding:8px 10px;font-size:12.5px}
 .cmp.gx{margin:8px 0 0;background:var(--card)}.cmp.gx .t{display:block;text-align:center}.cmp .t small{display:block;font-weight:500;color:var(--mu);font-size:11px}.cmp em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mu)}
 .cmp{row-gap:10px!important}
 .ins{margin:12px 0 0;padding:0;list-style:none}
@@ -127,6 +129,7 @@ tr.cl td:first-child{box-shadow:inset 4px 0 var(--ac)}tr.rl td:first-child{box-s
 .potd .nv{margin:10px 0 0;font-size:12px}
 .ptb{margin-top:10px;border:0;background:var(--ac);color:#04120b;font:700 13px var(--fd);padding:9px 14px;border-radius:12px;cursor:pointer}
 .kick{display:inline-block;margin:0 0 10px;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--mu);font:600 12px var(--fd)}
+.evd{margin:0 0 10px;padding:8px 11px;border-radius:12px;background:var(--bg2);font-size:12.5px;color:var(--mu)}.evd b{color:var(--tx)}
 .upbox{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--l) 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--l) 30%,var(--bd));font-size:13.5px}
 .upbox h4{margin:0 0 10px;font:700 12px var(--fd);text-transform:uppercase;letter-spacing:.07em;color:var(--l)}
 .upbox p{margin:6px 0}
@@ -257,9 +260,10 @@ function lastCls(t){var l=last[t];return l?(l.r=="W"?"w":l.r=="L"?"lo":"d"):""}
 function lgl(t){var l=last[t];return l?l.gf+l.ga:null}
 function insights(m){
  var h=m[2],a=m[3],ph=m[4],pa=m[6],o=[],fav=ph>=pa?h:a,dog=fav==h?a:h,fp=Math.max(ph,pa),gap=Math.abs(ph-pa),B=lgBase();
- o.push(gap<6?"<b>No clear favourite:</b> the model has "+T[h]+" and "+T[a]+" almost level.":"<b>"+T[fav]+"</b> are favoured at "+fp+"%. Compare the green figures in the table above to see where their edge comes from.");
+ o.push(!mdpClear(m)?"<b>No clear favourite:</b> "+T[h]+" "+ph+"%, draw "+m[5]+"%, "+T[a]+" "+pa+"%. Any of the three results would be normal here.":"<b>"+T[fav]+"</b> are favoured at "+fp+"%. Compare the green figures in the table above to see where their edge comes from.");
  o.push("<b>Home advantage:</b> home teams in this league win "+Math.round(B.home*100)+"% of games, away teams "+Math.round(B.away*100)+"%.");
- if(gap>=6&&rank[fav]>rank[dog]+3)o.push("<b>The table disagrees:</b> "+T[fav]+" sit "+ord(rank[fav])+", below "+T[dog]+" ("+ord(rank[dog])+"), so the lean comes from goal numbers and venue rather than points.");
+ if(gap>=6&&rank[fav]>=rank[dog]+6)o.push('<div class="warn">⚠ <b>Treat this lean with caution:</b> '+T[fav]+' sit '+ord(rank[fav])+', well below '+T[dog]+' ('+ord(rank[dog])+'). The model uses only this season’s results, so squad quality and past seasons are not in the numbers.</div>');
+ else if(gap>=6&&rank[fav]>rank[dog]+3)o.push("<b>The table disagrees:</b> "+T[fav]+" sit "+ord(rank[fav])+", below "+T[dog]+" ("+ord(rank[dog])+"), so the lean comes from goal numbers and venue rather than points.");
  return o}
 function gx(m){
  var X=m[7];
@@ -268,7 +272,7 @@ function gx(m){
    o05=1-T0[0],o35=1-T0[0]-T0[1]-T0[2]-T0[3],o15=X.o15!==undefined?X.o15/100:1-T0[0]-T0[1],o25=X.o25!==undefined?X.o25/100:1-T0[0]-T0[1]-T0[2],
    bt=X.btts!==undefined?X.btts/100:(1-A[0])*(1-Bp[0]),sh=1-A[0],sa=1-Bp[0],bestT=0;
   for(var k=1;k<=6;k++)if(T0[k]>T0[bestT])bestT=k;
-  var lab=tot.toFixed(1)+" goals expected",box=function(v,t){return'<div><b>'+Math.round(v*100)+'%</b><span>'+t+'</span></div>'};
+  var lab=tot.toFixed(1)+" goals expected",box=function(v,t){return'<div><b>'+Math.round(v*100)+'%</b><span>'+t+'</span><i>'+(v>0&&v<.97?'fair '+(1/v).toFixed(2):'–')+'</i></div>'};
   n.push('<div class="gxs"><div class="gxh"><b>'+tot.toFixed(1)+'</b><span>goals expected<br>'+mdpEscape(T[h])+' '+X.lh.toFixed(1)+' · '+mdpEscape(T[a])+' '+X.la.toFixed(1)+'</span></div>'+
    '<div class="gxg">'+box(o15,"Over 1.5")+box(o25,"Over 2.5")+box(o35,"Over 3.5")+box(bt,"Both teams score")+box(sh,mdpEscape(T[h])+" score")+box(sa,mdpEscape(T[a])+" score")+'</div>'+
    '<p class="nv" style="margin:8px 0 0">Most likely total: '+bestT+' goal'+(bestT==1?'':'s')+' ('+Math.round(T0[bestT]*100)+'%). Over 0.5 goals: '+Math.round(o05*100)+'%.</p></div>');
@@ -302,6 +306,22 @@ function mm(m){var X=m[7];
  for(i=0;i<X.length;i++){p=X[i][2];u=p-Y[i][2];if(p>=.55&&p<=.8&&u>=.04&&(!c||u>c.u))c={id:X[i][0],n:X[i][1],p:p,u:u,b:Y[i][2]}}
  return{L:L,X:X,Y:Y,c:c}}
 function ev(id,h,a){var t=h+a;return id=="h"?h>a:id=="a"?a>h:id=="1x"?h>=a:id=="x2"?a>=h:id=="o15"?t>1:id=="o25"?t>2:id=="u25"?t<3:id=="u35"?t<4:id=="by"?h>0&&a>0:id=="bn"?!(h>0&&a>0):null}
+/* One table for result and underdog bets (goal markets live in the Goals outlook) */
+function betsHtml(m){var R=mm(m),h=m[2],a=m[3],get=function(L,id){var x=L.filter(function(z){return z[0]==id})[0];return x?x[2]:null},
+  hw=get(R.X,"h"),aw=get(R.X,"a"),yh=get(R.Y,"h"),ya=get(R.Y,"a"),gap=Math.abs(m[4]-m[6]),dogH=m[4]<m[6],dog=dogH?h:a,
+  rows=[[T[h]+" win",hw,yh],["Draw",1-hw-aw,1-yh-ya],[T[a]+" win",aw,ya],[T[h]+" win or draw",1-aw,1-ya],[T[a]+" win or draw",1-hw,1-yh]];
+ if(gap>=6){var L=R.L,A=pois(L[0],8),Bp=pois(L[1],8),h15=0,h25=0;for(var i=0;i<=8;i++)for(var j=0;j<=8;j++){var v=A[i]*Bp[j],fd=dogH?j-i:i-j;if(fd<2)h15+=v;if(fd<3)h25+=v}
+  if(m[7]&&m[7].dog15!==undefined)h15=m[7].dog15/100;rows.push([T[dog]+" +1.5 handicap",h15,null],[T[dog]+" +2.5 handicap",Math.min(.995,h25),null])}
+ var big=null;rows.forEach(function(r){if(r[2]==null)return;var d=r[1]-r[2];if(r[1]>=.4&&(!big||Math.abs(d)>Math.abs(big.d)))big={n:r[0],p:r[1],y:r[2],d:d}});
+ var ext=Math.max(hw,aw)>=.85||(m[7]&&m[7].o25!==undefined&&(m[7].o25>=80||m[7].o25<=20));
+ var OX=ODDSX[lg+":"+h+"-"+a],OB=OX&&(OX.pre||OX.close),MK=mdpMkt(OB),mk=null;
+ if(MK){mk=[[MK[0],OB.mh],[MK[1],OB.md],[MK[2],OB.ma],[MK[0]+MK[1],null],[MK[2]+MK[1],null]]}
+ var dis=null;if(MK)[[m[4],MK[0],T[h]+" win"],[m[5],MK[1],"the draw"],[m[6],MK[2],T[a]+" win"]].forEach(function(z){var d=z[0]-z[1];if(Math.abs(d)>=8&&(!dis||Math.abs(d)>Math.abs(dis.d)))dis={d:d,n:z[2],m:z[0],k:z[1]}});
+ var o='<div class="sec"><h4>Bets &amp; fair odds</h4>'+(dis?'<p class="warn">⚠ <b>Model vs bookmakers:</b> the model gives '+mdpEscape(dis.n)+' '+Math.round(dis.m)+'%, the bookmakers about '+Math.round(dis.k)+'%. Bookmakers have been more accurate than this model in testing, so a gap like this usually means the model is missing something (squad, injuries, last season). Check before trusting either.</p>':'')+(big&&Math.abs(big.d)>=.06?'<p><b>Biggest difference from a typical game:</b> '+mdpEscape(big.n)+', '+Math.round(big.p*100)+'% here against about '+Math.round(big.y*100)+'% normally.</p>':'');
+ if(ext)o+='<p class="warn">⚠ Unusually extreme numbers. The model can overrate goals and favourites, especially early in the season: compare with bookmaker prices before betting.</p>';
+ o+='<div class="sc2"><table class="dbt mkt"><tr><th>Bet</th><th>Model</th>'+(mk?'<th>Bookies</th>':'<th>Typical</th>')+'<th>Fair odds</th></tr>'+rows.map(function(r,ri){var d=r[2]!=null?r[1]-r[2]:0,mkk=d>=.08?' <span class="w">▲</span>':d<=-.08?' <span class="lo">▼</span>':'',fo=r[1]>0&&r[1]<.97?1/r[1]:null,M=mk&&mk[ri];
+  return'<tr><td>'+mdpEscape(r[0])+'</td><td><b>'+Math.round(r[1]*100)+'%</b>'+mkk+'</td>'+(mk?'<td>'+(M?Math.round(M[0])+'%'+(M[1]?'<br><small class="nv" style="white-space:nowrap">best '+M[1].toFixed(2)+(fo&&M[1]>fo?' ★':'')+'</small>':''):'–')+'</td>':'<td>'+(r[2]!=null?Math.round(r[2]*100)+'%':'–')+'</td>')+'<td>'+(fo?fo.toFixed(2):'–')+'</td></tr>'}).join("")+'</table></div>'+(OB&&OB.o25&&OB.u25&&m[7]&&m[7].o25!==undefined?'<p class="nv">Over 2.5 goals: model '+Math.round(m[7].o25)+'%, bookmakers '+Math.round(mdpMkt2(OB.o25,OB.u25))+'%'+(OB.mo25?' (best price '+OB.mo25.toFixed(2)+')':'')+'.</p>':'');
+ return o+'<p class="nv">'+(mk?'':'Typical = the same bet in an average game in this league; ')+'▲/▼ = at least 8 points more or less likely than in an average game in this league. Fair odds = 1 ÷ the model’s chance: a bet only has value if your bookmaker pays more. Model estimates, not guarantees.'+(mk?' Bookies = average of several bookmakers with their margin removed'+(OX.pre&&OX.pre.seen?' (prices collected '+(/^\d{4}-/.test(OX.pre.seen)?mdpStamp(OX.pre.seen.replace("Z",":00Z")):'early in the week')+'; they move before kick-off)':'')+'. ★ = best price is above the model’s fair odds; that is only value if the model is right, and in testing the bookmakers were usually closer.':'')+'</p></div>'}
 function mhtml(R,m){var h=m[2],a=m[3],get=function(L,id){var x=L.filter(function(z){return z[0]==id})[0];return x?x[2]:null};
  var hw=get(R.X,"h"),aw=get(R.X,"a"),yh=get(R.Y,"h"),ya=get(R.Y,"a"),
   rows=[[T[h]+" win",hw,yh],["Draw",1-hw-aw,1-yh-ya],[T[a]+" win",aw,ya],["Over 1.5 goals",get(R.X,"o15"),get(R.Y,"o15")],["Over 2.5 goals",get(R.X,"o25"),get(R.Y,"o25")],["Under 2.5 goals",get(R.X,"u25"),get(R.Y,"u25")],["Under 3.5 goals",get(R.X,"u35"),get(R.Y,"u35")],["Both teams score",get(R.X,"by"),get(R.Y,"by")],["Both teams don’t score",get(R.X,"bn"),get(R.Y,"bn")]];
@@ -370,6 +390,8 @@ function dogBets(m){if(Math.abs(m[4]-m[6])<6)return'';var h=m[2],a=m[3],fav=m[4]
 function upsetData(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,dog=fav==h?a:h,fp=Math.max(m[4],m[6]),pd=m[5],pu=fav==h?m[6]:m[4],L=mm(m).L,lh=L[0],la=L[1],lf=fav==h?lh:la,ld=fav==h?la:lh,A=pois(lh,7),Bp=pois(la,7),bd={p:-1},bu={p:-1};
  for(var i=0;i<=7;i++)for(var j=0;j<=7;j++){var v=A[i]*Bp[j],fg=fav==h?i:j,dg2=fav==h?j:i;if(fg==dg2&&v>bd.p)bd={p:v,s:i+"–"+j};if(dg2>fg&&v>bu.p)bu={p:v,s:i+"–"+j}}
  return{fav:fav,dog:dog,fp:fp,pd:pd,pu:pu,fail:Math.round((pd+pu)*10)/10,first:Math.round(100*ld/(lh+la)*(1-Math.exp(-(lh+la)))),blank:Math.round(100*Math.exp(-lf)),bd:bd,bu:bu}}
+function mdpEvidence(m){var h=m[2],a=m[3],A=tst(h,m).n,B=tst(a,m).n,R=lgRel(lg),few=Math.min(A,B)<10;
+ return'<div class="evd">🔎 <b>Evidence:</b> '+mdpEscape(T[h])+' '+A+' games, '+mdpEscape(T[a])+' '+B+' games this season · '+(R.rank?mdpEscape(LG[lg].n)+' '+ord(R.rank)+' of '+R.of+' for predictability':'not in our back-test')+(few?' · <span class="lo">few games: treat every number with extra caution</span>':'')+'</div>'}
 function upsetBox(m,r){var U2=upsetData(m);if(Math.abs(m[4]-m[6])<6)return'';
  var o='<div class="upbox"><h4>⚠ Worst case: how '+mdpEscape(T[U2.fav])+' could slip</h4><div class="upg">'+
   '<div class="hot"><b>'+Math.round(U2.fail)+'%</b><span>'+mdpEscape(T[U2.fav])+' fail to win</span></div>'+
@@ -434,7 +456,7 @@ function rk(m){
  var rf=rest(m,fav),rd=rest(m,dog);
  if(rf!==null&&rd!==null&&rf>=0&&rf<=3&&rd-rf>=2)add(1,"<b>Short turnaround:</b> "+T[fav]+" last played "+rf+" days before this game, "+T[dog]+" "+rd+" days before.");
  if(n){var cn=function(arr){return arr.reduce(function(x,t){return x+((t.match(/\(/g)||[]).length||1)},0)},no=cn(absOf(n,T[fav],"out"));
-  if(no>=2)add(no>=4?2:1,"<b>Missing players:</b> "+T[fav]+" have "+no+" players out (see Team news); the win chances do not include team news.")}
+  /* team news is shown in its own section only; it never changes the risk rating */}
  var OD=(typeof ODDS!=="undefined"&&ODDS)?ODDS[lg+":"+h+"-"+a]:null;
  if(OD){var odq=[1/OD[0],1/OD[1],1/OD[2]],odt=odq[0]+odq[1]+odq[2],odm=(home?odq[0]:odq[2])/odt*100;
   if(fp-odm>=6)add(fp-odm>=10?3:2,"<b>Bookmakers are less convinced:</b> the model gives "+T[fav]+" "+Math.round(fp)+"% but the market implies about "+Math.round(odm)+"%.")}
@@ -444,7 +466,7 @@ function rk(m){
  var X=m[7];if(X&&X.lh!==undefined){var ef=home?X.lh:X.la,ed=home?X.la:X.lh;if(ef-ed>=.5)pro.push("the model expects about "+ef.toFixed(1)+" goals for them and "+ed.toFixed(1)+" for "+T[dog])}
  // risk level: how likely the pick fails, plus only the meaningful warnings
  f.sort(function(x,y){return y.w-x.w});f=f.slice(0,4);
- var REL=lgRel(lg),sc=(fp<55?4:fp<65?2:fp<75?1:0)+(REL.tier=="less"||REL.tier=="unknown"?1:0)+f.slice(0,3).reduce(function(x,y){return x+y.w},0),lv=sc>=4?"High":sc>=2?"Medium":"Low";
+ var REL=lgRel(lg),sc=(fp<55?4:fp<70?2:fp<80?1:0)+(REL.tier=="less"||REL.tier=="unknown"?1:0)+f.slice(0,3).reduce(function(x,y){return x+y.w},0),lv=sc>=4?"High":sc>=2?"Medium":"Low";
  var fails=Math.round((100-fp)/10),o=[];
  o.push("<b>Reality check:</b> the model makes "+T[fav]+" favourites at "+fp+"% (draw "+pd+"%, "+T[dog]+" "+pu+"%). "+(fp<55?"That is close to a coin flip: they fail to win about "+fails+" times in 10.":"Even so, a favourite at this level fails to win about "+fails+" times in 10."));
  o.push("<b>League:</b> "+REL.txt);
@@ -456,7 +478,7 @@ function rk(m){
  if(dn>=4){var dlo=cnt(d6w,function(g){return g.gf<g.ga}),dga=d6w.reduce(function(x,g){return x+g.ga},0);
   if(dlo==0)wc.push("are unbeaten in their last "+dn);else if(dlo==1)wc.push("have lost just 1 of their last "+dn);
   if(dga/dn<=1)wc.push("have conceded just "+dga+" in their last "+dn)}
- var wl=hf.filter(function(g){return g.gf<g.ga&&g.o!==dog&&rank[g.o]!==undefined&&rank[g.o]>rank[fav]}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
+ var wl=hf.filter(function(g){return g.gf<g.ga&&g.o!==dog&&rank[g.o]!==undefined&&rank[g.o]>=rank[fav]+5}).sort(function(x,y){return(x.gf-x.ga)-(y.gf-y.ga)})[0];
  var wtxt=wl?T[fav]+" have already lost "+wl.gf+"–"+wl.ga+(wl.hm?" at home to ":" at ")+T[wl.o]+" ("+ord(rank[wl.o])+")":"";
  var up=[];
  if(wc.length)up.push("<b>The underdog:</b> "+T[dog]+" ("+ord(rank[dog])+") "+wc.join(" and ")+".");
@@ -489,8 +511,8 @@ function extra(m){
  if(inPre)o+=upsetBox(m,r);
  o+='<div class="sec"><h4>Risk check: <span class="lv-'+r[0]+'">'+r[0]+' risk</span></h4>'+r[1].map(P).join("")+'</div>';
  var D=dg(m),PL=function(c,t){return'<p><span class="'+c+'">'+(c=="w"?"+":"–")+'</span> '+t+'</p>'};
- o+=dogBets(m);
- o+=mhtml(mm(m),m);
+ 
+ o+=betsHtml(m);
  o+=mdpNewsHtml(h,a);
  return o}
 var LOGO=window.LOGO||{};
@@ -520,6 +542,8 @@ function cmp(h,a,withLast,m){m=m||[null,null,h,a];var A=tst(h,m),Bt=tst(a,m),L=l
  if(X&&X.lh!==undefined)row("Model expects","goals, after opponent strength",X.lh.toFixed(1),X.la.toFixed(1),X.lh,X.la,true);
  var sit=mdpSituation(h,a);if(sit.length>=2){var cut=function(x){return(x.match(/\): (.*)\.$/)||[0,""])[1]};o+='<span class="sm">'+cut(sit[0])+'</span><b>Situation</b><span class="sm">'+cut(sit[1])+'</span>';if(sit[2])o+='<em>'+sit[2]+'</em>'}
  return o+'</div><p class="nv" style="margin:6px 2px 0">Green = the better figure in each row.</p>'}
+/* A clear favourite: 45%+ and at least 10 points ahead of the other side. Otherwise it is a close game: no lean, no hit/miss, no "upset". */
+function mdpClear(m){var f=Math.max(m[4],m[6]),g=Math.abs(m[4]-m[6]);return f>=45&&g>=10}
 function leanOf(m){return m[4]>=m[6]&&m[4]>m[5]?m[2]:m[6]>m[4]&&m[6]>m[5]?m[3]:"D"}
 function predScore(m,any){var L=mm(m).L,lh=L[0],la=L[1],lean=leanOf(m),best=-1,bs=[0,0],A=pois(lh,6),B=pois(la,6);for(var i=0;i<=6;i++)for(var j=0;j<=6;j++){if(!any){if(lean==="D"?i!==j:(lean===m[2]?i<=j:j<=i))continue}var v=A[i]*B[j];if(v>best){best=v;bs=[i,j]}}return {h:bs[0],a:bs[1],p:best}}
 function confLabel(m){var gap=Math.abs(m[4]-m[6]),fp=Math.max(m[4],m[6]);return fp>=70&&gap>=35?'High':fp>=55&&gap>=18?'Medium':'Low'}
@@ -527,35 +551,42 @@ function keyFactors(m){var h=m[2],a=m[3],fav=m[4]>=m[6]?h:a,factors=[];factors.p
 function match(m){
  var h=m[2],a=m[3],l=leanOf(m),pick=l=="D"?"Draw":T[l]+" win",g=gx(m),r=rk(m),D=dg(m),MR=mm(m),ps=predScore(m),pa=predScore(m,true),cf=confLabel(m);if(r[0]=="High"&&cf=="High")cf="Medium";
  return '<div class="m" data-i="u"><div class="row"><span class="t">'+bd(h)+'<span class="nm">'+T[h]+'</span></span><span class="time">'+m[1]+'</span><span class="t"><span class="nm">'+T[a]+'</span>'+bd(a)+'</span></div>'+bar(m)+
- mdpPendingTag(h,a)+'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>'+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+''+mdpNewsTags(h,a)+'<span class="tag '+(/^Low|Mixed/.test(g[0])?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
- '<div class="det">'+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true,m)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor"><span>'+x+'</span></div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
+ mdpPendingTag(h,a)+(mdpClear(m)?'<span class="tag pk">Lean: '+pick+'</span><span class="tag">Confidence: '+cf+'</span>':'<span class="tag">Close game · no clear favourite</span>')+(LG[lg].est?'<span class="tag am">Model estimate</span>':'')+(Math.abs(m[4]-m[6])<6?'<span class="tag">Close game</span>':'')+(MR.c?'<span class="tag bt">🎯 '+MR.c.n+' '+Math.round(MR.c.p*100)+'%</span>':'')+''+mdpNewsTags(h,a)+'<span class="tag '+(/^Low|Mixed/.test(g[0])?"am":"")+'">⚽ '+g[0]+'</span><span class="tag '+(r[0]=="High"?"rd":r[0]=="Medium"?"am":"")+'">Risk: '+r[0]+'</span>'+(Math.abs(m[4]-m[6])>=6?'<span class="tag '+(100-Math.max(m[4],m[6])>=40?'rd':'am')+'">⚠ Fails to win '+Math.round(100-Math.max(m[4],m[6]))+'%</span>':'')+(r[2].w?'<span class="tag '+(r[2].w>=3?'rd':'am')+'">🚩 '+r[2].s+'</span>':'')+ 
+ '<div class="det">'+mdpEvidence(m)+upsetBox(m,r)+'<div class="predbox"><div class="pt"><div><div class="label">Model scoreline</div><div class="score">'+ps.h+' – '+ps.a+'</div></div><span class="conf">'+cf+' confidence</span></div><div class="label" style="margin-top:6px">Most likely score if the '+(l=="D"?"draw":"lean")+' is right'+((pa.h!==ps.h||pa.a!==ps.a)?' · single most likely score overall: '+pa.h+' – '+pa.a+' ('+Math.round(pa.p*100)+'%)':'')+' · not a guarantee</div></div>'+cmp(h,a,true,m)+'<div class="sec"><h4>Why the model leans this way</h4>'+insights(m).map(function(x){return'<div class="factor"><span>'+x+'</span></div>'}).join('')+'</div>'+extra(m)+'</div></div>'}
 function buildPre(r){PST={};var i=Math.max(0,R.indexOf(r));S.forEach(function(x){PST[x[0]]=x.slice()});for(var j=i;j<R.length;j++){var q=R[j];[[q[2],q[3],q[5]],[q[4],q[5],q[3]]].forEach(function(z){var x=PST[z[0]];if(!x)return;if(z[1]>z[2]){x[1]--;x[4]-=3}else if(z[1]==z[2]){x[2]--;x[4]-=1}else x[3]--})}var arr=Object.keys(PST).map(function(k){return PST[k]});arr.sort(function(a,b){return b[4]-a[4]});PRK={};arr.forEach(function(x,i){PRK[x[0]]=i+1})}
 function est(r){buildPre(r);var h=r[2],a=r[4];if(r[6]&&r[6].lh!==undefined)return [r[0],r[1],h,a,r[6].h,r[6].d,r[6].a,r[6]];var g=function(t){var s=PST[t];return s[4]/Math.max(1,s[1]+s[2]+s[3])},d=g(h)-g(a)+0.3,raw=1/(1+Math.exp(-1.4*d)),dd=0.28-0.05*Math.min(Math.abs(d),2),ph=(1-dd)*raw*100,pa=(1-dd)*(1-raw)*100;return [r[0],r[1],h,a,+ph.toFixed(1),+(dd*100).toFixed(1),+pa.toFixed(1)]}
 var NLC={FEY:["#e4002b","#fff","#111"],AJA:["#fff","#d2122e","#d2122e"],PSV:["#e2001a","#fff","#fff"],TWE:["#d71920","#fff","#111"],AZA:["#c8102e","#fff","#fff"],FOR:["#ffd400","#0a7a2f","#0a7a2f"],HEE:["#0057b8","#fff","#fff"],GRO:["#00a651","#fff","#fff"],GAE:["#e30613","#ffd400","#ffd400"],CAM:["#ffd400","#0033a0","#0033a0"],UTR:["#d4002a","#fff","#0b2a6b"],NEC:["#e30613","#fff","#111"],EXC:["#111","#e30613","#e30613"],SPA:["#d4002a","#fff","#111"],ZWO:["#1f5fa8","#fff","#fff"],TEL:["#fff","#111","#111"],ADO:["#0a8f3c","#ffd400","#ffd400"],WIL:["#1b3a8a","#fff","#d71920"]};
-var ODDS={}; // bookmaker odds: not connected yet
-function oddsLine(h,a,m){var x=ODDS[lg+":"+h+"-"+a];if(!x)return"";var q=[1/x[0],1/x[1],1/x[2]],s=q[0]+q[1]+q[2],p=q.map(function(v){return Math.round(v/s*100)});return "Bookmaker odds (average of several bookmakers): "+T[h]+" "+x[0]+", draw "+x[1]+", "+T[a]+" "+x[2]+". With the bookmaker margin removed that is "+p[0]+"% / "+p[1]+"% / "+p[2]+"%"+(m?", against the model’s "+Math.round(m[4])+"% / "+Math.round(m[5])+"% / "+Math.round(m[6])+"%":"")+". Over 2.5 goals paid "+x[3]+"."}
+var ODDS={},ODDSX={}; // bookmaker odds from data/odds.json (football-data.co.uk); display only, never used by the model
+/* Bookmaker chances with the margin removed: [home, draw, away] in % */
+function mdpMkt(b){if(!b||!b.h||!b.d||!b.a)return null;var q=[1/b.h,1/b.d,1/b.a],t=q[0]+q[1]+q[2];return q.map(function(v){return v/t*100})}
+function mdpMkt2(o,u){if(!o||!u)return null;var a=1/o,b=1/u;return a/(a+b)*100}
+function oddsLine(h,a,m){var X=ODDSX[lg+":"+h+"-"+a];if(X){var P=mdpMkt(X.pre),Cl=mdpMkt(X.close),r=function(v){return Math.round(v)+"%"};if(!P&&!Cl)return"";
+  return "<b>Bookmakers:</b> "+(P?"before the game they had "+T[h]+" "+r(P[0])+", draw "+r(P[1])+", "+T[a]+" "+r(P[2]):"")+(Cl?(P?"; at kick-off ":"at kick-off they had ")+r(Cl[0])+" / "+r(Cl[1])+" / "+r(Cl[2]):"")+" (margin removed). The model had "+Math.round(m[4])+"% / "+Math.round(m[5])+"% / "+Math.round(m[6])+"%."}
+ var x=ODDS[lg+":"+h+"-"+a];if(!x)return"";var q=[1/x[0],1/x[1],1/x[2]],s=q[0]+q[1]+q[2],p=q.map(function(v){return Math.round(v/s*100)});return "Bookmaker odds (average of several bookmakers): "+T[h]+" "+x[0]+", draw "+x[1]+", "+T[a]+" "+x[2]+". With the bookmaker margin removed that is "+p[0]+"% / "+p[1]+"% / "+p[2]+"%"+(m?", against the model’s "+Math.round(m[4])+"% / "+Math.round(m[5])+"% / "+Math.round(m[6])+"%":"")+". Over 2.5 goals paid "+x[3]+"."}
 function post(r){
  var h=r[2],a=r[4],hg=r[3],ag=r[5],m=est(r),MR=mm(m),ps=predScore(m),res=hg>ag?h:ag>hg?a:"D",lean=leanOf(m),o=[];
   var outcome=res=="D"?"Draw":T[res]+" win",q=r[6];
  if(q&&q.frozen)o.push("<b>Saved before kick-off:</b> these are the exact numbers published on "+mdpStamp(q.saved)+" ("+(q.model||"model")+"). They are locked and have not been changed since the game.");
  else if(q&&q.lh!==undefined)o.push("<b>Rebuilt:</b> no prediction was saved before this game, so these numbers were worked out afterwards using only results from before kick-off.");
  else o.push("<b>Rebuilt:</b> no saved prediction for this game; the numbers come from the table as it stood before kick-off.");
- if(lean==res)o.push("The model lean matched the result: "+outcome+".");
+ var clr=mdpClear(m),wp=res=="D"?m[5]:res==h?m[4]:m[6];
+ if(!clr)o.push("<b>Close game before kick-off</b> ("+T[h]+" "+m[4]+"%, draw "+m[5]+"%, "+T[a]+" "+m[6]+"%). "+outcome+" is within the normal range for a close game, so it is not counted as a hit or a miss.");
+ else if(lean==res)o.push("The model lean matched the result: "+outcome+".");
  else if(res=="D")o.push("The game ended level, while the model leaned toward "+(lean=="D"?"a draw":T[lean])+".");
- else o.push("The result went against the model lean: it expected "+(lean=="D"?"a draw":T[lean]+" to win")+" but "+T[res]+" won.");
+ else o.push((wp<=30?"<b>Upset:</b> "+T[res]+" won with only "+wp+"% pre-match win chance. ":"")+"The result went against the model lean: it expected "+(lean=="D"?"a draw":T[lean]+" to win")+" but "+T[res]+" won.");
  if(hg==ps.h&&ag==ps.a)o.push("The exact scoreline matched the model's most likely score: "+ps.h+"–"+ps.a+".");
  else if(Math.abs((hg+ag)-(ps.h+ps.a))>=2)o.push("The match produced "+(hg+ag)+" total goals versus "+(ps.h+ps.a)+" in the model's most likely scoreline, so the game was materially more open or more closed than the headline prediction suggested.");
  if(hg==0||ag==0)o.push((hg==0&&ag==0)?"Neither side scored.":(hg==0?T[a]:T[h])+" kept a clean sheet.");
  if(hg+ag>=5)o.push("High-scoring outcome: "+(hg+ag)+" goals were scored.");
  if(Math.abs(hg-ag)>=3)o.push("The final margin was "+Math.abs(hg-ag)+" goals. The score was decisive, but the margin alone does not prove there was a large pre-match strength gap; the pre-match probabilities are the better reference for that.");
  var od=oddsLine(h,a,m);if(od)o.push(od);var k=lg+":"+h+"-"+a;if(PAST[k])o.push(PAST[k]);
- return '<span class="tag pk">'+(lean==res?'Model lean hit':'Model lean missed')+'</span><ul class="ins review">'+o.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'}
+ return (clr?'<span class="tag pk">'+(lean==res?'Model lean hit':'Model lean missed')+'</span>':'<span class="tag">Close game · not scored</span>')+'<span class="tag">One result proves little · see Record</span><ul class="ins review">'+o.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'}
 function pre(r){
  MDP_CUT=r[8]||null;var m=est(r),sr=rank,ss=st,sl=last,h=m[2],a=m[3],o;rank=PRK;st=PST;last={};inPre=true;
- try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px;white-space:normal;display:inline-block;border-radius:12px">Pre-match view: the numbers as they stood before kick-off</div>'+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false,m)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
+ try{var MR=mm(m);o='<div class="time" style="margin:0 0 6px;white-space:normal;display:inline-block;border-radius:12px">Pre-match view: the numbers as they stood before kick-off</div>'+mdpEvidence(m)+bar(m)+'<div style="margin-top:10px">'+cmp(h,a,false,m)+'</div><ul class="ins">'+insights(m).map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul>'+extra(m)}
  finally{rank=sr;st=ss;last=sl;inPre=false;MDP_CUT=null}
  var l=leanOf(m),res=r[3]>r[5]?h:r[5]>r[3]?a:"D",nm=function(x){return x=="D"?"Draw":T[x]+" win"};
- return o+'<div class="sec"><h4>Prediction vs result</h4><p>Pre-match lean: <b>'+nm(l)+'</b>. Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). <span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span></p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). '+mdpScoreLine(m)+'</p>'+(MR.c?'<p>Biggest market angle was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<(res==h?m[6]:m[4])?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
+ return o+'<div class="sec"><h4>Prediction vs result</h4><p>'+(mdpClear(m)?'Pre-match lean: <b>'+nm(l)+'</b>.':'Pre-match: <b>no clear favourite</b> ('+m[4]+'% / '+m[5]+'% / '+m[6]+'%).')+' Actual: <b>'+nm(res)+'</b> ('+r[3]+'–'+r[5]+'). '+(mdpClear(m)?'<span class="'+(l==res?'w':'lo')+'">'+(l==res?'✓ Hit':'✗ Miss')+'</span>':'<span class="nv">Close game (no clear favourite), so not scored as a hit or miss.</span>')+'</p><p>Model goals: <b>'+(MR.L[0]+MR.L[1]).toFixed(1)+'</b> in total ('+MR.L[0].toFixed(1)+'–'+MR.L[1].toFixed(1)+'). '+mdpScoreLine(m)+'</p>'+(MR.c?'<p>Biggest market angle was <b>'+MR.c.n+'</b>: '+(MR.c.id=="h1"?'<span class="nv">can\u2019t be checked, no half-time score saved</span>':ev(MR.c.id,r[3],r[5])?'<span class="w">✓ Hit</span>':'<span class="lo">✗ Miss</span>')+' <span class="nv">(this market lands in about '+Math.round(MR.c.b*100)+'% of typical games, so one hit says little on its own)</span></p>':'')+(res!="D"&&(res==h?m[4]:m[6])<=30?'<p><b>Upset:</b> '+T[res]+' won with only '+(res==h?m[4]:m[6])+'% pre-match win chance.</p>':'')+'</div>'}
 function record0(){var n=0,t=0;R.forEach(function(r){var l=leanOf(est(r)),res=r[3]>r[5]?r[2]:r[5]>r[3]?r[4]:"D";t++;if(l==res)n++});
  return '<div class="sec" style="margin-top:0"><h4>Model track record (rebuilt)</h4><p>Called <b>'+n+' of '+t+'</b> of the results below correctly'+(MDP_LIVE.loaded?', using only games played before each match (a back-test; the verified record is below). Tap any match for its pre-match analysis.':'. Tap any match for its pre-match analysis. Today’s upcoming predictions are saved in this page so they can be checked against real results after the games.')+'</p></div>'}
 function hit(a,b){var q=qs.toLowerCase();return !q||T[a].toLowerCase().indexOf(q)>-1||T[b].toLowerCase().indexOf(q)>-1||a.toLowerCase()==q}
@@ -604,10 +635,10 @@ function mdpDays(){
  if(MDP_DAYS&&MDP_DAYS.stamp===MDP_LIVE.stampKey)return MDP_DAYS;
  var cur=lg,days={};
  Object.keys(LG).forEach(function(k){var L=LG[k];if(!L.CAL)return;setL(k);
-  L.CAL.forEach(function(c){var d=c.dk||(c.dk=mdpDK(c.utc)),x=days[d]||(days[d]={}),y=x[k]||(x[k]={n:0,fin:0,hit:0,up:0});y.n++;
-   if(c.k=="r"){y.fin++;try{var em=est(R[c.i]),rr=R[c.i];c.hit=leanOf(em)==mdpResOf(rr);c.fp=Math.max(em[4],em[6]);c.fw=mdpResOf(rr)==(em[4]>=em[6]?em[2]:em[3]);c.pd=em[5];c.dr=rr[3]==rr[5];c.o25=rr[6]&&rr[6].o25!==undefined?rr[6].o25:null;c.go=rr[3]+rr[5]>=3;c.lock=!!(rr[6]&&rr[6].frozen)}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
+  L.CAL.forEach(function(c){var d=c.dk||(c.dk=mdpDK(c.utc)),x=days[d]||(days[d]={}),y=x[k]||(x[k]={n:0,fin:0,hit:0,up:0,done:0});y.n++;
+   if(c.k=="r"){y.done++;try{var em=est(R[c.i]),rr=R[c.i];c.clear=mdpClear(em);if(c.clear)y.fin++;c.hit=c.clear&&leanOf(em)==mdpResOf(rr);c.fp=Math.max(em[4],em[6]);c.fw=mdpResOf(rr)==(em[4]>=em[6]?em[2]:em[3]);c.pd=em[5];c.dr=rr[3]==rr[5];c.o25=rr[6]&&rr[6].o25!==undefined?rr[6].o25:null;c.go=rr[3]+rr[5]>=3;c.lock=!!(rr[6]&&rr[6].frozen);c.mp=[em[4],em[5],em[6]];c.ri=rr[3]>rr[5]?0:rr[3]==rr[5]?1:2}catch(e){c.hit=false}if(c.hit)y.hit++}else y.up++})});
  setL(cur);MDP_DAYS={stamp:MDP_LIVE.stampKey,days:days};return MDP_DAYS}
-function mdpDaySum(x){var t={n:0,fin:0,hit:0,up:0};Object.keys(x).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var y=x[k];t.n+=y.n;t.fin+=y.fin;t.hit+=y.hit;t.up+=y.up});return t}
+function mdpDaySum(x){var t={n:0,fin:0,hit:0,up:0,done:0};Object.keys(x).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var y=x[k];t.n+=y.n;t.fin+=y.fin;t.hit+=y.hit;t.up+=y.up;t.done+=y.done||0});return t}
 function mdpCal(){
  var D=mdpDays().days,today=mdpDK(new Date().toISOString()),keys=Object.keys(D).filter(function(d){return mdpDaySum(D[d]).n>0}).sort();
  if(!keys.length)return{n:1,h:'<div class="empty">No games found'+(calLg!="all"?' for '+LG[calLg].n:'')+'.</div>'};
@@ -615,10 +646,10 @@ function mdpCal(){
  var o='<div class="calhead"><h2>Matchday</h2>'+(calSel!=today?'<button class="tdy" data-day="'+(keys.indexOf(today)>=0?today:(keys.filter(function(d){return d>today})[0]||keys[keys.length-1]))+'">Today ↺</button>':'')+'</div><div class="ds">',lastMon="";
  keys.forEach(function(d){var x=mdpDaySum(D[d]),I=mdpDayInfo(d),cls="dp"+(d<today?" past":"")+(d==today?" today":"")+(d==calSel?" on":"");
   if(I.mon!=lastMon){o+='<span class="mo">'+I.mon+'</span>';lastMon=I.mon}
-  o+='<button class="'+cls+'" data-day="'+d+'"><small>'+(d==today?"Today":I.wd)+'</small><b>'+I.day+'</b><i>'+(x.fin&&!x.up?'✓ '+x.hit+'/'+x.fin:x.n+' game'+(x.n==1?'':'s'))+'</i></button>'});
+  o+='<button class="'+cls+'" data-day="'+d+'"><small>'+(d==today?"Today":I.wd)+'</small><b>'+I.day+'</b><i>'+(x.done&&!x.up&&x.fin?'✓ '+x.hit+'/'+x.fin:x.n+' game'+(x.n==1?'':'s'))+'</i></button>'});
  o+='</div>';
  var sum=mdpDaySum(D[calSel]),I=mdpDayInfo(calSel);
- o+='<div class="dsum"><b>'+I.long+'</b><span class="sp"></span><span class="pill">'+sum.n+' game'+(sum.n==1?'':'s')+'</span>'+(sum.fin?'<span class="pill '+(sum.hit/sum.fin>=.5?'ok':'no')+'">Model lean right: '+sum.hit+' of '+sum.fin+'</span>':'')+(sum.up?'<span class="pill lk">'+sum.up+' still to play</span>':'')+'</div>';
+ o+='<div class="dsum"><b>'+I.long+'</b><span class="sp"></span><span class="pill">'+sum.n+' game'+(sum.n==1?'':'s')+'</span>'+(sum.fin?'<span class="pill '+(sum.hit/sum.fin>=.5?'ok':'no')+'">Clear favourites right: '+sum.hit+' of '+sum.fin+'</span>':'')+(sum.done>sum.fin?'<span class="pill">'+(sum.done-sum.fin)+' close game'+(sum.done-sum.fin==1?'':'s')+' (not scored)</span>':'')+(sum.up?'<span class="pill lk">'+sum.up+' still to play</span>':'')+'</div>';
  o+=potdCard(calSel,today)+mdpDayPicksLink(calSel);
  var cur=lg,shown=0;
  Object.keys(LG).forEach(function(k){if(calLg!="all"&&k!=calLg)return;var L=LG[k];if(!L.CAL)return;setL(k);
@@ -698,22 +729,34 @@ function potdRecordHtml(){var L=(MDP_LIVE.potd||[]).filter(function(e){return e.
 function mdpMini(m){return'<span class="mb"><i style="width:'+m[4]+'%;background:var(--home)"></i><i style="width:'+m[5]+'%;background:var(--draw)"></i><i style="width:'+m[6]+'%;background:var(--away)"></i></span>'}
 function mdpRowU(k,c){var m=U[c.i];if(!m)return'';var h=m[2],a=m[3];if(!hit(h,a))return'';var l=leanOf(m),st=MDP_STATUS[k+":"+h+"-"+a],p=l=="D"?m[5]:l==h?m[4]:m[6];
  return'<div class="cr" data-k="'+k+'" data-t="u" data-x="'+c.i+'"><div class="crm"><span class="crt'+(st?' lv':'')+'">'+(st?(st=="SUSPENDED"?"Susp.":"Live/<br>pending"):m[1])+'</span><span class="crh"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs vs">vs</span><span class="cra">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
- '<div class="crb">'+mdpMini(m)+'<span>Lean: <b style="color:var(--tx)">'+(l=="D"?"Draw":mdpEscape(T[l]))+'</b> '+Math.round(p)+'%'+(l!="D"&&Math.abs(m[4]-m[6])>=6?' · <span style="color:'+(100-p>=40?'var(--l)':'var(--am)')+'">fails to win '+Math.round(100-p)+'%</span>':'')+'</span></div><div class="crd"></div></div>'}
+ '<div class="crb">'+mdpMini(m)+(!mdpClear(m)?'<span>Close game: '+mdpEscape(T[h])+' '+Math.round(m[4])+'% · draw '+Math.round(m[5])+'% · '+mdpEscape(T[a])+' '+Math.round(m[6])+'%</span>':'<span>Lean: <b style="color:var(--tx)">'+(l=="D"?"Draw":mdpEscape(T[l]))+'</b> '+Math.round(p)+'%'+(l!="D"&&Math.abs(m[4]-m[6])>=6?' · <span style="color:'+(100-p>=40?'var(--l)':'var(--am)')+'">fails to win '+Math.round(100-p)+'%</span>':'')+'</span>')+'</div><div class="crd"></div></div>'}
 function mdpRowR(k,c){var r=R[c.i];if(!r)return'';var h=r[2],a=r[4];if(!hit(h,a))return'';var res=mdpResOf(r),q=r[6];
  return'<div class="cr" data-k="'+k+'" data-t="r" data-x="'+c.i+'"><div class="crm"><span class="crt ft">FT<small>'+mdpEscape(r[1]&&r[1]!="–"?r[1]:"")+'</small></span><span class="crh'+(res==a?' lose':'')+'"><span class="nm">'+mdpEscape(T[h])+'</span>'+bd(h)+'</span><span class="crs">'+r[3]+' – '+r[5]+'</span><span class="cra'+(res==h?' lose':'')+'">'+bd(a)+'<span class="nm">'+mdpEscape(T[a])+'</span></span></div>'+
- '<div class="crb"><span class="pill '+(c.hit?'ok':'no')+'">'+(c.hit?'✓ Lean right':'✗ Lean missed')+'</span>'+(q&&q.frozen?'<span class="pill lk">🔒 Saved before kick-off</span>':'<span class="pill">Rebuilt</span>')+'</div><div class="crd"></div></div>'}
+ '<div class="crb">'+(c.clear===false?'<span class="pill">Close game</span>':'<span class="pill '+(c.hit?'ok':'no')+'">'+(c.hit?'✓ Lean right':'✗ Lean missed')+'</span>')+(q&&q.frozen?'<span class="pill lk">🔒 Saved before kick-off</span>':'<span class="pill">Rebuilt</span>')+'</div><div class="crd"></div></div>'}
 function mdpKick(k,c){try{return'<div class="kick">🕒 '+(c.k=="r"?"Played ":"Kick-off ")+mdpEscape(mdpDate(c.utc))+', '+mdpEscape(mdpTime(c.utc))+' SAST · '+mdpEscape(LG[k].n)+'</div>'}catch(e){return''}}
 function mdpCalDetail(k,t,i){var cur=lg,o="",cc=(LG[k].CAL||[]).filter(function(c){return c.k==t&&c.i==i})[0];setL(k);
  try{if(t=="u")o=match(U[i]).replace('<div class="m" data-i="u">','<div class="m open crx">');
   else{var r=R[i];o='<div class="m open crx">'+post(r)+'<div class="det">'+pre(r)+'</div></div>'}}
  catch(e){o='<p class="nv">Details could not be built for this game.</p>'}
  setL(cur);return(cc?mdpKick(k,cc):'')+o}
+/* Model vs closing odds: the closing price is the toughest honest benchmark there is. */
+function mdpVsMarketHtml(){var g={n:0,lm:0,lk:0,mb:0,kb:0,lock:0,bets:0,pl:0,lb:0,lpl:0};
+ Object.keys(LG).forEach(function(k){(LG[k].CAL||[]).forEach(function(c){if(c.k!="r"||!c.mp)return;var X=ODDSX[k+"#"+c.id],C=X&&X.close,K=mdpMkt(C);if(!K)return;
+  var M=c.mp.map(function(v){return Math.max(v,.5)/100}),t=M[0]+M[1]+M[2];M=M.map(function(v){return v/t});var r=c.ri;
+  g.n++;g.lm-=Math.log(M[r]);g.lk-=Math.log(K[r]/100);if(M[r]>K[r]/100)g.mb++;else g.kb++;if(c.lock)g.lock++;
+  var pr=[C.h,C.d,C.a];[0,1,2].forEach(function(i){if(M[i]*pr[i]>1.05){var w=i==r?pr[i]-1:-1;g.bets++;g.pl+=w;if(c.lock){g.lb++;g.lpl+=w}}})})});
+ var h='<div class="sec"><h4>Model vs bookmakers (closing odds)</h4>';
+ if(!g.n)return h+'<p class="nv">No closing odds matched yet. They appear a day or two after each game (from football-data.co.uk).</p></div>';
+ var f=function(x){return(x>0?'+':'')+x.toFixed(1)},better=g.lm<g.lk;
+ return h+'<p>Across <b>'+g.n+'</b> finished games with closing odds ('+g.lock+' predicted before kick-off), '+(better?'<b>the model was more accurate</b>':'<b>the bookmakers were more accurate</b>')+' overall. Average error score (lower is better): model <b>'+(g.lm/g.n).toFixed(3)+'</b>, bookmakers <b>'+(g.lk/g.n).toFixed(3)+'</b>. The model gave the actual result a higher chance in '+g.mb+' games, the bookmakers in '+g.kb+'.</p>'+
+  '<p>If you had staked 1 unit at the average closing price whenever the model saw at least 5% value: <b>'+g.bets+'</b> bets, <b>'+f(g.pl)+' units</b>'+(g.bets?' ('+f(100*g.pl/g.bets)+'% per bet)':'')+(g.lb?'; on games predicted before kick-off only: '+g.lb+' bets, '+f(g.lpl)+' units':'')+'.</p>'+
+  '<p class="nv">'+(g.n<500?'⚠ Too few games to judge yet: at least 500 are needed before the profit figure means anything. ':'')+'Beating the closing odds is hard; most models don’t. This is an honest check, not a promise of profit.</p></div>'}
 function mdpRecordTab(){
  if(!mdpHasCal())return record();
  var D=mdpDays().days,tot={},all={fin:0,hit:0};
  Object.keys(D).forEach(function(d){Object.keys(D[d]).forEach(function(k){var y=D[d][k],t=tot[k]||(tot[k]={fin:0,hit:0});t.fin+=y.fin;t.hit+=y.hit;all.fin+=y.fin;all.hit+=y.hit})});
- var o=potdRecordHtml()+potdBacktestHtml()+upsetSignalsHtml()+mdpRecordHtml();
- o+='<div class="sec"><h4>Model lean by league (this season)</h4><p>How often the model’s lean (home win, draw or away win) matched the result'+(all.fin?': <b>'+all.hit+' of '+all.fin+'</b> overall ('+Math.round(100*all.hit/all.fin)+'%)':'')+'. Games with a 🔒 were predicted before kick-off; the rest were rebuilt afterwards using only earlier results.</p></div>';
+ var o=potdRecordHtml()+potdBacktestHtml()+upsetSignalsHtml()+mdpRecordHtml()+mdpVsMarketHtml();
+ o+='<div class="sec"><h4>Model lean by league (this season)</h4><p>How often the model’s lean matched the result, <b>counting clear favourites only</b> (45%+ and at least 10 points ahead). Close games are left out because any result there is normal'+(all.fin?': <b>'+all.hit+' of '+all.fin+'</b> overall ('+Math.round(100*all.hit/all.fin)+'%)':'')+'. Games with a 🔒 were predicted before kick-off; the rest were rebuilt afterwards using only earlier results.</p></div>';
  o+='<div class="sc2" style="margin-top:12px"><table><tr><th>League</th><th>Games</th><th>Lean right</th><th>%</th></tr>'+Object.keys(LG).filter(function(k){return tot[k]&&tot[k].fin}).map(function(k){var t=tot[k];return'<tr><td>'+lgLogo(k)+mdpEscape(LG[k].n)+' <span style="color:var(--mu);font-weight:500;font-size:12px">'+mdpEscape(lgCountry(k))+'</span></td><td>'+t.fin+'</td><td>'+t.hit+'</td><td><b>'+Math.round(100*t.hit/t.fin)+'%</b></td></tr>'}).join("")+'</table></div>';
  var bands=[[0,50,"Under 50%"],[50,55,"50–55%"],[55,60,"55–60%"],[60,65,"60–65%"],[65,75,"65–75%"],[75,101,"75%+"]],cal=bands.map(function(){return{n:0,p:0,w:0}}),locked=0;
  Object.keys(LG).forEach(function(k){(LG[k].CAL||[]).forEach(function(c){if(c.k!="r"||c.fp===undefined)return;bands.forEach(function(b,i){if(c.fp>=b[0]&&c.fp<b[1]){cal[i].n++;cal[i].p+=c.fp;cal[i].w+=c.fw?1:0}});if(c.lock)locked++})});
@@ -807,6 +850,7 @@ function mdpBuildLeague(key,ms,P){
  names.forEach(function(n){if(!teams[n])teams[n]=mdpNewCode(n,used,tpl)});
  Object.keys(teams).forEach(function(n){T[teams[n]]=n});
  (ms||[]).forEach(function(m){var nw=P&&P.news&&P.news[String(m.id)];if(nw&&teams[m.home]&&teams[m.away])NEWS[key+":"+teams[m.home]+"-"+teams[m.away]]=mdpNewsObj(nw,m.home,m.away)});
+ var OM=(MDP_LIVE.odds&&MDP_LIVE.odds.matches)||{};(ms||[]).forEach(function(m){var o=OM[String(m.id)],h=teams[m.home],a=teams[m.away];if(!o||!h||!a)return;var k=key+":"+h+"-"+a,b=o.pre||o.close;ODDSX[k]=o;ODDSX[key+"#"+m.id]=o;if(b)ODDS[k]=[b.h,b.d,b.a,b.o25||null]});
  var C={};(ms||[]).forEach(function(m){if(m.hc&&teams[m.home])C[teams[m.home]]=m.hc;if(m.ac&&teams[m.away])C[teams[m.away]]=m.ac});
  (ms||[]).forEach(function(m){var h=teams[m.home],a=teams[m.away];if(!h||!a)return;var date=mdpDate(m.utc),time=mdpTime(m.utc);if(m.status==="FINISHED"&&m.hg!==null&&m.ag!==null){finished.push([date,time,h,+m.hg,a,+m.ag,m.utc,m.id])}else if((m.status==="SCHEDULED"||m.status==="TIMED")&&mdpInWindow(m.utc)){upcoming.push([date,time,h,a,m.utc,m.id]);MDP_UTC[key+":"+h+"-"+a]=m.utc}else if(MDP_PENDING[m.status]&&new Date(m.utc).getTime()>Date.now()-3*864e5){MDP_STATUS[key+":"+h+"-"+a]=m.status;upcoming.push([date,time,h,a,m.utc,m.id])}});
  var stats={};Object.keys(T).forEach(function(id){stats[id]={w:0,d:0,l:0,pts:0,gf:0,ga:0,played:0}});
@@ -861,11 +905,11 @@ async function mdpFetchJson(name,required,fallback){
 }
 async function mdpLoadLive(){
  try{
-  var all=await Promise.all([mdpFetchJson('matches.json',true,null),mdpFetchJson('picks_upcoming.json',false,[]),mdpFetchJson('picks_log.json',false,[]),mdpFetchJson('summary.json',false,null),mdpFetchJson('predictions.json',false,null),mdpFetchJson('potd.json',false,null),mdpFetchJson('potd_backtest.json',false,null),mdpFetchJson('potd_preview.json',false,null),mdpFetchJson('upset_rules.json',false,null)]);
-  var data=all[0],stampKey=(data&&data.updated)+'|'+(all[4]&&all[4].updated)+'|'+(all[3]&&all[3].updated)+'|'+(all[5]?all[5].length+':'+JSON.stringify(all[5].slice(-1)):'')+'|'+(all[6]&&all[6].updated)+'|'+(all[7]&&all[7].updated)+'|'+(all[8]&&all[8].tested);
+  var all=await Promise.all([mdpFetchJson('matches.json',true,null),mdpFetchJson('picks_upcoming.json',false,[]),mdpFetchJson('picks_log.json',false,[]),mdpFetchJson('summary.json',false,null),mdpFetchJson('predictions.json',false,null),mdpFetchJson('potd.json',false,null),mdpFetchJson('potd_backtest.json',false,null),mdpFetchJson('potd_preview.json',false,null),mdpFetchJson('upset_rules.json',false,null),mdpFetchJson('odds.json',false,null)]);
+  var data=all[0],stampKey=(data&&data.updated)+'|'+(all[4]&&all[4].updated)+'|'+(all[3]&&all[3].updated)+'|'+(all[5]?all[5].length+':'+JSON.stringify(all[5].slice(-1)):'')+'|'+(all[6]&&all[6].updated)+'|'+(all[7]&&all[7].updated)+'|'+(all[8]&&all[8].tested)+'|'+(all[9]&&all[9].updated);
   // The data only changes every 6 hours. If nothing is new, keep the page as it is so open match cards stay open.
   if(MDP_LIVE.loaded&&MDP_LIVE.stampKey===stampKey){mdpStatusAge(data);return}
-  MDP_LIVE.stampKey=stampKey;MDP_LIVE.picks=all[1];MDP_LIVE.log=all[2];MDP_LIVE.summary=all[3];MDP_LIVE.preds=all[4];MDP_LIVE.potd=Array.isArray(all[5])?all[5]:null;MDP_LIVE.potdBt=all[6]&&all[6].summary?all[6]:null;MDP_LIVE.potdPre=all[7]||null;MDP_LIVE.upsetRules=all[8]&&all[8].table?all[8]:null;
+  MDP_LIVE.stampKey=stampKey;MDP_LIVE.picks=all[1];MDP_LIVE.log=all[2];MDP_LIVE.summary=all[3];MDP_LIVE.preds=all[4];MDP_LIVE.potd=Array.isArray(all[5])?all[5]:null;MDP_LIVE.potdBt=all[6]&&all[6].summary?all[6]:null;MDP_LIVE.potdPre=all[7]||null;MDP_LIVE.upsetRules=all[8]&&all[8].table?all[8]:null;MDP_LIVE.odds=all[9]&&all[9].matches?all[9]:null;ODDS={};ODDSX={};
   if(!Array.isArray(MDP_LIVE.picks))MDP_LIVE.picks=[];
   if(!data||!data.leagues||!Object.keys(data.leagues).length)throw new Error('data/matches.json has no leagues yet (check that the GitHub Action ran successfully)');
    MDP_LIVE.matches=data;MDP_STATUS={};NEWS={};MDP_UTC={};MDP_BASE={};
