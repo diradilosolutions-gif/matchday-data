@@ -28,6 +28,9 @@ jobs:
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python scripts/fetch_news.py
+      - name: Fetch bookmaker odds (display only, never used by the model)
+        continue-on-error: true      # odds problems must never stop predictions
+        run: python scripts/fetch_odds.py
       - name: Calculate predictions (one model for the site and the pick log; locks pre-match numbers)
         run: python scripts/make_predictions.py
       - name: Log picks and settle results
