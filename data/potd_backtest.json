@@ -1,41 +1,14 @@
 {
- "updated": "2026-11-07T18:31:55Z",
+ "updated": "2026-11-08T18:32:07Z",
  "market": "dog_dc",
  "summary": {
-  "picks": 31,
+  "picks": 32,
   "won": 20,
-  "hit_rate": 0.645,
-  "avg_model_prob": 0.54,
-  "avg_adj_prob": 0.563
+  "hit_rate": 0.625,
+  "avg_model_prob": 0.538,
+  "avg_adj_prob": 0.561
  },
  "picks": [
-  {
-   "home": "Cruzeiro",
-   "away": "Bragantino",
-   "utc": "2026-04-12T21:30:00Z",
-   "match_id": 554843,
-   "market": "dog_dc",
-   "label": "Bragantino win or draw",
-   "dog": "Bragantino",
-   "fav": "Cruzeiro",
-   "side": "away",
-   "model_prob": 0.6069,
-   "bias": -0.0192,
-   "adj_prob": 0.6298,
-   "fair_odds": 1.59,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "bsa",
-   "date": "2026-04-12",
-   "score": "2-1",
-   "won": false
-  },
   {
    "home": "Clube do Remo",
    "away": "Cruzeiro",
@@ -793,19 +766,46 @@
    "won": true
   },
   {
-   "home": "Málaga",
-   "away": "Santander",
-   "utc": "2026-11-07T13:00:00Z",
-   "match_id": 564744,
+   "home": "Den Haag",
+   "away": "Sparta",
+   "utc": "2026-11-07T17:45:00Z",
+   "match_id": 558841,
    "market": "dog_dc",
-   "label": "Santander win or draw",
-   "dog": "Santander",
-   "fav": "Málaga",
-   "side": "away",
-   "model_prob": 0.5367,
+   "label": "Den Haag win or draw",
+   "dog": "Den Haag",
+   "fav": "Sparta",
+   "side": "home",
+   "model_prob": 0.5458,
    "bias": -0.0192,
-   "adj_prob": 0.5596,
-   "fair_odds": 1.79,
+   "adj_prob": 0.5687,
+   "fair_odds": 1.76,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "nl",
+   "date": "2026-11-07",
+   "score": "3-1",
+   "won": true
+  },
+  {
+   "home": "Real Sociedad",
+   "away": "Rayo Vallecano",
+   "utc": "2026-11-08T15:15:00Z",
+   "match_id": 564743,
+   "market": "dog_dc",
+   "label": "Rayo Vallecano win or draw",
+   "dog": "Rayo Vallecano",
+   "fav": "Real Sociedad",
+   "side": "away",
+   "model_prob": 0.456,
+   "bias": -0.0192,
+   "adj_prob": 0.4789,
+   "fair_odds": 2.09,
    "signals": [
     {
      "key": "fav_leaky",
@@ -815,9 +815,9 @@
     }
    ],
    "league": "laliga",
-   "date": "2026-11-07",
-   "score": "1-2",
-   "won": true
+   "date": "2026-11-08",
+   "score": "1-0",
+   "won": false
   }
  ]
 }
