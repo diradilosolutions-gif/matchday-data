@@ -1917,8 +1917,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-04T18:47:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-4"
  },
  {
   "id": "laliga:564738:over15",
@@ -2002,8 +2002,8 @@
   "fair_odds": 1.26,
   "odds": null,
   "created_at": "2026-11-04T18:47:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "seriea:558530:dog15",
@@ -2019,8 +2019,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-04T18:47:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "2-0"
  },
  {
   "id": "bundesliga:565855:over15",
@@ -2274,8 +2274,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-0"
  },
  {
   "id": "laliga:564746:dog15",
