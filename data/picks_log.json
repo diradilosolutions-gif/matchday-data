@@ -2206,8 +2206,8 @@
   "fair_odds": 1.27,
   "odds": null,
   "created_at": "2026-11-05T00:48:21Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-2"
  },
  {
   "id": "ligue1:559630:over15",
@@ -2478,8 +2478,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "ppl:567355:over15",
@@ -2495,8 +2495,8 @@
   "fair_odds": 1.05,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-3"
  },
  {
   "id": "seriea:558537:over15",
