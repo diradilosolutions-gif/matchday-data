@@ -2189,8 +2189,8 @@
   "fair_odds": 1.13,
   "odds": null,
   "created_at": "2026-11-05T00:48:21Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-2"
  },
  {
   "id": "seriea:558529:over15",
@@ -2223,8 +2223,8 @@
   "fair_odds": 1.15,
   "odds": null,
   "created_at": "2026-11-05T00:48:21Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-2"
  },
  {
   "id": "nl:558838:over15",
@@ -2240,8 +2240,8 @@
   "fair_odds": 1.1,
   "odds": null,
   "created_at": "2026-11-05T00:48:21Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-3"
  },
  {
   "id": "epl:560635:over15",
@@ -2291,8 +2291,8 @@
   "fair_odds": 1.28,
   "odds": null,
   "created_at": "2026-11-05T08:48:19Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-2"
  },
  {
   "id": "seriea:558536:over15",
