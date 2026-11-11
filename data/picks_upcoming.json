@@ -1,1 +1,36 @@
-[]
+[
+ {
+  "id": "bsa:555085:dog15",
+  "league": "bsa",
+  "match_id": 555085,
+  "utc": "2026-11-14T21:30:00Z",
+  "home": "Mirassol",
+  "away": "Mineiro",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "away",
+  "model_prob": 0.829,
+  "fair_odds": 1.21,
+  "odds": null,
+  "created_at": "2026-11-11T00:44:55Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "bsa:554942:over15",
+  "league": "bsa",
+  "match_id": 554942,
+  "utc": "2026-11-14T23:30:00Z",
+  "home": "Chapecoense",
+  "away": "Vasco da Gama",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.816,
+  "fair_odds": 1.23,
+  "odds": null,
+  "created_at": "2026-11-11T00:44:55Z",
+  "won": null,
+  "score": null
+ }
+]
