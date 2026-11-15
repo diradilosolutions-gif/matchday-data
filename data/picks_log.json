@@ -2631,8 +2631,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-11T00:44:55Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-2"
  },
  {
   "id": "bsa:555081:over15",
