@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-16T14:52:16Z",
+ "updated": "2026-11-17T12:54:03Z",
  "market": "dog_dc",
  "summary": {
   "picks": 32,
-  "won": 19,
-  "hit_rate": 0.594,
-  "avg_model_prob": 0.537,
-  "avg_adj_prob": 0.56
+  "won": 20,
+  "hit_rate": 0.625,
+  "avg_model_prob": 0.538,
+  "avg_adj_prob": 0.561
  },
  "picks": [
   {
@@ -442,19 +442,19 @@
    "won": false
   },
   {
-   "home": "Sparta",
-   "away": "Willem II",
-   "utc": "2026-10-17T19:00:00Z",
-   "match_id": 558868,
+   "home": "Norwich",
+   "away": "Portsmouth",
+   "utc": "2026-10-17T14:00:00Z",
+   "match_id": 561881,
    "market": "dog_dc",
-   "label": "Willem II win or draw",
-   "dog": "Willem II",
-   "fav": "Sparta",
+   "label": "Portsmouth win or draw",
+   "dog": "Portsmouth",
+   "fav": "Norwich",
    "side": "away",
-   "model_prob": 0.5319,
+   "model_prob": 0.5466,
    "bias": -0.0192,
-   "adj_prob": 0.5548,
-   "fair_odds": 1.8,
+   "adj_prob": 0.5695,
+   "fair_odds": 1.76,
    "signals": [
     {
      "key": "fav_leaky",
@@ -463,10 +463,10 @@
      "n": 1604
     }
    ],
-   "league": "nl",
+   "league": "champ",
    "date": "2026-10-17",
-   "score": "3-2",
-   "won": false
+   "score": "0-1",
+   "won": true
   },
   {
    "home": "Osasuna",
@@ -721,9 +721,9 @@
    "dog": "Bolton",
    "fav": "Charlton",
    "side": "away",
-   "model_prob": 0.6016,
+   "model_prob": 0.6036,
    "bias": -0.0192,
-   "adj_prob": 0.6245,
+   "adj_prob": 0.6265,
    "fair_odds": 1.6,
    "signals": [
     {
