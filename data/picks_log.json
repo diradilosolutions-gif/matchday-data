@@ -2682,8 +2682,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-15T00:46:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "bsa:555083:over15",
@@ -2699,8 +2699,8 @@
   "fair_odds": 1.19,
   "odds": null,
   "created_at": "2026-11-15T00:46:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-1"
  },
  {
   "id": "bsa:555084:dog15",
@@ -2716,8 +2716,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-15T00:46:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-0"
  },
  {
   "id": "bsa:555089:dog15",
@@ -3770,6 +3770,23 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-19T00:58:14Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "bsa:555096:over15",
+  "league": "bsa",
+  "match_id": 555096,
+  "utc": "2026-11-22T21:30:00Z",
+  "home": "Fluminense",
+  "away": "Mirassol",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.78,
+  "fair_odds": 1.28,
+  "odds": null,
+  "created_at": "2026-11-19T07:02:25Z",
   "won": null,
   "score": null
  }
