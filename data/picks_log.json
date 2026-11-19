@@ -2648,8 +2648,8 @@
   "fair_odds": 1.26,
   "odds": null,
   "created_at": "2026-11-15T00:46:10Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "bsa:555081:dog15",
@@ -2665,8 +2665,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-15T00:46:10Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-1"
  },
  {
   "id": "bsa:555086:over15",
@@ -3719,6 +3719,57 @@
   "fair_odds": 1.1,
   "odds": null,
   "created_at": "2026-11-18T18:47:19Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "seriea:558520:over15",
+  "league": "seriea",
+  "match_id": 558520,
+  "utc": "2026-11-22T19:45:00Z",
+  "home": "Atalanta",
+  "away": "Inter",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.896,
+  "fair_odds": 1.12,
+  "odds": null,
+  "created_at": "2026-11-19T00:58:14Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "ligue1:559629:over15",
+  "league": "ligue1",
+  "match_id": 559629,
+  "utc": "2026-11-22T19:45:00Z",
+  "home": "Marseille",
+  "away": "Le Mans",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.877,
+  "fair_odds": 1.14,
+  "odds": null,
+  "created_at": "2026-11-19T00:58:14Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "bsa:555090:over15",
+  "league": "bsa",
+  "match_id": 555090,
+  "utc": "2026-11-22T19:00:00Z",
+  "home": "Paranaense",
+  "away": "Clube do Remo",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.817,
+  "fair_odds": 1.22,
+  "odds": null,
+  "created_at": "2026-11-19T00:58:14Z",
   "won": null,
   "score": null
  }
