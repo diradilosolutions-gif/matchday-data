@@ -2733,8 +2733,8 @@
   "fair_odds": 1.2,
   "odds": null,
   "created_at": "2026-11-16T01:04:06Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-1"
  },
  {
   "id": "bsa:555087:dog15",
@@ -3787,6 +3787,57 @@
   "fair_odds": 1.28,
   "odds": null,
   "created_at": "2026-11-19T07:02:25Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "laliga:564757:over15",
+  "league": "laliga",
+  "match_id": 564757,
+  "utc": "2026-11-23T20:00:00Z",
+  "home": "Levante",
+  "away": "Elche",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.82,
+  "fair_odds": 1.22,
+  "odds": null,
+  "created_at": "2026-11-20T00:51:02Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "seriea:558519:over15",
+  "league": "seriea",
+  "match_id": 558519,
+  "utc": "2026-11-23T19:45:00Z",
+  "home": "Monza",
+  "away": "Fiorentina",
+  "market": "over15",
+  "label": "Over 1.5 goals",
+  "side": null,
+  "model_prob": 0.918,
+  "fair_odds": 1.09,
+  "odds": null,
+  "created_at": "2026-11-20T00:51:02Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "bsa:555093:dog15",
+  "league": "bsa",
+  "match_id": 555093,
+  "utc": "2026-11-23T23:00:00Z",
+  "home": "Botafogo",
+  "away": "São Paulo",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "away",
+  "model_prob": 0.811,
+  "fair_odds": 1.23,
+  "odds": null,
+  "created_at": "2026-11-20T00:51:02Z",
   "won": null,
   "score": null
  }
