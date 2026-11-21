@@ -1,10 +1,33 @@
 {
- "updated": "2026-11-20T18:53:53Z",
+ "updated": "2026-11-21T00:54:21Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-20": null,
-  "2026-11-21": null
+  "2026-11-21": null,
+  "2026-11-22": {
+   "home": "Paranaense",
+   "away": "Clube do Remo",
+   "utc": "2026-11-22T19:00:00Z",
+   "match_id": 555090,
+   "market": "dog_dc",
+   "label": "Clube do Remo win or draw",
+   "dog": "Clube do Remo",
+   "fav": "Paranaense",
+   "side": "away",
+   "model_prob": 0.3994,
+   "bias": -0.0192,
+   "adj_prob": 0.4223,
+   "fair_odds": 2.37,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa"
+  }
  }
 }
