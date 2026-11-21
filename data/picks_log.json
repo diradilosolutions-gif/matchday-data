@@ -2784,8 +2784,8 @@
   "fair_odds": 1.18,
   "odds": null,
   "created_at": "2026-11-17T12:54:03Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "champ:561948:over15",
@@ -2801,8 +2801,8 @@
   "fair_odds": 1.08,
   "odds": null,
   "created_at": "2026-11-17T12:54:03Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-1"
  },
  {
   "id": "champ:561950:over15",
@@ -2818,8 +2818,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-17T12:54:03Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "champ:561950:dog15",
@@ -2835,8 +2835,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-17T12:54:03Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "0-1"
  },
  {
   "id": "epl:560644:over15",
@@ -2852,8 +2852,8 @@
   "fair_odds": 1.26,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-0"
  },
  {
   "id": "epl:560648:over15",
@@ -2869,8 +2869,8 @@
   "fair_odds": 1.28,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "epl:560650:over15",
@@ -2886,8 +2886,8 @@
   "fair_odds": 1.18,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-2"
  },
  {
   "id": "laliga:564755:dog15",
@@ -2903,8 +2903,8 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "3-1"
  },
  {
   "id": "laliga:564756:over15",
@@ -2954,8 +2954,8 @@
   "fair_odds": 1.15,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "3-0"
  },
  {
   "id": "seriea:558526:over15",
@@ -2988,8 +2988,8 @@
   "fair_odds": 1.2,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-0"
  },
  {
   "id": "bundesliga:565858:over15",
@@ -3005,8 +3005,8 @@
   "fair_odds": 1.14,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-5"
  },
  {
   "id": "bundesliga:565860:over15",
@@ -3022,8 +3022,8 @@
   "fair_odds": 1.14,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "bundesliga:565862:over15",
@@ -3039,8 +3039,8 @@
   "fair_odds": 1.2,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "bundesliga:565865:over15",
@@ -3056,8 +3056,8 @@
   "fair_odds": 1.09,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "bundesliga:565861:dog15",
@@ -3090,8 +3090,8 @@
   "fair_odds": 1.25,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-3"
  },
  {
   "id": "ligue1:559628:dog15",
@@ -3107,8 +3107,8 @@
   "fair_odds": 1.26,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-3"
  },
  {
   "id": "champ:561942:dog15",
@@ -3124,8 +3124,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-2"
  },
  {
   "id": "champ:561943:over15",
@@ -3141,8 +3141,8 @@
   "fair_odds": 1.19,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "2-0"
  },
  {
   "id": "champ:561945:over15",
@@ -3158,8 +3158,8 @@
   "fair_odds": 1.27,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "champ:561945:dog15",
@@ -3175,8 +3175,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "champ:561946:dog15",
@@ -3192,8 +3192,8 @@
   "fair_odds": 1.21,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-0"
  },
  {
   "id": "champ:561949:dog15",
@@ -3226,8 +3226,8 @@
   "fair_odds": 1.09,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "nl:558833:over15",
@@ -3243,8 +3243,8 @@
   "fair_odds": 1.08,
   "odds": null,
   "created_at": "2026-11-17T18:52:18Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-4"
  },
  {
   "id": "nl:558831:over15",
@@ -4025,6 +4025,40 @@
   "fair_odds": 1.27,
   "odds": null,
   "created_at": "2026-11-21T00:54:21Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "seriea:558524:dog15",
+  "league": "seriea",
+  "match_id": 558524,
+  "utc": "2026-11-22T14:00:00Z",
+  "home": "Sassuolo",
+  "away": "Genoa",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "home",
+  "model_prob": 0.787,
+  "fair_odds": 1.27,
+  "odds": null,
+  "created_at": "2026-11-21T18:37:35Z",
+  "won": null,
+  "score": null
+ },
+ {
+  "id": "nl:558832:dog15",
+  "league": "nl",
+  "match_id": 558832,
+  "utc": "2026-11-21T20:00:00Z",
+  "home": "Telstar",
+  "away": "Zwolle",
+  "market": "dog15",
+  "label": "Underdog +1.5 handicap",
+  "side": "away",
+  "model_prob": 0.781,
+  "fair_odds": 1.28,
+  "odds": null,
+  "created_at": "2026-11-21T18:37:35Z",
   "won": null,
   "score": null
  }
