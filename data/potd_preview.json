@@ -1,23 +1,23 @@
 {
- "updated": "2026-11-22T06:57:41Z",
+ "updated": "2026-11-22T12:44:34Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
   "2026-11-22": {
-   "home": "Burnley",
-   "away": "Blackburn",
-   "utc": "2026-11-22T12:00:00Z",
-   "match_id": 561947,
+   "home": "Paranaense",
+   "away": "Clube do Remo",
+   "utc": "2026-11-22T19:00:00Z",
+   "match_id": 555090,
    "market": "dog_dc",
-   "label": "Blackburn win or draw",
-   "dog": "Blackburn",
-   "fav": "Burnley",
+   "label": "Clube do Remo win or draw",
+   "dog": "Clube do Remo",
+   "fav": "Paranaense",
    "side": "away",
-   "model_prob": 0.5894,
+   "model_prob": 0.4005,
    "bias": -0.0192,
-   "adj_prob": 0.6123,
-   "fair_odds": 1.63,
+   "adj_prob": 0.4234,
+   "fair_odds": 2.36,
    "signals": [
     {
      "key": "fav_leaky",
@@ -26,7 +26,7 @@
      "n": 1604
     }
    ],
-   "league": "champ"
+   "league": "bsa"
   },
   "2026-11-23": null
  }
