@@ -3413,8 +3413,8 @@
   "fair_odds": 1.24,
   "odds": null,
   "created_at": "2026-11-18T00:57:12Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "0-1"
  },
  {
   "id": "bsa:555095:over15",
@@ -3430,8 +3430,8 @@
   "fair_odds": 1.18,
   "odds": null,
   "created_at": "2026-11-18T00:57:12Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-2"
  },
  {
   "id": "champ:561947:over15",
