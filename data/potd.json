@@ -143,5 +143,10 @@
   "status": "won",
   "score": "2-2",
   "settled_at": "2026-11-22T18:38:56Z"
+ },
+ {
+  "date": "2026-11-23",
+  "locked_at": "2026-11-23T13:02:39Z",
+  "status": "none"
  }
 ]

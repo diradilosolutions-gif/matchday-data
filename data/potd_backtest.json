@@ -1,41 +1,14 @@
 {
- "updated": "2026-11-22T12:44:34Z",
+ "updated": "2026-11-23T13:02:39Z",
  "market": "dog_dc",
  "summary": {
-  "picks": 32,
+  "picks": 33,
   "won": 20,
-  "hit_rate": 0.625,
-  "avg_model_prob": 0.538,
-  "avg_adj_prob": 0.561
+  "hit_rate": 0.606,
+  "avg_model_prob": 0.534,
+  "avg_adj_prob": 0.556
  },
  "picks": [
-  {
-   "home": "Clube do Remo",
-   "away": "Cruzeiro",
-   "utc": "2026-04-25T21:30:00Z",
-   "match_id": 554868,
-   "market": "dog_dc",
-   "label": "Cruzeiro win or draw",
-   "dog": "Cruzeiro",
-   "fav": "Clube do Remo",
-   "side": "away",
-   "model_prob": 0.5223,
-   "bias": -0.0192,
-   "adj_prob": 0.5452,
-   "fair_odds": 1.83,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "bsa",
-   "date": "2026-04-25",
-   "score": "0-1",
-   "won": true
-  },
   {
    "home": "Chapecoense",
    "away": "Clube do Remo",
@@ -817,6 +790,33 @@
    "league": "laliga",
    "date": "2026-11-08",
    "score": "1-0",
+   "won": false
+  },
+  {
+   "home": "Paranaense",
+   "away": "Clube do Remo",
+   "utc": "2026-11-22T19:00:00Z",
+   "match_id": 555090,
+   "market": "dog_dc",
+   "label": "Clube do Remo win or draw",
+   "dog": "Clube do Remo",
+   "fav": "Paranaense",
+   "side": "away",
+   "model_prob": 0.4017,
+   "bias": -0.0192,
+   "adj_prob": 0.4246,
+   "fair_odds": 2.35,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "bsa",
+   "date": "2026-11-22",
+   "score": "4-2",
    "won": false
   }
  ]
