@@ -3600,8 +3600,8 @@
   "fair_odds": 1.13,
   "odds": null,
   "created_at": "2026-11-18T18:47:19Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "5-1"
  },
  {
   "id": "bundesliga:565864:over15",
@@ -3736,8 +3736,8 @@
   "fair_odds": 1.12,
   "odds": null,
   "created_at": "2026-11-19T00:58:14Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-4"
  },
  {
   "id": "ligue1:559629:over15",
@@ -3770,8 +3770,8 @@
   "fair_odds": 1.22,
   "odds": null,
   "created_at": "2026-11-19T00:58:14Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "4-2"
  },
  {
   "id": "bsa:555096:over15",
@@ -3787,8 +3787,8 @@
   "fair_odds": 1.28,
   "odds": null,
   "created_at": "2026-11-19T07:02:25Z",
-  "won": null,
-  "score": null
+  "won": false,
+  "score": "1-0"
  },
  {
   "id": "laliga:564757:over15",
