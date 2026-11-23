@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T00:52:05Z",
+ "updated": "2026-11-23T07:19:29Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
@@ -15,10 +15,10 @@
    "dog": "Lincoln City",
    "fav": "Charlton",
    "side": "away",
-   "model_prob": 0.5729,
+   "model_prob": 0.5656,
    "bias": -0.0192,
-   "adj_prob": 0.5958,
-   "fair_odds": 1.68,
+   "adj_prob": 0.5885,
+   "fair_odds": 1.7,
    "signals": [
     {
      "key": "fav_leaky",
