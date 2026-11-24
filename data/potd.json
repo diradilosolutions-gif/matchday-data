@@ -176,5 +176,33 @@
   "locked_at": "2026-11-23T18:53:47Z",
   "status": "pending",
   "score": null
+ },
+ {
+  "home": "Watford",
+  "away": "Blackburn",
+  "utc": "2026-11-25T19:45:00Z",
+  "match_id": 561961,
+  "market": "dog_dc",
+  "label": "Watford win or draw",
+  "dog": "Watford",
+  "fav": "Blackburn",
+  "side": "home",
+  "model_prob": 0.5967,
+  "bias": -0.0192,
+  "adj_prob": 0.6196,
+  "fair_odds": 1.61,
+  "signals": [
+   {
+    "key": "fav_leaky",
+    "text": "Favourite conceding well above the league average lately",
+    "extra": 0.0421,
+    "n": 1604
+   }
+  ],
+  "league": "champ",
+  "date": "2026-11-25",
+  "locked_at": "2026-11-24T18:52:08Z",
+  "status": "pending",
+  "score": null
  }
 ]
