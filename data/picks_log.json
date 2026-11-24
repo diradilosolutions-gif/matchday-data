@@ -3838,8 +3838,8 @@
   "fair_odds": 1.23,
   "odds": null,
   "created_at": "2026-11-20T00:51:02Z",
-  "won": null,
-  "score": null
+  "won": true,
+  "score": "1-1"
  },
  {
   "id": "ligue1:559627:dog15",
