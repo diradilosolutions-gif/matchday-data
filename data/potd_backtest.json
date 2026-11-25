@@ -1,41 +1,14 @@
 {
- "updated": "2026-11-24T13:02:57Z",
+ "updated": "2026-11-25T13:07:48Z",
  "market": "dog_dc",
  "summary": {
-  "picks": 33,
+  "picks": 34,
   "won": 20,
-  "hit_rate": 0.606,
-  "avg_model_prob": 0.534,
-  "avg_adj_prob": 0.556
+  "hit_rate": 0.588,
+  "avg_model_prob": 0.535,
+  "avg_adj_prob": 0.557
  },
  "picks": [
-  {
-   "home": "Chapecoense",
-   "away": "Clube do Remo",
-   "utc": "2026-05-17T21:30:00Z",
-   "match_id": 554895,
-   "market": "dog_dc",
-   "label": "Clube do Remo win or draw",
-   "dog": "Clube do Remo",
-   "fav": "Chapecoense",
-   "side": "away",
-   "model_prob": 0.5961,
-   "bias": -0.0192,
-   "adj_prob": 0.619,
-   "fair_odds": 1.62,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "bsa",
-   "date": "2026-05-17",
-   "score": "2-3",
-   "won": true
-  },
   {
    "home": "São Paulo",
    "away": "Botafogo",
@@ -817,6 +790,33 @@
    "league": "bsa",
    "date": "2026-11-22",
    "score": "4-2",
+   "won": false
+  },
+  {
+   "home": "Charlton",
+   "away": "Lincoln City",
+   "utc": "2026-11-24T19:45:00Z",
+   "match_id": 561958,
+   "market": "dog_dc",
+   "label": "Lincoln City win or draw",
+   "dog": "Lincoln City",
+   "fav": "Charlton",
+   "side": "away",
+   "model_prob": 0.5656,
+   "bias": -0.0192,
+   "adj_prob": 0.5885,
+   "fair_odds": 1.7,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "champ",
+   "date": "2026-11-24",
+   "score": "4-0",
    "won": false
   }
  ]
