@@ -1,33 +1,10 @@
 {
- "updated": "2026-11-25T13:07:48Z",
+ "updated": "2026-11-25T18:46:11Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-25": {
-   "home": "Watford",
-   "away": "Blackburn",
-   "utc": "2026-11-25T19:45:00Z",
-   "match_id": 561961,
-   "market": "dog_dc",
-   "label": "Watford win or draw",
-   "dog": "Watford",
-   "fav": "Blackburn",
-   "side": "home",
-   "model_prob": 0.5999,
-   "bias": -0.0192,
-   "adj_prob": 0.6228,
-   "fair_odds": 1.61,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "champ"
-  },
+  "2026-11-25": null,
   "2026-11-26": null
  }
 }
