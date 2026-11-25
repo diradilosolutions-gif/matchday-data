@@ -174,8 +174,9 @@
   "league": "champ",
   "date": "2026-11-24",
   "locked_at": "2026-11-23T18:53:47Z",
-  "status": "pending",
-  "score": null
+  "status": "lost",
+  "score": "4-0",
+  "settled_at": "2026-11-25T00:58:30Z"
  },
  {
   "home": "Watford",

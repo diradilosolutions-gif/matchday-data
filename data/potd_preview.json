@@ -1,10 +1,9 @@
 {
- "updated": "2026-11-24T18:52:08Z",
+ "updated": "2026-11-25T00:58:30Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-24": null,
   "2026-11-25": {
    "home": "Watford",
    "away": "Blackburn",
@@ -15,9 +14,9 @@
    "dog": "Watford",
    "fav": "Blackburn",
    "side": "home",
-   "model_prob": 0.5967,
+   "model_prob": 0.5999,
    "bias": -0.0192,
-   "adj_prob": 0.6196,
+   "adj_prob": 0.6228,
    "fair_odds": 1.61,
    "signals": [
     {
@@ -28,6 +27,7 @@
     }
    ],
    "league": "champ"
-  }
+  },
+  "2026-11-26": null
  }
 }
