@@ -1,10 +1,33 @@
 {
- "updated": "2026-11-25T18:46:11Z",
+ "updated": "2026-11-26T00:58:31Z",
  "state": "ok",
  "reason": null,
  "market": "dog_dc",
  "days": {
-  "2026-11-25": null,
-  "2026-11-26": null
+  "2026-11-26": null,
+  "2026-11-27": {
+   "home": "Marítimo",
+   "away": "CD Nacional",
+   "utc": "2026-11-27T20:15:00Z",
+   "match_id": 567361,
+   "market": "dog_dc",
+   "label": "Marítimo win or draw",
+   "dog": "Marítimo",
+   "fav": "CD Nacional",
+   "side": "home",
+   "model_prob": 0.5786,
+   "bias": -0.0192,
+   "adj_prob": 0.6015,
+   "fair_odds": 1.66,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "ppl"
+  }
  }
 }

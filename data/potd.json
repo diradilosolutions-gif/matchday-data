@@ -203,7 +203,8 @@
   "league": "champ",
   "date": "2026-11-25",
   "locked_at": "2026-11-24T18:52:08Z",
-  "status": "pending",
-  "score": null
+  "status": "lost",
+  "score": "0-1",
+  "settled_at": "2026-11-26T00:58:31Z"
  }
 ]
