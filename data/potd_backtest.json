@@ -1,41 +1,14 @@
 {
- "updated": "2026-11-25T13:07:48Z",
+ "updated": "2026-11-26T13:06:02Z",
  "market": "dog_dc",
  "summary": {
-  "picks": 34,
+  "picks": 35,
   "won": 20,
-  "hit_rate": 0.588,
-  "avg_model_prob": 0.535,
-  "avg_adj_prob": 0.557
+  "hit_rate": 0.571,
+  "avg_model_prob": 0.536,
+  "avg_adj_prob": 0.559
  },
  "picks": [
-  {
-   "home": "São Paulo",
-   "away": "Botafogo",
-   "utc": "2026-05-23T20:00:00Z",
-   "match_id": 554907,
-   "market": "dog_dc",
-   "label": "Botafogo win or draw",
-   "dog": "Botafogo",
-   "fav": "São Paulo",
-   "side": "away",
-   "model_prob": 0.4696,
-   "bias": -0.0192,
-   "adj_prob": 0.4925,
-   "fair_odds": 2.03,
-   "signals": [
-    {
-     "key": "fav_leaky",
-     "text": "Favourite conceding well above the league average lately",
-     "extra": 0.0421,
-     "n": 1604
-    }
-   ],
-   "league": "bsa",
-   "date": "2026-05-23",
-   "score": "1-1",
-   "won": true
-  },
   {
    "home": "Bahia",
    "away": "Botafogo",
@@ -817,6 +790,33 @@
    "league": "champ",
    "date": "2026-11-24",
    "score": "4-0",
+   "won": false
+  },
+  {
+   "home": "Watford",
+   "away": "Blackburn",
+   "utc": "2026-11-25T19:45:00Z",
+   "match_id": 561961,
+   "market": "dog_dc",
+   "label": "Watford win or draw",
+   "dog": "Watford",
+   "fav": "Blackburn",
+   "side": "home",
+   "model_prob": 0.5999,
+   "bias": -0.0192,
+   "adj_prob": 0.6228,
+   "fair_odds": 1.61,
+   "signals": [
+    {
+     "key": "fav_leaky",
+     "text": "Favourite conceding well above the league average lately",
+     "extra": 0.0421,
+     "n": 1604
+    }
+   ],
+   "league": "champ",
+   "date": "2026-11-25",
+   "score": "0-1",
    "won": false
   }
  ]

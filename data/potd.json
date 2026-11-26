@@ -206,5 +206,10 @@
   "status": "lost",
   "score": "0-1",
   "settled_at": "2026-11-26T00:58:31Z"
+ },
+ {
+  "date": "2026-11-26",
+  "locked_at": "2026-11-26T13:06:02Z",
+  "status": "none"
  }
 ]
