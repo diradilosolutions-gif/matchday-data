@@ -5,54 +5,56 @@
  "window_days": 400,
  "version": 2,
  "chosen": "v2: ratings, half-life 365 days, steadier (prior 12)",
- "tested": "2026-11-05T19:15:16Z",
- "matches": 17015,
- "reason": "beat v1 on past seasons",
+ "tested": "2026-11-27T20:33:03Z",
+ "matches": 16702,
+ "reason": "the model in use was still the best on past seasons",
+ "holdout_from": "2025-11-26",
+ "holdout_score": 1.6871,
  "league_reliability": {
   "bsa": {
-   "logloss": 1.0201,
-   "matches": 5339,
+   "logloss": 1.0199,
+   "matches": 5371,
    "rank": 8
   },
   "bundesliga": {
-   "logloss": 1.0044,
-   "matches": 1207,
-   "rank": 7
+   "logloss": 1.0017,
+   "matches": 1225,
+   "rank": 6
   },
   "epl": {
-   "logloss": 0.9916,
-   "matches": 1503,
-   "rank": 5
+   "logloss": 0.9918,
+   "matches": 1523,
+   "rank": 4
   },
   "champ": {
-   "logloss": 1.0522,
-   "matches": 2207,
+   "logloss": 1.0519,
+   "matches": 2243,
    "rank": 9
   },
   "ligue1": {
-   "logloss": 1.0022,
-   "matches": 1279,
-   "rank": 6
+   "logloss": 1.0031,
+   "matches": 1297,
+   "rank": 7
   },
   "seriea": {
-   "logloss": 0.9908,
-   "matches": 1512,
-   "rank": 3
+   "logloss": 0.9934,
+   "matches": 1131,
+   "rank": 5
   },
   "nl": {
-   "logloss": 0.9646,
-   "matches": 1221,
+   "logloss": 0.9587,
+   "matches": 1137,
    "rank": 2
   },
   "ppl": {
-   "logloss": 0.9372,
-   "matches": 1223,
+   "logloss": 0.9363,
+   "matches": 1231,
    "rank": 1
   },
   "laliga": {
-   "logloss": 0.9914,
-   "matches": 1524,
-   "rank": 4
+   "logloss": 0.9915,
+   "matches": 1544,
+   "rank": 3
   }
  }
 }
