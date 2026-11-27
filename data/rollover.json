@@ -1,0 +1,1066 @@
+{
+ "updated": "2026-11-27T20:41:28Z",
+ "rules": {
+  "legs": 2,
+  "target_odds": 2.0,
+  "odds_range": [
+   1.85,
+   2.2
+  ],
+  "leg_chance": [
+   0.6,
+   0.88
+  ],
+  "clear_favourite": "45%+ and 10 points ahead",
+  "markets": [
+   "favourite to win",
+   "favourite win or draw",
+   "Over 1.5 goals",
+   "+1.5 handicap"
+  ]
+ },
+ "log": [
+  {
+   "legs": [
+    {
+     "match_id": 561973,
+     "home": "Preston NE",
+     "away": "Norwich",
+     "utc": "2026-11-28T12:30:00Z",
+     "market": "fav_dc",
+     "label": "Norwich win or draw",
+     "side": "away",
+     "model_prob": 0.707,
+     "fair_odds": 1.41,
+     "league": "champ",
+     "status": "pending",
+     "score": null
+    },
+    {
+     "match_id": 561971,
+     "home": "Derby County",
+     "away": "Watford",
+     "utc": "2026-11-28T15:00:00Z",
+     "market": "over15",
+     "label": "Over 1.5 goals",
+     "side": null,
+     "model_prob": 0.708,
+     "fair_odds": 1.41,
+     "league": "champ",
+     "status": "pending",
+     "score": null
+    }
+   ],
+   "tickets": {
+    "top2": {
+     "legs": 2,
+     "model_prob": 0.5006,
+     "fair_odds": 2.0,
+     "status": "pending"
+    }
+   },
+   "date": "2026-11-28",
+   "locked_at": "2026-11-27T20:41:28Z"
+  }
+ ],
+ "live_runs": {
+  "top2": {
+   "current": 0,
+   "longest": 0,
+   "ended_after": []
+  }
+ },
+ "preview": {
+  "2026-11-27": null,
+  "2026-11-28": {
+   "legs": [
+    {
+     "match_id": 561973,
+     "home": "Preston NE",
+     "away": "Norwich",
+     "utc": "2026-11-28T12:30:00Z",
+     "market": "fav_dc",
+     "label": "Norwich win or draw",
+     "side": "away",
+     "model_prob": 0.707,
+     "fair_odds": 1.41,
+     "league": "champ",
+     "status": "pending",
+     "score": null
+    },
+    {
+     "match_id": 561971,
+     "home": "Derby County",
+     "away": "Watford",
+     "utc": "2026-11-28T15:00:00Z",
+     "market": "over15",
+     "label": "Over 1.5 goals",
+     "side": null,
+     "model_prob": 0.708,
+     "fair_odds": 1.41,
+     "league": "champ",
+     "status": "pending",
+     "score": null
+    }
+   ],
+   "tickets": {
+    "top2": {
+     "legs": 2,
+     "model_prob": 0.5006,
+     "fair_odds": 2.0,
+     "status": "pending"
+    }
+   }
+  }
+ },
+ "backtest": {
+  "updated": "2026-11-27T20:41:28Z",
+  "legs": {
+   "n": 204,
+   "won": 147,
+   "avg_model_prob": 0.711
+  },
+  "top2": {
+   "days": 102,
+   "won": 55,
+   "hit_rate": 0.539,
+   "avg_model_prob": 0.504,
+   "runs": {
+    "current": 0,
+    "longest": 7,
+    "ended_after": [
+     2,
+     0,
+     0,
+     3,
+     0,
+     1,
+     2,
+     1,
+     0,
+     2,
+     1,
+     1,
+     1,
+     0,
+     6,
+     1,
+     1,
+     1,
+     7,
+     0,
+     0,
+     3,
+     1,
+     2,
+     0,
+     1,
+     1,
+     0,
+     1,
+     0,
+     2,
+     0,
+     0,
+     4,
+     0,
+     1,
+     4,
+     0,
+     0,
+     0,
+     0,
+     3,
+     0,
+     0,
+     0,
+     0,
+     2
+    ]
+   }
+  },
+  "days_with_games": 144,
+  "days": [
+   {
+    "legs": [
+     {
+      "match_id": 559648,
+      "home": "PSG",
+      "away": "Olympique Lyon",
+      "utc": "2026-10-26T19:30:00Z",
+      "market": "dog15",
+      "label": "Olympique Lyon +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.8044,
+      "fair_odds": 1.24,
+      "league": "ligue1",
+      "score": "2-0",
+      "status": "lost"
+     },
+     {
+      "match_id": 564721,
+      "home": "Sevilla FC",
+      "away": "Osasuna",
+      "utc": "2026-10-26T20:00:00Z",
+      "market": "dog15",
+      "label": "Osasuna +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6157,
+      "fair_odds": 1.62,
+      "league": "laliga",
+      "score": "2-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4953,
+      "fair_odds": 2.02,
+      "status": "lost"
+     }
+    },
+    "date": "2026-10-26"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 555053,
+      "home": "Flamengo",
+      "away": "Mineiro",
+      "utc": "2026-10-26T23:00:00Z",
+      "market": "dog15",
+      "label": "Mineiro +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6364,
+      "fair_odds": 1.57,
+      "league": "bsa",
+      "score": "3-2",
+      "status": "won"
+     },
+     {
+      "match_id": 558557,
+      "home": "Torino",
+      "away": "Como 1907",
+      "utc": "2026-10-27T19:45:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7859,
+      "fair_odds": 1.27,
+      "league": "seriea",
+      "score": "1-3",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5001,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-10-27"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 558549,
+      "home": "Milan",
+      "away": "Bologna",
+      "utc": "2026-10-28T17:30:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7523,
+      "fair_odds": 1.33,
+      "league": "seriea",
+      "score": "2-4",
+      "status": "won"
+     },
+     {
+      "match_id": 558550,
+      "home": "Venezia FC",
+      "away": "Inter",
+      "utc": "2026-10-28T17:30:00Z",
+      "market": "fav_win",
+      "label": "Inter to win",
+      "side": "away",
+      "model_prob": 0.6654,
+      "fair_odds": 1.5,
+      "league": "seriea",
+      "score": "0-2",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5006,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-10-28"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 555062,
+      "home": "Bragantino",
+      "away": "Chapecoense",
+      "utc": "2026-10-28T22:30:00Z",
+      "market": "fav_win",
+      "label": "Bragantino to win",
+      "side": "home",
+      "model_prob": 0.6334,
+      "fair_odds": 1.58,
+      "league": "bsa",
+      "score": "3-0",
+      "status": "won"
+     },
+     {
+      "match_id": 555067,
+      "home": "Clube do Remo",
+      "away": "Botafogo",
+      "utc": "2026-10-29T00:30:00Z",
+      "market": "dog15",
+      "label": "Botafogo +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7902,
+      "fair_odds": 1.27,
+      "league": "bsa",
+      "score": "2-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5005,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-10-29"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 561916,
+      "home": "Sheffield Utd",
+      "away": "Wrexham",
+      "utc": "2026-10-30T20:00:00Z",
+      "market": "fav_dc",
+      "label": "Sheffield Utd win or draw",
+      "side": "home",
+      "model_prob": 0.7386,
+      "fair_odds": 1.35,
+      "league": "champ",
+      "score": "1-0",
+      "status": "won"
+     },
+     {
+      "match_id": 567344,
+      "home": "Casa Pia",
+      "away": "Sporting CP",
+      "utc": "2026-10-30T20:15:00Z",
+      "market": "fav_win",
+      "label": "Sporting CP to win",
+      "side": "away",
+      "model_prob": 0.6808,
+      "fair_odds": 1.47,
+      "league": "ppl",
+      "score": "0-2",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5028,
+      "fair_odds": 1.99,
+      "status": "won"
+     }
+    },
+    "date": "2026-10-30"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 560624,
+      "home": "Bournemouth",
+      "away": "Leeds United",
+      "utc": "2026-10-31T15:00:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7199,
+      "fair_odds": 1.39,
+      "league": "epl",
+      "score": "2-0",
+      "status": "won"
+     },
+     {
+      "match_id": 558548,
+      "home": "Milan",
+      "away": "Inter",
+      "utc": "2026-10-31T19:45:00Z",
+      "market": "fav_dc",
+      "label": "Inter win or draw",
+      "side": "away",
+      "model_prob": 0.6943,
+      "fair_odds": 1.44,
+      "league": "seriea",
+      "score": "3-1",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4998,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-10-31"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 558544,
+      "home": "Frosinone",
+      "away": "Torino",
+      "utc": "2026-11-01T14:00:00Z",
+      "market": "dog15",
+      "label": "Torino +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7065,
+      "fair_odds": 1.42,
+      "league": "seriea",
+      "score": "2-0",
+      "status": "lost"
+     },
+     {
+      "match_id": 559647,
+      "home": "Strasbourg",
+      "away": "Auxerre",
+      "utc": "2026-11-01T14:00:00Z",
+      "market": "dog15",
+      "label": "Auxerre +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7073,
+      "fair_odds": 1.41,
+      "league": "ligue1",
+      "score": "5-1",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4997,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-01"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 558545,
+      "home": "Atalanta",
+      "away": "Parma",
+      "utc": "2026-11-02T19:45:00Z",
+      "market": "fav_dc",
+      "label": "Atalanta win or draw",
+      "side": "home",
+      "model_prob": 0.7707,
+      "fair_odds": 1.3,
+      "league": "seriea",
+      "score": "0-3",
+      "status": "lost"
+     },
+     {
+      "match_id": 564731,
+      "home": "Deportivo",
+      "away": "Osasuna",
+      "utc": "2026-11-02T20:00:00Z",
+      "market": "dog15",
+      "label": "Osasuna +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6465,
+      "fair_odds": 1.55,
+      "league": "laliga",
+      "score": "2-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4983,
+      "fair_odds": 2.01,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-02"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 561919,
+      "home": "Preston NE",
+      "away": "Sheffield Utd",
+      "utc": "2026-11-03T19:45:00Z",
+      "market": "dog15",
+      "label": "Preston NE +1.5 handicap",
+      "side": "home",
+      "model_prob": 0.7566,
+      "fair_odds": 1.32,
+      "league": "champ",
+      "score": "2-3",
+      "status": "won"
+     },
+     {
+      "match_id": 561917,
+      "home": "Birmingham",
+      "away": "Millwall",
+      "utc": "2026-11-03T20:00:00Z",
+      "market": "dog15",
+      "label": "Millwall +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6602,
+      "fair_odds": 1.51,
+      "league": "champ",
+      "score": "3-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4995,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-03"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 555076,
+      "home": "Internacional",
+      "away": "Coritiba",
+      "utc": "2026-11-04T00:30:00Z",
+      "market": "dog15",
+      "label": "Coritiba +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7308,
+      "fair_odds": 1.37,
+      "league": "bsa",
+      "score": "1-0",
+      "status": "won"
+     },
+     {
+      "match_id": 561927,
+      "home": "Wrexham",
+      "away": "Middlesbrough",
+      "utc": "2026-11-04T19:45:00Z",
+      "market": "fav_dc",
+      "label": "Middlesbrough win or draw",
+      "side": "away",
+      "model_prob": 0.7058,
+      "fair_odds": 1.42,
+      "league": "champ",
+      "score": "2-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5158,
+      "fair_odds": 1.94,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-04"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 555070,
+      "home": "Paranaense",
+      "away": "Vasco da Gama",
+      "utc": "2026-11-04T22:30:00Z",
+      "market": "dog15",
+      "label": "Vasco da Gama +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6602,
+      "fair_odds": 1.51,
+      "league": "bsa",
+      "score": "1-3",
+      "status": "won"
+     },
+     {
+      "match_id": 555078,
+      "home": "São Paulo",
+      "away": "Corinthians",
+      "utc": "2026-11-05T00:30:00Z",
+      "market": "fav_dc",
+      "label": "São Paulo win or draw",
+      "side": "home",
+      "model_prob": 0.7585,
+      "fair_odds": 1.32,
+      "league": "bsa",
+      "score": "0-0",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5008,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-11-05"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 559638,
+      "home": "Toulouse",
+      "away": "Strasbourg",
+      "utc": "2026-11-06T19:45:00Z",
+      "market": "fav_dc",
+      "label": "Toulouse win or draw",
+      "side": "home",
+      "model_prob": 0.7034,
+      "fair_odds": 1.42,
+      "league": "ligue1",
+      "score": "3-1",
+      "status": "won"
+     },
+     {
+      "match_id": 560634,
+      "home": "Everton",
+      "away": "Coventry City",
+      "utc": "2026-11-06T20:00:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7153,
+      "fair_odds": 1.4,
+      "league": "epl",
+      "score": "3-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5031,
+      "fair_odds": 1.99,
+      "status": "won"
+     }
+    },
+    "date": "2026-11-06"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 565853,
+      "home": "SC Paderborn",
+      "away": "Frankfurt",
+      "utc": "2026-11-07T14:30:00Z",
+      "market": "dog15",
+      "label": "Frankfurt +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7115,
+      "fair_odds": 1.41,
+      "league": "bundesliga",
+      "score": "2-2",
+      "status": "won"
+     },
+     {
+      "match_id": 561934,
+      "home": "Watford",
+      "away": "Middlesbrough",
+      "utc": "2026-11-07T15:00:00Z",
+      "market": "dog15",
+      "label": "Watford +1.5 handicap",
+      "side": "home",
+      "model_prob": 0.7045,
+      "fair_odds": 1.42,
+      "league": "champ",
+      "score": "0-0",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5013,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-11-07"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 560636,
+      "home": "Sunderland",
+      "away": "Chelsea",
+      "utc": "2026-11-08T14:00:00Z",
+      "market": "fav_dc",
+      "label": "Chelsea win or draw",
+      "side": "away",
+      "model_prob": 0.7049,
+      "fair_odds": 1.42,
+      "league": "epl",
+      "score": "1-0",
+      "status": "lost"
+     },
+     {
+      "match_id": 564747,
+      "home": "Villarreal",
+      "away": "Getafe",
+      "utc": "2026-11-08T17:30:00Z",
+      "market": "dog15",
+      "label": "Getafe +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7107,
+      "fair_odds": 1.41,
+      "league": "laliga",
+      "score": "2-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.501,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-08"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 555083,
+      "home": "Flamengo",
+      "away": "Paranaense",
+      "utc": "2026-11-18T23:30:00Z",
+      "market": "fav_win",
+      "label": "Flamengo to win",
+      "side": "home",
+      "model_prob": 0.6634,
+      "fair_odds": 1.51,
+      "league": "bsa",
+      "score": "2-1",
+      "status": "won"
+     },
+     {
+      "match_id": 555084,
+      "home": "Grêmio",
+      "away": "Bahia",
+      "utc": "2026-11-19T00:30:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7583,
+      "fair_odds": 1.32,
+      "league": "bsa",
+      "score": "0-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5031,
+      "fair_odds": 1.99,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-19"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 559622,
+      "home": "Troyes",
+      "away": "Le Havre",
+      "utc": "2026-11-20T19:45:00Z",
+      "market": "fav_dc",
+      "label": "Troyes win or draw",
+      "side": "home",
+      "model_prob": 0.726,
+      "fair_odds": 1.38,
+      "league": "ligue1",
+      "score": "3-1",
+      "status": "won"
+     },
+     {
+      "match_id": 564748,
+      "home": "Athletic",
+      "away": "Espanyol",
+      "utc": "2026-11-20T20:00:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.6953,
+      "fair_odds": 1.44,
+      "league": "laliga",
+      "score": "0-1",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5048,
+      "fair_odds": 1.98,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-20"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 560647,
+      "home": "Bournemouth",
+      "away": "Nottingham",
+      "utc": "2026-11-21T15:00:00Z",
+      "market": "dog15",
+      "label": "Nottingham +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7141,
+      "fair_odds": 1.4,
+      "league": "epl",
+      "score": "2-0",
+      "status": "lost"
+     },
+     {
+      "match_id": 561941,
+      "home": "Sheffield Utd",
+      "away": "Watford",
+      "utc": "2026-11-21T15:00:00Z",
+      "market": "dog15",
+      "label": "Watford +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6993,
+      "fair_odds": 1.43,
+      "league": "champ",
+      "score": "4-0",
+      "status": "lost"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4994,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-21"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 558521,
+      "home": "Juventus",
+      "away": "Venezia FC",
+      "utc": "2026-11-22T11:30:00Z",
+      "market": "dog15",
+      "label": "Venezia FC +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6998,
+      "fair_odds": 1.43,
+      "league": "seriea",
+      "score": "4-0",
+      "status": "lost"
+     },
+     {
+      "match_id": 564753,
+      "home": "Getafe",
+      "away": "Atleti",
+      "utc": "2026-11-22T20:00:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7139,
+      "fair_odds": 1.4,
+      "league": "laliga",
+      "score": "0-3",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.4996,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-22"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 560649,
+      "home": "Brentford",
+      "away": "Everton",
+      "utc": "2026-11-23T20:00:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.7254,
+      "fair_odds": 1.38,
+      "league": "epl",
+      "score": "4-0",
+      "status": "won"
+     },
+     {
+      "match_id": 564757,
+      "home": "Levante",
+      "away": "Elche",
+      "utc": "2026-11-23T20:00:00Z",
+      "market": "fav_dc",
+      "label": "Levante win or draw",
+      "side": "home",
+      "model_prob": 0.7148,
+      "fair_odds": 1.4,
+      "league": "laliga",
+      "score": "1-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5185,
+      "fair_odds": 1.93,
+      "status": "won"
+     }
+    },
+    "date": "2026-11-23"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 561954,
+      "home": "Middlesbrough",
+      "away": "Swansea",
+      "utc": "2026-11-24T19:45:00Z",
+      "market": "dog15",
+      "label": "Swansea +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6887,
+      "fair_odds": 1.45,
+      "league": "champ",
+      "score": "2-1",
+      "status": "won"
+     },
+     {
+      "match_id": 561960,
+      "home": "Norwich",
+      "away": "QPR",
+      "utc": "2026-11-24T19:45:00Z",
+      "market": "dog15",
+      "label": "QPR +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.7245,
+      "fair_odds": 1.38,
+      "league": "champ",
+      "score": "1-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.499,
+      "fair_odds": 2.0,
+      "status": "won"
+     }
+    },
+    "date": "2026-11-24"
+   },
+   {
+    "legs": [
+     {
+      "match_id": 561961,
+      "home": "Watford",
+      "away": "Blackburn",
+      "utc": "2026-11-25T19:45:00Z",
+      "market": "over15",
+      "label": "Over 1.5 goals",
+      "side": null,
+      "model_prob": 0.764,
+      "fair_odds": 1.31,
+      "league": "champ",
+      "score": "0-1",
+      "status": "lost"
+     },
+     {
+      "match_id": 561962,
+      "home": "Stoke",
+      "away": "Millwall",
+      "utc": "2026-11-25T20:00:00Z",
+      "market": "dog15",
+      "label": "Millwall +1.5 handicap",
+      "side": "away",
+      "model_prob": 0.6546,
+      "fair_odds": 1.53,
+      "league": "champ",
+      "score": "2-1",
+      "status": "won"
+     }
+    ],
+    "tickets": {
+     "top2": {
+      "legs": 2,
+      "model_prob": 0.5001,
+      "fair_odds": 2.0,
+      "status": "lost"
+     }
+    },
+    "date": "2026-11-25"
+   }
+  ],
+  "rules": {
+   "legs": 2,
+   "target_odds": 2.0,
+   "odds_range": [
+    1.85,
+    2.2
+   ],
+   "leg_chance": [
+    0.6,
+    0.88
+   ],
+   "clear_favourite": "45%+ and 10 points ahead",
+   "markets": [
+    "favourite to win",
+    "favourite win or draw",
+    "Over 1.5 goals",
+    "+1.5 handicap"
+   ]
+  }
+ }
+}
