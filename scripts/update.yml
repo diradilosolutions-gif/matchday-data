@@ -1,0 +1,50 @@
+name: Update data and picks
+on:
+  schedule:
+    - cron: "0 */6 * * *"     # every 6 hours
+  workflow_dispatch:           # lets you press "Run workflow" manually
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update           # never runs at the same time as "Back-test models"
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch fixtures and results
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+        run: python scripts/fetch_data.py
+      - name: Fetch injury and suspension news (free sources)
+        continue-on-error: true      # news problems must never stop predictions
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python scripts/fetch_news.py
+      - name: Fetch bookmaker odds (display only, never used by the model)
+        continue-on-error: true      # odds problems must never stop predictions
+        run: python scripts/fetch_odds.py
+      - name: Calculate predictions (one model for the site and the pick log; locks pre-match numbers)
+        run: python scripts/make_predictions.py
+      - name: Log picks and settle results
+        run: python scripts/run_picks.py
+      - name: Pick of the Day (fixed rules, locked once chosen)
+        run: python scripts/pick_of_day.py
+      - name: Rollover candidates (fixed rules, locked once chosen)
+        continue-on-error: true      # a problem here must never stop the other picks
+        run: python scripts/rollover.py
+      - name: Save changes (this timestamps every pick)
+        run: |
+          git config user.name "matchday-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "Update data $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase
+          git push

@@ -22,7 +22,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model import finished, predict, load_choice  # noqa: E402
-from upset import History, signals, dog_markets, dog_hits, MARKETS, NAMES, ts  # noqa: E402
+from upset import History, signals, dog_markets, dog_hits, MARKETS, NAMES, ts, RULES_VERSION  # noqa: E402
 
 D = Path(__file__).resolve().parent.parent / "data"
 SAST = ZoneInfo("Africa/Johannesburg")
@@ -43,7 +43,9 @@ def load(name, default):
 def rules():
     r = load("upset_rules.json", None)
     if not r:
-        return None, "not tested yet: run the 'Back-test models' workflow"
+        return None, "not tested yet: run the 'Test upset signals' workflow"
+    if r.get("rules_version") != RULES_VERSION:
+        return None, "paused: the stricter upset rules have not been tested yet (run 'Test upset signals')"
     if not r.get("market") or not r.get("proven"):
         return None, "paused: no upset signal has proved itself on past seasons"
     return r, None
@@ -87,7 +89,7 @@ def evaluate(R, H, fin, m, p):
             "market": mk, "label": f"{dog} {MARKETS[mk]}", "dog": dog, "fav": fav,
             "side": "home" if dog_home else "away",
             "model_prob": round(model_p, 4), "bias": round(bias, 4), "adj_prob": round(adj, 4),
-            "fair_odds": round(1 / adj, 2),
+            "fair_odds": round(1 / adj, 2), "rules_version": RULES_VERSION,
             "signals": [{"key": s, "text": NAMES[s], "extra": R["table"][s][mk]["extra"],
                          "n": R["table"][s][mk]["n"]} for s in present]}
 
@@ -139,7 +141,7 @@ def season_backtest(R, data, choice, now):
             H.add(m["utc"], m["home"], m["away"], m["hg"], m["ag"], p["home"] if p else None, p["away"] if p else None)
     picks = [days[d] for d in sorted(days)]
     n, w = len(picks), sum(1 for x in picks if x["won"])
-    return {"updated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "market": R["market"],
+    return {"updated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "market": R["market"], "rules_version": RULES_VERSION,
             "summary": {"picks": n, "won": w, "hit_rate": round(w / n, 3) if n else None,
                         "avg_model_prob": round(sum(x["model_prob"] for x in picks) / n, 3) if n else None,
                         "avg_adj_prob": round(sum(x["adj_prob"] for x in picks) / n, 3) if n else None},
@@ -153,7 +155,8 @@ def main(now=None):
     log = load("potd.json", [])
     R, why = rules()
     choice = load_choice()
-    preview = {"updated": iso, "state": "ok" if R else ("not_tested" if "not tested" in why else "paused"),
+    preview = {"updated": iso, "state": "ok" if R else ("not_tested" if "not tested" in why else
+                                                        "retest" if "stricter" in why else "paused"),
                "reason": why, "market": R["market"] if R else None, "days": {}}
     if R:
         states = {}
@@ -177,13 +180,13 @@ def main(now=None):
             if cand:
                 log.append(dict(cand, date=day, locked_at=iso, status="pending", score=None))
                 print(f"{day}: Upset Pick locked: {cand['home']} v {cand['away']}, {cand['label']} "
-                      f"(model {cand['model_prob']:.0%}, with proven signals {cand['adj_prob']:.0%})")
+                      f"(model {cand['model_prob']:.0%}, with tested signals {cand['adj_prob']:.0%})")
             elif any(day_of(m["utc"]) == day for ms in data["leagues"].values() for m in ms) and local >= closes:
                 log.append({"date": day, "locked_at": iso, "status": "none"})
                 print(f"{day}: no game had a proven upset signal, 'no pick' locked")
         bt_old = load("potd_backtest.json", {})
         last = bt_old.get("updated")
-        if not last or bt_old.get("market") != R["market"] or \
+        if not last or bt_old.get("market") != R["market"] or bt_old.get("rules_version") != RULES_VERSION or \
                 now - datetime.fromisoformat(last.replace("Z", "+00:00")) >= timedelta(hours=20):
             bt = season_backtest(R, data, choice, now)
             (D / "potd_backtest.json").write_text(json.dumps(bt, indent=1, ensure_ascii=False))

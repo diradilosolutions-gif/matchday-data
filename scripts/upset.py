@@ -13,7 +13,14 @@ from datetime import datetime
 
 SEASON_DAYS = 300        # "this season" = the last 300 days (works for Aug-May and Jan-Dec leagues)
 MIN_VENUE = 5
-FAV_GAP = 6.0            # a clear favourite: at least 6 points more likely to win than the underdog
+# A clear favourite, exactly as on the site: 45%+ to win AND at least 10 points ahead of the other side.
+# (Before 27 Nov 2026 this was only "6 points ahead", which let near coin-flip games in as "upsets".)
+FAV_MIN, FAV_GAP = 45.0, 10.0
+RULES_VERSION = 2        # bump when the definition changes: old test results are then not used
+
+
+def clear_fav(p_home, p_away):
+    return max(p_home, p_away) * 100 >= FAV_MIN and abs(p_home - p_away) * 100 >= FAV_GAP
 
 NAMES = {
     "dog_unbeaten_venue": "Underdog unbeaten at this venue (5+ games)",
@@ -57,7 +64,7 @@ class History:
         for me, opp, gf, ga, hm, pw in ((home, away, hg, ag, True, p_home), (away, home, ag, hg, False, p_away)):
             self.team.setdefault(me, []).append({"t": t, "opp": opp, "gf": gf, "ga": ga, "home": hm, "pw": pw})
         self.games.append((t, hg > ag, ag > hg, hg + ag))
-        if p_home is not None and p_away is not None and abs(p_home - p_away) >= FAV_GAP / 100:
+        if p_home is not None and p_away is not None and clear_fav(p_home, p_away):
             dh = p_home < p_away
             self.und.append((t, p_home if dh else p_away, (hg > ag) if dh else (ag > hg)))
 
@@ -76,7 +83,7 @@ def _pts(g):
 
 def signals(H, utc, home, away, p_home, p_away):
     """Return (dog_is_home, {signal: True/False}) or (None, None) if there is no clear favourite."""
-    if abs(p_home - p_away) < FAV_GAP / 100:
+    if not clear_fav(p_home, p_away):
         return None, None
     t = ts(utc)
     dog_home = p_home < p_away

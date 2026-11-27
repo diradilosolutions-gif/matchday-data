@@ -7,9 +7,14 @@ All files with the same <LEAGUE> prefix are treated as one league, in date order
 
 Every prediction uses ONLY games played before that match, exactly like the live site.
 Writes data/model_choice.json (read by make_predictions.py) and data/backtest_report.md.
+
+Holdout check: the most recent HOLDOUT_DAYS of matches are kept aside. The best model is
+picked on the older matches only, then checked on the kept-aside matches. A new model only
+replaces the one in use if it is also better there (by SWITCH_MARGIN). This stops a model
+that only looks better by luck on the same old data from being switched in.
 """
 import json, math, sys, time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -22,7 +27,9 @@ SITE_KEY = {"E0": "epl", "E1": "champ", "SP1": "laliga", "I1": "seriea", "D1": "
 LEAGUE_NAMES = {"E0": "Premier League", "E1": "Championship", "SP1": "La Liga", "I1": "Serie A",
                 "D1": "Bundesliga", "F1": "Ligue 1", "N1": "Eredivisie", "P1": "Primeira Liga",
                 "BRA": "Brasileirão Série A"}
-SWITCH_MARGIN = 0.002   # v2 must beat v1's average log loss by at least this much to be used
+SWITCH_MARGIN = 0.002   # a new model must beat the one in use by at least this much (combined score)
+HOLDOUT_DAYS = 365      # most recent matches kept aside to confirm the winner
+MIN_HOLDOUT = 500       # fewer kept-aside matches than this -> no holdout, old rule (beat v1) is used
 
 
 def candidates():
@@ -57,12 +64,18 @@ def main(folder):
     if not groups:
         sys.exit(f"no CSV files found in {folder}")
     cands = candidates()
-    tot = {name: {"n": 0, "ll": 0.0, "brier": 0.0, "hit": 0, "o15ll": 0.0, "o25ll": 0.0, "dogll": 0.0} for name, _ in cands}
+    blank = lambda: {"n": 0, "ll": 0.0, "brier": 0.0, "hit": 0, "o15ll": 0.0, "o25ll": 0.0, "dogll": 0.0}
+    tot = {name: blank() for name, _ in cands}    # older matches: used to pick the best model
+    hold = {name: blank() for name, _ in cands}   # most recent matches: kept aside to confirm it
     book = {"n": 0, "ll": 0.0, "brier": 0.0}
+    loaded = {lg: load(fl) for lg, fl in sorted(groups.items())}
+    last = max((r[-1]["utc"] for r in loaded.values() if r), default="")
+    cutoff = (datetime.strptime(last[:10], "%Y-%m-%d") - timedelta(days=HOLDOUT_DAYS)).strftime("%Y-%m-%d") if last else ""
+    print(f"Holdout: matches from {cutoff} to {last[:10]} are kept aside to confirm the winner.")
     per_league = {}
     for lg, fl in sorted(groups.items()):
         t0 = time.time()
-        rows = load(fl)
+        rows = loaded[lg]
         if len(rows) < 200:
             print(f"{lg}: only {len(rows)} matches, skipped")
             continue
@@ -77,7 +90,7 @@ def main(folder):
                 pr = [p["home"], p["draw"], p["away"]]
                 o15 = m["hg"] + m["ag"] >= 2
                 d = (m["hg"] - m["ag"]) if p["fav"] == "home" else (m["ag"] - m["hg"])
-                T = tot[name]
+                T = hold[name] if m["utc"][:10] >= cutoff else tot[name]
                 T["n"] += 1; T["ll"] += ll(pr[k]); s["n"] += 1; s["ll"] += ll(pr[k])
                 T["brier"] += sum((pr[j] - (j == k)) ** 2 for j in range(3))
                 T["hit"] += max(range(3), key=lambda j: pr[j]) == k
@@ -93,27 +106,53 @@ def main(folder):
                 book["n"] += 1; book["ll"] += ll(q[k]); book["brier"] += sum((q[j] - (j == k)) ** 2 for j in range(3))
         print(f"{lg}: {len(rows)} games, {len(idx)} compared ({time.time() - t0:.0f}s)")
 
+    def stats(T):
+        n = T["n"]
+        return {"matches": n, "logloss_1x2": round(T["ll"] / n, 4), "brier_1x2": round(T["brier"] / n, 4),
+                "lean_accuracy": round(T["hit"] / n, 4),
+                "logloss_over15": round(T["o15ll"] / n, 4), "logloss_dog15": round(T["dogll"] / n, 4),
+                "logloss_over25": round(T["o25ll"] / n, 4),
+                # judged on results AND goals, so a model that gets goals badly wrong cannot win
+                "score": round((T["ll"] + T["o25ll"]) / n, 4)} if n else None
+
+    use_holdout = min((hold[n]["n"] for n, _ in cands), default=0) >= MIN_HOLDOUT
+    if not use_holdout:   # too few recent matches: fall back to picking on everything
+        print(f"Only {min(hold[n]['n'] for n, _ in cands)} kept-aside matches (need {MIN_HOLDOUT}), so no holdout check this time.")
+        for name, _ in cands:
+            for k in tot[name]:
+                tot[name][k] += hold[name][k]
     res = []
     for name, c in cands:
-        T = tot[name]
-        if not T["n"]:
+        st = stats(tot[name])
+        if not st:
             continue
-        res.append({"name": name, "settings": c, "matches": T["n"],
-                    "logloss_1x2": round(T["ll"] / T["n"], 4), "brier_1x2": round(T["brier"] / T["n"], 4),
-                    "lean_accuracy": round(T["hit"] / T["n"], 4),
-                    "logloss_over15": round(T["o15ll"] / T["n"], 4), "logloss_dog15": round(T["dogll"] / T["n"], 4),
-                    "logloss_over25": round(T["o25ll"] / T["n"], 4),
-                    # judged on results AND goals, so a model that gets goals badly wrong cannot win
-                    "score": round((T["ll"] + T["o25ll"]) / T["n"], 4)})
+        res.append(dict(st, name=name, settings=c, holdout=stats(hold[name]) if use_holdout else None))
     if not res:
         sys.exit("nothing could be compared")
     v1 = next(r for r in res if r["settings"]["version"] == 1)
     best = min(res, key=lambda r: r["score"])
-    use = best if best["settings"]["version"] == 2 and v1["score"] - best["score"] >= SWITCH_MARGIN else v1
+    try:
+        cur_name = json.loads((D / "model_choice.json").read_text()).get("chosen")
+    except (OSError, ValueError):
+        cur_name = None
+    cur = next((r for r in res if r["name"] == cur_name), v1)
+    if best is cur:
+        use, reason = cur, "the model in use was still the best on past seasons"
+    elif use_holdout:
+        gain = cur["holdout"]["score"] - best["holdout"]["score"]
+        if gain >= SWITCH_MARGIN:
+            use, reason = best, (f"best on older seasons and also beat {cur['name']} on the most recent "
+                                 f"{HOLDOUT_DAYS} days ({best['holdout']['score']} vs {cur['holdout']['score']})")
+        else:
+            use, reason = cur, (f"{best['name']} was best on older seasons but did not beat the model in use on the most recent "
+                                f"{HOLDOUT_DAYS} days ({best['holdout']['score']} vs {cur['holdout']['score']}), so no change")
+    else:
+        use = best if cur["score"] - best["score"] >= SWITCH_MARGIN else cur
+        reason = "beat the model in use on past seasons" if use is best else "nothing was clearly better than the model in use"
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    choice = dict(use["settings"], chosen=use["name"], tested=now, matches=use["matches"],
-                  reason=("beat v1 on past seasons" if use is not v1 else
-                          "v2 was not clearly better than v1, so v1 stays"))
+    choice = dict(use["settings"], chosen=use["name"], tested=now, matches=use["matches"] + (use["holdout"] or {}).get("matches", 0),
+                  reason=reason, holdout_from=cutoff if use_holdout else None,
+                  holdout_score=(use["holdout"] or {}).get("score"))
     # how predictable each league is for the chosen model (lower log loss = more predictable)
     rel = {SITE_KEY.get(lg, lg.lower()): {"logloss": x[use["name"]], "matches": x["matches"]}
            for lg, x in per_league.items() if use["name"] in x}
@@ -126,16 +165,19 @@ def main(folder):
           "matches": book["n"]} if book["n"] else None
 
     md = [f"# Model back-test ({now[:10]})", "",
-          f"Tested on {use['matches']} past matches. Every prediction used only games played before that match.",
+          f"Tested on {choice['matches']} past matches. Every prediction used only games played before that match.",
+          (f"Models are picked on matches before {cutoff} ({use['matches']} matches). Matches from {cutoff} on "
+           f"({use['holdout']['matches']}) were kept aside and only used to confirm the winner (last column)."
+           if use_holdout else "No holdout this time (too few recent matches)."), "",
           "Lower log loss / Brier = better. Bookmaker closing prices are shown as the benchmark to beat.", "",
           "Models are ranked on results AND goals (1X2 log loss + Over 2.5 log loss).", "",
-          "| Model | Combined score | 1X2 log loss | Over 2.5 log loss | Lean right | Over 1.5 log loss | Underdog +1.5 log loss |",
-          "|---|---|---|---|---|---|---|"]
+          "| Model | Combined score | 1X2 log loss | Over 2.5 log loss | Lean right | Over 1.5 log loss | Underdog +1.5 log loss | Kept-aside combined score |",
+          "|---|---|---|---|---|---|---|---|"]
     for r in sorted(res, key=lambda r: r["score"]):
         md.append(f"| {r['name']}{' **(now used)**' if r is use else ''} | {r['score']} | {r['logloss_1x2']} | {r['logloss_over25']} | "
-                  f"{r['lean_accuracy'] * 100:.1f}% | {r['logloss_over15']} | {r['logloss_dog15']} |")
+                  f"{r['lean_accuracy'] * 100:.1f}% | {r['logloss_over15']} | {r['logloss_dog15']} | {(r['holdout'] or {}).get('score', '')} |")
     if bk:
-        md.append(f"| Bookmakers (average odds, margin removed) | | {bk['logloss_1x2']} | | | | |")
+        md.append(f"| Bookmakers (average odds, margin removed, all matches) | | {bk['logloss_1x2']} | | | | | |")
     md += ["", f"**Decision:** {use['name']} ({choice['reason']}).", "", "## By league (1X2 log loss)", "",
            "| League | Matches | " + " | ".join(r["name"] for r in res) + " |",
            "|---|---|" + "---|" * len(res)]
