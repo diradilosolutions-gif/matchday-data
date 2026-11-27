@@ -37,6 +37,9 @@ jobs:
         run: python scripts/run_picks.py
       - name: Pick of the Day (fixed rules, locked once chosen)
         run: python scripts/pick_of_day.py
+      - name: Rollover candidates (fixed rules, locked once chosen)
+        continue-on-error: true      # a problem here must never stop the other picks
+        run: python scripts/rollover.py
       - name: Save changes (this timestamps every pick)
         run: |
           git config user.name "matchday-bot"
