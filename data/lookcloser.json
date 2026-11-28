@@ -1,0 +1,1116 @@
+{
+ "updated": "2026-11-28T08:52:22Z",
+ "rules": {
+  "min_score": 4,
+  "lock_before_minutes": 30
+ },
+ "log": [
+  {
+   "lg": "champ",
+   "id": 561973,
+   "utc": "2026-11-28T12:30:00Z",
+   "home_name": "Preston NE",
+   "away_name": "Norwich",
+   "fav_name": "Norwich",
+   "dog_name": "Preston NE",
+   "fav_side": "away",
+   "fp": 47,
+   "dp": 30,
+   "d": 24,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Preston NE: 2 points in their favour",
+    "Norwich off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561969,
+   "utc": "2026-11-28T12:30:00Z",
+   "home_name": "Blackburn",
+   "away_name": "Charlton",
+   "fav_name": "Blackburn",
+   "dog_name": "Charlton",
+   "fav_side": "home",
+   "fp": 52,
+   "dp": 22,
+   "d": 26,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Charlton: 1 point in their favour",
+    "Blackburn off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561972,
+   "utc": "2026-11-28T12:30:00Z",
+   "home_name": "Lincoln City",
+   "away_name": "Wolverhampton",
+   "fav_name": "Wolverhampton",
+   "dog_name": "Lincoln City",
+   "fav_side": "away",
+   "fp": 52,
+   "dp": 23,
+   "d": 25,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564760,
+   "utc": "2026-11-28T13:00:00Z",
+   "home_name": "Real Betis",
+   "away_name": "Rayo Vallecano",
+   "fav_name": "Real Betis",
+   "dog_name": "Rayo Vallecano",
+   "fav_side": "home",
+   "fp": 57,
+   "dp": 20,
+   "d": 23,
+   "s": 3,
+   "why": [
+    "Rayo Vallecano: 1 point in their favour",
+    "Real Betis off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558513,
+   "utc": "2026-11-28T14:00:00Z",
+   "home_name": "Frosinone",
+   "away_name": "Parma",
+   "fav_name": "Frosinone",
+   "dog_name": "Parma",
+   "fav_side": "home",
+   "fp": 59,
+   "dp": 20,
+   "d": 21,
+   "s": 3,
+   "why": [
+    "Parma: 1 point in their favour",
+    "Frosinone off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565866,
+   "utc": "2026-11-28T14:30:00Z",
+   "home_name": "1. FC Köln",
+   "away_name": "Elversberg",
+   "fav_name": "1. FC Köln",
+   "dog_name": "Elversberg",
+   "fav_side": "home",
+   "fp": 47,
+   "dp": 28,
+   "d": 25,
+   "s": 6,
+   "why": [
+    "Table disagrees",
+    "High risk",
+    "Mixed match-up"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565874,
+   "utc": "2026-11-28T14:30:00Z",
+   "home_name": "HSV",
+   "away_name": "Bayern",
+   "fav_name": "Bayern",
+   "dog_name": "HSV",
+   "fav_side": "away",
+   "fp": 62,
+   "dp": 19,
+   "d": 20,
+   "s": 2,
+   "why": [
+    "Bayern off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565867,
+   "utc": "2026-11-28T14:30:00Z",
+   "home_name": "Mainz",
+   "away_name": "Union Berlin",
+   "fav_name": "Mainz",
+   "dog_name": "Union Berlin",
+   "fav_side": "home",
+   "fp": 71,
+   "dp": 13,
+   "d": 16,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561974,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "West Ham",
+   "away_name": "Stoke",
+   "fav_name": "West Ham",
+   "dog_name": "Stoke",
+   "fav_side": "home",
+   "fp": 48,
+   "dp": 28,
+   "d": 24,
+   "s": 10,
+   "why": [
+    "Table disagrees",
+    "High risk",
+    "Match-up favours Stoke",
+    "Stoke: 1 point in their favour",
+    "West Ham off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561966,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "QPR",
+   "away_name": "Sheffield Utd",
+   "fav_name": "QPR",
+   "dog_name": "Sheffield Utd",
+   "fav_side": "home",
+   "fp": 46,
+   "dp": 27,
+   "d": 27,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Sheffield Utd: 3 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561967,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "Millwall",
+   "away_name": "Burnley",
+   "fav_name": "Millwall",
+   "dog_name": "Burnley",
+   "fav_side": "home",
+   "fp": 53,
+   "dp": 25,
+   "d": 22,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Mixed match-up",
+    "Millwall off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "epl",
+   "id": 560652,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "Leeds United",
+   "away_name": "Coventry City",
+   "fav_name": "Leeds United",
+   "dog_name": "Coventry City",
+   "fav_side": "home",
+   "fp": 62,
+   "dp": 15,
+   "d": 23,
+   "s": 4,
+   "why": [
+    "Coventry City: 2 points in their favour",
+    "Leeds United off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561975,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "West Brom",
+   "away_name": "Bristol City",
+   "fav_name": "West Brom",
+   "dog_name": "Bristol City",
+   "fav_side": "home",
+   "fp": 64,
+   "dp": 14,
+   "d": 22,
+   "s": 3,
+   "why": [
+    "Bristol City: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561970,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "Birmingham",
+   "away_name": "Bolton",
+   "fav_name": "Birmingham",
+   "dog_name": "Bolton",
+   "fav_side": "home",
+   "fp": 70,
+   "dp": 12,
+   "d": 19,
+   "s": 3,
+   "why": [
+    "Bolton: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "epl",
+   "id": 560655,
+   "utc": "2026-11-28T15:00:00Z",
+   "home_name": "Man United",
+   "away_name": "Brentford",
+   "fav_name": "Brentford",
+   "dog_name": "Man United",
+   "fav_side": "away",
+   "fp": 48,
+   "dp": 28,
+   "d": 24,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564767,
+   "utc": "2026-11-28T15:15:00Z",
+   "home_name": "Málaga",
+   "away_name": "Athletic",
+   "fav_name": "Athletic",
+   "dog_name": "Málaga",
+   "fav_side": "away",
+   "fp": 47,
+   "dp": 24,
+   "d": 28,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Málaga: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558825,
+   "utc": "2026-11-28T15:30:00Z",
+   "home_name": "Excelsior",
+   "away_name": "Telstar",
+   "fav_name": "Telstar",
+   "dog_name": "Excelsior",
+   "fav_side": "away",
+   "fp": 48,
+   "dp": 30,
+   "d": 22,
+   "s": 7,
+   "why": [
+    "Table disagrees",
+    "High risk",
+    "Mixed match-up",
+    "Excelsior: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567357,
+   "utc": "2026-11-28T15:30:00Z",
+   "home_name": "Moreirense",
+   "away_name": "Santa Clara",
+   "fav_name": "Santa Clara",
+   "dog_name": "Moreirense",
+   "fav_side": "away",
+   "fp": 52,
+   "dp": 22,
+   "d": 26,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Moreirense: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567362,
+   "utc": "2026-11-28T15:30:00Z",
+   "home_name": "Arouca",
+   "away_name": "Rio Ave",
+   "fav_name": "Arouca",
+   "dog_name": "Rio Ave",
+   "fav_side": "home",
+   "fp": 53,
+   "dp": 20,
+   "d": 27,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Rio Ave: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559612,
+   "utc": "2026-11-28T16:15:00Z",
+   "home_name": "Angers SCO",
+   "away_name": "RC Lens",
+   "fav_name": "RC Lens",
+   "dog_name": "Angers SCO",
+   "fav_side": "away",
+   "fp": 50,
+   "dp": 26,
+   "d": 25,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558514,
+   "utc": "2026-11-28T17:00:00Z",
+   "home_name": "Torino",
+   "away_name": "Lazio",
+   "fav_name": "Lazio",
+   "dog_name": "Torino",
+   "fav_side": "away",
+   "fp": 55,
+   "dp": 21,
+   "d": 24,
+   "s": 1,
+   "why": [],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565870,
+   "utc": "2026-11-28T17:30:00Z",
+   "home_name": "Stuttgart",
+   "away_name": "Frankfurt",
+   "fav_name": "Stuttgart",
+   "dog_name": "Frankfurt",
+   "fav_side": "home",
+   "fp": 61,
+   "dp": 19,
+   "d": 21,
+   "s": 4,
+   "why": [
+    "Table disagrees"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564759,
+   "utc": "2026-11-28T17:30:00Z",
+   "home_name": "Elche",
+   "away_name": "Atleti",
+   "fav_name": "Atleti",
+   "dog_name": "Elche",
+   "fav_side": "away",
+   "fp": 52,
+   "dp": 22,
+   "d": 26,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Elche: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558826,
+   "utc": "2026-11-28T17:45:00Z",
+   "home_name": "PSV",
+   "away_name": "Go Ahead",
+   "fav_name": "PSV",
+   "dog_name": "Go Ahead",
+   "fav_side": "home",
+   "fp": 70,
+   "dp": 15,
+   "d": 15,
+   "s": 1,
+   "why": [],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558518,
+   "utc": "2026-11-28T19:45:00Z",
+   "home_name": "Inter",
+   "away_name": "Genoa",
+   "fav_name": "Inter",
+   "dog_name": "Genoa",
+   "fav_side": "home",
+   "fp": 58,
+   "dp": 20,
+   "d": 22,
+   "s": 4,
+   "why": [
+    "Genoa: 3 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559620,
+   "utc": "2026-11-28T19:45:00Z",
+   "home_name": "Nice",
+   "away_name": "Troyes",
+   "fav_name": "Nice",
+   "dog_name": "Troyes",
+   "fav_side": "home",
+   "fp": 56,
+   "dp": 20,
+   "d": 24,
+   "s": 3,
+   "why": [
+    "Troyes: 1 point in their favour",
+    "Nice off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559614,
+   "utc": "2026-11-28T19:45:00Z",
+   "home_name": "PSG",
+   "away_name": "Lorient",
+   "fav_name": "PSG",
+   "dog_name": "Lorient",
+   "fav_side": "home",
+   "fp": 56,
+   "dp": 18,
+   "d": 26,
+   "s": 3,
+   "why": [
+    "Lorient: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559613,
+   "utc": "2026-11-28T19:45:00Z",
+   "home_name": "Le Havre",
+   "away_name": "Strasbourg",
+   "fav_name": "Strasbourg",
+   "dog_name": "Le Havre",
+   "fav_side": "away",
+   "fp": 45,
+   "dp": 32,
+   "d": 23,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558819,
+   "utc": "2026-11-28T20:00:00Z",
+   "home_name": "Cambuur",
+   "away_name": "Sparta",
+   "fav_name": "Cambuur",
+   "dog_name": "Sparta",
+   "fav_side": "home",
+   "fp": 47,
+   "dp": 34,
+   "d": 20,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Sparta: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564762,
+   "utc": "2026-11-28T20:00:00Z",
+   "home_name": "Real Madrid",
+   "away_name": "Alavés",
+   "fav_name": "Real Madrid",
+   "dog_name": "Alavés",
+   "fav_side": "home",
+   "fp": 69,
+   "dp": 13,
+   "d": 19,
+   "s": 2,
+   "why": [
+    "Alavés: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "champ",
+   "id": 561976,
+   "utc": "2026-11-29T12:00:00Z",
+   "home_name": "Swansea",
+   "away_name": "Cardiff",
+   "fav_name": "Swansea",
+   "dog_name": "Cardiff",
+   "fav_side": "home",
+   "fp": 56,
+   "dp": 22,
+   "d": 22,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558821,
+   "utc": "2026-11-29T13:30:00Z",
+   "home_name": "Sittard",
+   "away_name": "Heerenveen",
+   "fav_name": "Heerenveen",
+   "dog_name": "Sittard",
+   "fav_side": "away",
+   "fp": 51,
+   "dp": 25,
+   "d": 24,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Sittard: 3 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558824,
+   "utc": "2026-11-29T13:30:00Z",
+   "home_name": "Feyenoord",
+   "away_name": "Ajax",
+   "fav_name": "Ajax",
+   "dog_name": "Feyenoord",
+   "fav_side": "away",
+   "fp": 51,
+   "dp": 29,
+   "d": 20,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Feyenoord: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559619,
+   "utc": "2026-11-29T14:00:00Z",
+   "home_name": "Auxerre",
+   "away_name": "Marseille",
+   "fav_name": "Marseille",
+   "dog_name": "Auxerre",
+   "fav_side": "away",
+   "fp": 49,
+   "dp": 29,
+   "d": 22,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Auxerre: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558509,
+   "utc": "2026-11-29T14:00:00Z",
+   "home_name": "Sassuolo",
+   "away_name": "Napoli",
+   "fav_name": "Napoli",
+   "dog_name": "Sassuolo",
+   "fav_side": "away",
+   "fp": 55,
+   "dp": 23,
+   "d": 22,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "epl",
+   "id": 560659,
+   "utc": "2026-11-29T14:05:00Z",
+   "home_name": "Brighton Hove",
+   "away_name": "Newcastle",
+   "fav_name": "Brighton Hove",
+   "dog_name": "Newcastle",
+   "fav_side": "home",
+   "fp": 72,
+   "dp": 11,
+   "d": 17,
+   "s": 3,
+   "why": [
+    "Newcastle: 2 points in their favour",
+    "Brighton Hove off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565873,
+   "utc": "2026-11-29T14:30:00Z",
+   "home_name": "Freiburg",
+   "away_name": "RB Leipzig",
+   "fav_name": "Freiburg",
+   "dog_name": "RB Leipzig",
+   "fav_side": "home",
+   "fp": 51,
+   "dp": 27,
+   "d": 22,
+   "s": 5,
+   "why": [
+    "High risk",
+    "RB Leipzig: 3 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564766,
+   "utc": "2026-11-29T15:15:00Z",
+   "home_name": "Deportivo",
+   "away_name": "Barça",
+   "fav_name": "Barça",
+   "dog_name": "Deportivo",
+   "fav_side": "away",
+   "fp": 65,
+   "dp": 17,
+   "d": 18,
+   "s": 2,
+   "why": [
+    "Deportivo: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558823,
+   "utc": "2026-11-29T15:45:00Z",
+   "home_name": "Zwolle",
+   "away_name": "AZ",
+   "fav_name": "AZ",
+   "dog_name": "Zwolle",
+   "fav_side": "away",
+   "fp": 63,
+   "dp": 17,
+   "d": 21,
+   "s": 6,
+   "why": [
+    "High risk",
+    "Zwolle: 3 points in their favour",
+    "AZ off form"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559618,
+   "utc": "2026-11-29T16:15:00Z",
+   "home_name": "Toulouse",
+   "away_name": "Stade Rennais",
+   "fav_name": "Toulouse",
+   "dog_name": "Stade Rennais",
+   "fav_side": "home",
+   "fp": 48,
+   "dp": 29,
+   "d": 23,
+   "s": 6,
+   "why": [
+    "Table disagrees",
+    "High risk",
+    "Stade Rennais: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565871,
+   "utc": "2026-11-29T16:30:00Z",
+   "home_name": "Hoffenheim",
+   "away_name": "Augsburg",
+   "fav_name": "Hoffenheim",
+   "dog_name": "Augsburg",
+   "fav_side": "home",
+   "fp": 50,
+   "dp": 29,
+   "d": 21,
+   "s": 7,
+   "why": [
+    "Table disagrees",
+    "High risk",
+    "Mixed match-up",
+    "Augsburg: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "epl",
+   "id": 560654,
+   "utc": "2026-11-29T16:30:00Z",
+   "home_name": "Arsenal",
+   "away_name": "Man City",
+   "fav_name": "Arsenal",
+   "dog_name": "Man City",
+   "fav_side": "home",
+   "fp": 54,
+   "dp": 21,
+   "d": 25,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Man City: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558512,
+   "utc": "2026-11-29T17:00:00Z",
+   "home_name": "Roma",
+   "away_name": "Monza",
+   "fav_name": "Roma",
+   "dog_name": "Monza",
+   "fav_side": "home",
+   "fp": 75,
+   "dp": 11,
+   "d": 14,
+   "s": 2,
+   "why": [
+    "Monza: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567363,
+   "utc": "2026-11-29T18:00:00Z",
+   "home_name": "Gil Vicente",
+   "away_name": "Estoril Praia",
+   "fav_name": "Gil Vicente",
+   "dog_name": "Estoril Praia",
+   "fav_side": "home",
+   "fp": 50,
+   "dp": 20,
+   "d": 30,
+   "s": 2,
+   "why": [
+    "High risk"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bundesliga",
+   "id": 565872,
+   "utc": "2026-11-29T18:30:00Z",
+   "home_name": "Dortmund",
+   "away_name": "Leverkusen",
+   "fav_name": "Dortmund",
+   "dog_name": "Leverkusen",
+   "fav_side": "home",
+   "fp": 58,
+   "dp": 20,
+   "d": 22,
+   "s": 3,
+   "why": [
+    "Leverkusen: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "nl",
+   "id": 558822,
+   "utc": "2026-11-29T19:00:00Z",
+   "home_name": "NEC",
+   "away_name": "Twente",
+   "fav_name": "Twente",
+   "dog_name": "NEC",
+   "fav_side": "away",
+   "fp": 66,
+   "dp": 15,
+   "d": 19,
+   "s": 2,
+   "why": [
+    "NEC: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bsa",
+   "id": 555104,
+   "utc": "2026-11-29T19:00:00Z",
+   "home_name": "Coritiba",
+   "away_name": "Flamengo",
+   "fav_name": "Flamengo",
+   "dog_name": "Coritiba",
+   "fav_side": "away",
+   "fp": 55,
+   "dp": 20,
+   "d": 25,
+   "s": 1,
+   "why": [],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ligue1",
+   "id": 559615,
+   "utc": "2026-11-29T19:45:00Z",
+   "home_name": "Olympique Lyon",
+   "away_name": "Monaco",
+   "fav_name": "Olympique Lyon",
+   "dog_name": "Monaco",
+   "fav_side": "home",
+   "fp": 47,
+   "dp": 24,
+   "d": 29,
+   "s": 4,
+   "why": [
+    "High risk",
+    "Monaco: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564764,
+   "utc": "2026-11-29T20:00:00Z",
+   "home_name": "Real Sociedad",
+   "away_name": "Sevilla FC",
+   "fav_name": "Real Sociedad",
+   "dog_name": "Sevilla FC",
+   "fav_side": "home",
+   "fp": 47,
+   "dp": 30,
+   "d": 23,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Mixed match-up",
+    "Sevilla FC: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567358,
+   "utc": "2026-11-29T20:30:00Z",
+   "home_name": "Porto",
+   "away_name": "Sporting CP",
+   "fav_name": "Porto",
+   "dog_name": "Sporting CP",
+   "fav_side": "home",
+   "fp": 46,
+   "dp": 28,
+   "d": 26,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Sporting CP: 3 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bsa",
+   "id": 555103,
+   "utc": "2026-11-29T21:30:00Z",
+   "home_name": "Corinthians",
+   "away_name": "Grêmio",
+   "fav_name": "Corinthians",
+   "dog_name": "Grêmio",
+   "fav_side": "home",
+   "fp": 46,
+   "dp": 25,
+   "d": 29,
+   "s": 5,
+   "why": [
+    "High risk",
+    "Mixed match-up",
+    "Grêmio: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "bsa",
+   "id": 555100,
+   "utc": "2026-11-29T22:30:00Z",
+   "home_name": "Mineiro",
+   "away_name": "Vasco da Gama",
+   "fav_name": "Mineiro",
+   "dog_name": "Vasco da Gama",
+   "fav_side": "home",
+   "fp": 49,
+   "dp": 24,
+   "d": 28,
+   "s": 7,
+   "why": [
+    "High risk",
+    "Match-up favours Vasco da Gama",
+    "Vasco da Gama: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "seriea",
+   "id": 558510,
+   "utc": "2026-11-30T19:45:00Z",
+   "home_name": "Cagliari",
+   "away_name": "Milan",
+   "fav_name": "Milan",
+   "dog_name": "Cagliari",
+   "fav_side": "away",
+   "fp": 53,
+   "dp": 22,
+   "d": 25,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Cagliari: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "laliga",
+   "id": 564763,
+   "utc": "2026-11-30T20:00:00Z",
+   "home_name": "Espanyol",
+   "away_name": "Getafe",
+   "fav_name": "Espanyol",
+   "dog_name": "Getafe",
+   "fav_side": "home",
+   "fp": 53,
+   "dp": 18,
+   "d": 28,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Getafe: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567360,
+   "utc": "2026-11-30T20:15:00Z",
+   "home_name": "SL Benfica",
+   "away_name": "Famalicão",
+   "fav_name": "SL Benfica",
+   "dog_name": "Famalicão",
+   "fav_side": "home",
+   "fp": 55,
+   "dp": 22,
+   "d": 23,
+   "s": 3,
+   "why": [
+    "Famalicão: 2 points in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  },
+  {
+   "lg": "ppl",
+   "id": 567359,
+   "utc": "2026-11-30T20:15:00Z",
+   "home_name": "Casa Pia",
+   "away_name": "Braga",
+   "fav_name": "Braga",
+   "dog_name": "Casa Pia",
+   "fav_side": "away",
+   "fp": 52,
+   "dp": 20,
+   "d": 28,
+   "s": 3,
+   "why": [
+    "High risk",
+    "Casa Pia: 1 point in their favour"
+   ],
+   "assessed_at": "2026-11-28T08:52:22Z",
+   "final": false
+  }
+ ]
+}
