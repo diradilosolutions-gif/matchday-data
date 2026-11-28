@@ -40,6 +40,12 @@ jobs:
       - name: Rollover candidates (fixed rules, locked once chosen)
         continue-on-error: true      # a problem here must never stop the other picks
         run: python scripts/rollover.py
+      - name: Look closer list (page's own scoring, saved before kick-off)
+        continue-on-error: true      # a problem here must never stop the other picks
+        run: |
+          pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+          python scripts/lookcloser_lock.py
       - name: Save changes (this timestamps every pick)
         run: |
           git config user.name "matchday-bot"
