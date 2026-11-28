@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T20:41:28Z",
+ "updated": "2026-11-28T06:29:53Z",
  "rules": {
   "legs": 2,
   "target_odds": 2.0,
@@ -71,22 +71,19 @@
   }
  },
  "preview": {
-  "2026-11-27": null,
   "2026-11-28": {
    "legs": [
     {
-     "match_id": 561973,
-     "home": "Preston NE",
-     "away": "Norwich",
+     "match_id": 561969,
+     "home": "Blackburn",
+     "away": "Charlton",
      "utc": "2026-11-28T12:30:00Z",
-     "market": "fav_dc",
-     "label": "Norwich win or draw",
+     "market": "dog15",
+     "label": "Charlton +1.5 handicap",
      "side": "away",
      "model_prob": 0.707,
      "fair_odds": 1.41,
-     "league": "champ",
-     "status": "pending",
-     "score": null
+     "league": "champ"
     },
     {
      "match_id": 561971,
@@ -98,17 +95,49 @@
      "side": null,
      "model_prob": 0.708,
      "fair_odds": 1.41,
-     "league": "champ",
-     "status": "pending",
-     "score": null
+     "league": "champ"
     }
    ],
    "tickets": {
     "top2": {
      "legs": 2,
      "model_prob": 0.5006,
-     "fair_odds": 2.0,
-     "status": "pending"
+     "fair_odds": 2.0
+    }
+   }
+  },
+  "2026-11-29": {
+   "legs": [
+    {
+     "match_id": 559619,
+     "home": "Auxerre",
+     "away": "Marseille",
+     "utc": "2026-11-29T14:00:00Z",
+     "market": "dog15",
+     "label": "Auxerre +1.5 handicap",
+     "side": "home",
+     "model_prob": 0.705,
+     "fair_odds": 1.42,
+     "league": "ligue1"
+    },
+    {
+     "match_id": 559618,
+     "home": "Toulouse",
+     "away": "Stade Rennais",
+     "utc": "2026-11-29T16:15:00Z",
+     "market": "fav_dc",
+     "label": "Toulouse win or draw",
+     "side": "home",
+     "model_prob": 0.71,
+     "fair_odds": 1.41,
+     "league": "ligue1"
+    }
+   ],
+   "tickets": {
+    "top2": {
+     "legs": 2,
+     "model_prob": 0.5005,
+     "fair_odds": 2.0
     }
    }
   }

@@ -237,8 +237,9 @@
   "league": "ppl",
   "date": "2026-11-27",
   "locked_at": "2026-11-26T18:51:19Z",
-  "status": "pending",
-  "score": null
+  "status": "lost",
+  "score": "1-2",
+  "settled_at": "2026-11-28T06:29:53Z"
  },
  {
   "home": "Derby County",

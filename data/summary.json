@@ -1,30 +1,30 @@
 {
- "updated": "2026-11-27T20:41:28Z",
+ "updated": "2026-11-28T06:29:53Z",
  "since": "2026-10-28T18:52:10Z",
- "pending": 79,
+ "pending": 68,
  "all": {
-  "picks": 244,
-  "wins": 194,
-  "hit_rate": 0.795,
+  "picks": 255,
+  "wins": 203,
+  "hit_rate": 0.796,
   "avg_model_prob": 0.841
  },
  "last_30_days": {
-  "picks": 243,
-  "wins": 193,
-  "hit_rate": 0.794,
-  "avg_model_prob": 0.841
+  "picks": 254,
+  "wins": 202,
+  "hit_rate": 0.795,
+  "avg_model_prob": 0.84
  },
  "by_market": {
   "over15": {
-   "picks": 171,
-   "wins": 136,
-   "hit_rate": 0.795,
+   "picks": 179,
+   "wins": 142,
+   "hit_rate": 0.793,
    "avg_model_prob": 0.853
   },
   "dog15": {
-   "picks": 73,
-   "wins": 58,
-   "hit_rate": 0.795,
+   "picks": 76,
+   "wins": 61,
+   "hit_rate": 0.803,
    "avg_model_prob": 0.812
   }
  }
